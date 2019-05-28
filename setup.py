@@ -9,5 +9,5 @@ setup(
     install_requires=["requests"],
     version='0.1',
     license='MIT',
-    description='A python package to wrap log-related API calls on the Lana Process Mining Software.'
+    description='A python package to wrap log-related API calls on the Lana Process Mining Software.',
 )
