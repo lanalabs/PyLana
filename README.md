@@ -4,7 +4,7 @@ This package provides an R API for [LANA Process Mining](https://www.lana-labs.c
 **Attention**: This package is still in alpha state. Functions and parameters may be renamed and changed at any time.
 
 # Usage
-After you clone the repository you need to import the pylana package. Create a new e.g. test.py file and import the pylana as follows:
+After you clone the repository you need to import the pylana package. Create a new e.g. python file and import the pylana as follows:
 
 ```
 import pylana
