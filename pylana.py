@@ -14,6 +14,10 @@ class LanaAPI:
 
         self.userInfo = requests.get(url=self.url + userInfoEndpoint, headers=self.headers, verify=False).json()
 
+
+    """
+    Logs
+    """
     def uploadEventLog(self, logFile, logSemantics):
         endpoint = 'api/logs/csv'
 
@@ -71,13 +75,17 @@ class LanaAPI:
         requests.post(self.url + appendEventsEndpoint, headers=self.headers, files=file, data=semantics, verify=False)
 
     def shareLogWithOrg(self, logId):
-        appendEventsEndpoint = 'api/shareLogWithOrg/' + str(logId)
-        requests.get(self.url + appendEventsEndpoint, headers=self.headers, verify=False)
+        shareLogWithOrgEndpoint = 'api/shareLogWithOrg/' + str(logId)
+        requests.get(self.url + shareLogWithOrgEndpoint, headers=self.headers, verify=False)
 
     def unshareLogWithOrg(self, logId):
-        appendEventsEndpoint = 'api/unshareLogWithOrg/' + str(logId)
-        requests.get(self.url + appendEventsEndpoint, headers=self.headers, verify=False)
+        unshareLogWithOrgEndpoint = 'api/unshareLogWithOrg/' + str(logId)
+        requests.get(self.url + unshareLogWithOrgEndpoint, headers=self.headers, verify=False)
 
+
+    """
+    Models
+    """
     def uploadTargetModel(self, targetModel, modelName):
         uploadModelEndpoint = "api/process-models"
         file = {'file': open(targetModel, 'rb')}
@@ -118,6 +126,9 @@ class LanaAPI:
 
         requests.post(self.url + mappingEndpoint, headers=self.headers, json=mapping_json, verify=False)
 
+    """
+    Shiny Dashboard
+    """
     def createShinyDashboard(self, dashboardName):
         createDashboardEndpoint = "api/shiny-dashboards"
         body = {"name": dashboardName}
@@ -134,3 +145,13 @@ class LanaAPI:
     def connectDashboardToLog(self, dashboardId, logId):
         connectDashboardToLogEndpoint = "api/logs/" + str(logId) + "/shiny-dashboard/" + str(dashboardId)
         requests.post(self.url + connectDashboardToLogEndpoint, headers=self.headers, verify=False)
+
+    # Id arguments need to be lists
+    def shareDashboard(self, dashboardId, userIds, projectIds, organizationIds):
+        shareDashboardEndpoint = "api/shiny-dashboards/" + str(dashboardId)
+        body = {"sharedInformation": {
+            "userIds": userIds,
+            "projectIds": projectIds,
+            "organizationIds": organizationIds
+        }}
+        requests.patch(self.url + shareDashboardEndpoint, headers=self.headers, data=body, verify=False)
