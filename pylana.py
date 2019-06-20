@@ -2,6 +2,7 @@ import requests
 import pandas as pd
 import json
 
+
 class LanaAPI:
     def __init__(self, token, url):
         self.token = token
@@ -11,8 +12,8 @@ class LanaAPI:
 
         userInfoEndpoint = 'api/users/by-token'
 
-        self.userInfo = requests.get(url=self.url+userInfoEndpoint, headers=self.headers, verify=False).json()
-    
+        self.userInfo = requests.get(url=self.url + userInfoEndpoint, headers=self.headers, verify=False).json()
+
     def uploadEventLog(self, logFile, logSemantics):
         endpoint = 'api/logs/csv'
 
@@ -24,12 +25,11 @@ class LanaAPI:
             'eventSemantics': open(logSemantics).read(),
         }
 
-        r = requests.post(self.url+endpoint, headers=self.headers, files=file, data=semantics)
+        r = requests.post(self.url + endpoint, headers=self.headers, files=file, data=semantics)
         return r
 
-    
-    def uploadEventLogWithCaseAttributes(self, logFile, logSemantics, 
-    caseAttributeFile, caseAttributeSemantics):
+    def uploadEventLogWithCaseAttributes(self, logFile, logSemantics,
+                                         caseAttributeFile, caseAttributeSemantics):
         endpoint = 'api/uploadEventLogWithCaseAttributes'
 
         files = {
@@ -42,11 +42,13 @@ class LanaAPI:
             'caseSemantics': open(caseAttributeSemantics).read()
         }
 
-        requests.post(self.url+endpoint, headers=self.headers, files=files, data=semantics, verify=False)
+        upload_response = requests.post(self.url + endpoint, headers=self.headers, files=files,
+                                        data=semantics, verify=False).json()
+        return upload_response
 
     def getUserLogs(self):
         userLogsEndpoint = 'api/users/' + str(self.userInfo['id']) + '/logs'
-        userLogs = requests.get(url=self.url+userLogsEndpoint, headers=self.headers, verify=False).json()
+        userLogs = requests.get(url=self.url + userLogsEndpoint, headers=self.headers, verify=False).json()
         return userLogs
 
     def chooseLog(self, logName):
@@ -55,40 +57,39 @@ class LanaAPI:
         return logId
 
     def appendEvents(self, logId, logFile, logSemantics):
-        appendEventsEndpoint = 'api/logs/' + str(logId) + '/csv'    
+        appendEventsEndpoint = 'api/logs/' + str(logId) + '/csv'
         file = {'eventCSVFile': open(logFile, 'rb')}
         semantics = {'eventSemantics': open(logSemantics).read()}
 
-        requests.post(self.url+appendEventsEndpoint, headers=self.headers, files=file, data=semantics, verify=False)
+        requests.post(self.url + appendEventsEndpoint, headers=self.headers, files=file, data=semantics, verify=False)
 
     def appendAttributes(self, logId, caseAttributeFile, caseAttributeSemantics):
         appendEventsEndpoint = 'api/logs/' + str(logId) + '/csv-case-attributes'
         file = {'caseAttributeFile': open(caseAttributeFile, 'rb')}
         semantics = {'caseSemantics': open(caseAttributeSemantics).read()}
 
-        requests.post(self.url+appendEventsEndpoint, headers=self.headers, files=file, data=semantics, verify=False)
+        requests.post(self.url + appendEventsEndpoint, headers=self.headers, files=file, data=semantics, verify=False)
 
     def shareLogWithOrg(self, logId):
         appendEventsEndpoint = 'api/shareLogWithOrg/' + str(logId)
-        requests.get(self.url+appendEventsEndpoint, headers=self.headers, verify=False)
+        requests.get(self.url + appendEventsEndpoint, headers=self.headers, verify=False)
 
     def unshareLogWithOrg(self, logId):
         appendEventsEndpoint = 'api/unshareLogWithOrg/' + str(logId)
-        requests.get(self.url+appendEventsEndpoint, headers=self.headers, verify=False)
-
+        requests.get(self.url + appendEventsEndpoint, headers=self.headers, verify=False)
 
     def uploadTargetModel(self, targetModel, modelName):
         uploadModelEndpoint = "api/process-models"
         file = {'file': open(targetModel, 'rb')}
         data = {'fileName': modelName}
-        model_response = requests.post(self.url + uploadModelEndpoint, files=file, data=data, headers=self.headers, verify=False)
+        model_response = requests.post(self.url + uploadModelEndpoint, files=file, data=data,
+                                       headers=self.headers, verify=False).json()
         return model_response
-
 
     def connectModelToLog(self, logId, modelId):
         connectModelToLogEndpoint = "api/addLogModelMapping"
         json = {"name": str(modelId) + "_" + str(logId), "bpmnFileId": modelId, "logId": logId}
-        r = requests.post(self.url + connectModelToLogEndpoint, json=json, headers=self.headers, verfiy=False)
+        r = requests.post(self.url + connectModelToLogEndpoint, json=json, headers=self.headers, verify=False)
         modelMappingId = r.text
         return modelMappingId
 
@@ -97,7 +98,7 @@ class LanaAPI:
         activitiesEndpoint = "api/activities"
         mappingEndpoint = "api/addActivityEventMappings"
 
-        activities = requests.get(self.url + activitiesEndpoint + str(modelId), headers=self.headers, verfiy=False)
+        activities = requests.get(self.url + activitiesEndpoint + str(modelId), headers=self.headers, verify=False)
         event = requests.get(self.url + eventClassesEndpoint + str(logId), headers=self.headers, verify=False)
 
         act_json = json.loads(activities.text)
@@ -114,10 +115,8 @@ class LanaAPI:
 
         mapping_json = df.to_json(orient='records')
         mapping_json = json.loads(mapping_json)
-        print(mapping_json)
 
         requests.post(self.url + mappingEndpoint, headers=self.headers, json=mapping_json, verify=False)
-
 
     def createShinyDashboard(self, dashboardName):
         createDashboardEndpoint = "api/shiny-dashboards"
@@ -127,12 +126,10 @@ class LanaAPI:
         dashboardId = r_json['id']
         return dashboardId
 
-
     def uploadShinyDashboard(self, dashboard, dashboardId):
         uploadShinyEndpoint = "api/shiny-dashboards/" + str(dashboardId) + "/source"
         file = {'file': open(dashboard, 'rb')}
         requests.post(self.url + uploadShinyEndpoint, headers=self.headers, files=file, verify=False)
-
 
     def connectDashboardToLog(self, dashboardId, logId):
         connectDashboardToLogEndpoint = "api/logs/" + str(logId) + "/shiny-dashboard/" + str(dashboardId)
