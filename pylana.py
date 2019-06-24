@@ -1,6 +1,9 @@
 import requests
 import pandas as pd
 import json
+import re
+import zipfile
+from os.path import basename
 
 
 class LanaAPI:
@@ -129,6 +132,20 @@ class LanaAPI:
     """
     Shiny Dashboard
     """
+    def updateDashboardUrl(self, in_file, out_file, url):
+        with open(in_file, 'r+') as f:
+            db_string = f.read()
+            s = re.sub('lanaUrl <- \".*\"', 'lanaUrl <- ' + '"' + url + '"', db_string)
+
+        with open(out_file, 'w') as out_file:
+            out_file.write(s)
+
+
+    def zipDashboard(self, zip_path, dashboard_rmd):
+        with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as f:
+            f.write(dashboard_rmd, basename(dashboard_rmd))
+
+
     def createShinyDashboard(self, dashboardName):
         createDashboardEndpoint = "api/shiny-dashboards"
         body = {"name": dashboardName}
