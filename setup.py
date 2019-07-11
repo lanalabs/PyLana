@@ -12,7 +12,6 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/lanalabs/pylana",
     packages=setuptools.find_packages(),
-    install_requires=[],
     classifiers=[
         "Programming Language :: Python :: 3",
         "Operating System :: OS Independent",
