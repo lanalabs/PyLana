@@ -5,4 +5,5 @@ pylana/pylana.py
 pylana.egg-info/PKG-INFO
 pylana.egg-info/SOURCES.txt
 pylana.egg-info/dependency_links.txt
+pylana.egg-info/requires.txt
 pylana.egg-info/top_level.txt

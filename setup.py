@@ -11,7 +11,7 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/lanalabs/pylana",
-    packages=['pylana', 'docopt', 'pandas'],
+    install_requires=['docopt', 'pandas'],
     classifiers=[
         "Programming Language :: Python :: 3",
         "Operating System :: OS Independent",
