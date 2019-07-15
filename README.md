@@ -5,7 +5,7 @@ This package provides a Python API for [LANA Process Mining](https://www.lana-la
 
 This Branch is a pip installable distribution of the pylana package.
 
-**Installation:**
+##Installation:
 ```#!/usr/bin/env sh
-pip install git+https://github.com/lanalabs/pylana.git@pylana_dist#egg=pylana
+pip install git+https://github.com/lanalabs/pylana.git@pylana_dist
 ``` 
