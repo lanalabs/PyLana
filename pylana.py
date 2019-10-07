@@ -57,8 +57,7 @@ class LanaAPI:
             'timeZone': "Europe/Berlin"
         }
 
-        new_header = dict(self.headers)
-        upload_response = requests.request('POST', self.url + endpoint, headers=new_header, files=files, data=semantics)
+        upload_response = requests.request('POST', self.url + endpoint, headers=self.headers, files=files, data=semantics)
         
         return upload_response
 
