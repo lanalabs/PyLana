@@ -41,7 +41,7 @@ class LanaAPI:
         return r
 
     def uploadEventLogWithCaseAttributes(self, logFile, logSemantics,
-                                         caseAttributeFile, caseAttributeSemantics):
+                                         caseAttributeFile, caseAttributeSemantics, logName = None):
 
         endpoint = 'api/logs/csv-case-attributes-event-semantics'
 
@@ -50,12 +50,19 @@ class LanaAPI:
             'caseAttributeFile': (caseAttributeFile.split('/')[-1], open(caseAttributeFile, 'rb'), 'text/csv'),
         }
 
-        semantics = {
-            'eventSemantics': open(logSemantics).read(),
-            'caseSemantics': open(caseAttributeSemantics).read(),
-            'logName': "Incident Management",
-            'timeZone': "Europe/Berlin"
-        }
+        if not logName:
+            semantics = {
+                'eventSemantics': open(logSemantics).read(),
+                'caseSemantics': open(caseAttributeSemantics).read(),
+                'timeZone': "Europe/Berlin"
+            }
+        else:
+            semantics = {
+                'eventSemantics': open(logSemantics).read(),
+                'caseSemantics': open(caseAttributeSemantics).read(),
+                'logName': logName,
+                'timeZone': "Europe/Berlin"
+            }
 
         upload_response = requests.request('POST', self.url + endpoint, headers=self.headers, files=files, data=semantics)
         
