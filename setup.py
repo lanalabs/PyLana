@@ -29,3 +29,4 @@ setup(name='pylana',
           'Programming Language :: Python :: 3'
       ],
       packages=['pylana'],
+)
