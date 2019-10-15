@@ -7,14 +7,26 @@ from os.path import basename
 
 
 class LanaAPI:
-    def __init__(self, token, url):
-        self.token = token
+    def __init__(self, url, token = None, apikey = None):
+
+        if token:
+            self.authorization_header = token
+        elif apikey:
+            self.authorization_header = "API-Key %s" % apikey
+        else:
+            raise Exception("Either api key or access token is needed for initialization")
+
         self.url = url
 
-        self.headers = {"Authorization": self.token}
+        # add schema check
+        if not url.startswith('http://') or not url.startswith('https://'):
+            self.url = 'http://' + self.url
+        if not url.endswith('/'):
+            self.url += '/'
+
+        self.headers = {"Authorization": self.authorization_header}
 
         userInfoEndpoint = 'api/users/by-token'
-
         self.userInfo = requests.get(url=self.url + userInfoEndpoint, headers=self.headers, verify=False).json()
 
 
@@ -36,21 +48,24 @@ class LanaAPI:
         return r
 
     def uploadEventLogWithCaseAttributes(self, logFile, logSemantics,
-                                         caseAttributeFile, caseAttributeSemantics):
-        endpoint = 'api/uploadEventLogWithCaseAttributes'
+                                         caseAttributeFile, caseAttributeSemantics, logName = None):
+
+        endpoint = 'api/logs/csv-case-attributes-event-semantics'
 
         files = {
-            'eventCSVFile': open(logFile, 'rb'),
-            'caseAttributeFile': open(caseAttributeFile, 'rb'),
+            'eventCSVFile': (logFile.split('/')[-1], open(logFile, 'rb'), 'text/csv'),
+            'caseAttributeFile': (caseAttributeFile.split('/')[-1], open(caseAttributeFile, 'rb'), 'text/csv'),
         }
 
         semantics = {
             'eventSemantics': open(logSemantics).read(),
-            'caseSemantics': open(caseAttributeSemantics).read()
+            'caseSemantics': open(caseAttributeSemantics).read(),
+            'logName': logName,
+            'timeZone': "Europe/Berlin"
         }
 
-        upload_response = requests.post(self.url + endpoint, headers=self.headers, files=files,
-                                        data=semantics, verify=False).json()
+        upload_response = requests.request('POST', self.url + endpoint, headers=self.headers, files=files, data=semantics)
+        
         return upload_response
 
     def getUserLogs(self):
