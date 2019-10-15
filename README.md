@@ -11,7 +11,7 @@ This package provides a Python API for [LANA Process Mining](https://www.lana-la
 ## Installation
 To install pylana, you need python version 3.6.0 or above. Pylana could be installed from pypi:
 ```
-python3 -m pip install pylana
+$ python3 -m pip install pylana
 ```
 To establish a connection with the server, you could use either the _access token_ or the _API key_.
 ```python
