@@ -55,3 +55,6 @@ mylana.uploadShinyDashboard(dashboardFile, id)
 # connect the dashboard to an event log
 mylana.connectDashboardToLog(id, logId)
 ```
+
+## License
+[Apache License 2.0](http://www.apache.org/licenses/)
