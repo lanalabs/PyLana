@@ -1,66 +1,60 @@
-# pylana - Python API for LANA Process Mining
-This package provides a Python API for [LANA Process Mining](https://www.lana-labs.com/en/). 
+# Pylana
+[![Python 3.7](https://img.shields.io/badge/python-3.7-blue.svg)](https://www.python.org/downloads/release/python-374/)
+[![Pylana](https://img.shields.io/badge/pylana-v0.0.1-orange)](https://pypi.org/project/pylana/)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/lanalabs/pylana/graphs/commit-activity)
 
+> Python API for LANA Process Mining
+
+This package provides a Python API for [LANA Process Mining](https://www.lana-labs.com/en/). <br>
 **Attention**: This package is still in alpha state. Functions and parameters may be renamed and changed at any time.
 
-# Usage
-After you clone the repository you need to import the pylana package. Create a new e.g. python file and import the pylana as follows:
-
+## Installation
+To install pylana, you need python version 3.6.0 or above. Pylana could be installed from pypi:
 ```
+$ python3 -m pip install pylana
+```
+To establish a connection with the server, you could use either the _access token_ or the _API key_.
+```python
 import pylana
+myLana = pylana.LanaAPI(url = "https://cloud.lanalabs.com/", apikey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9")
 ```
 
-After importing the package, an initialization is needed. Create your own object with the URL (for on-premise the localhost and for cloud the respective cloud-URL). Example following.
-
-```
-myLana = pylana.LanaAPI("Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9", "https://cloud.lanalabs.com/")
-```
-
-## Upload an Event Log without case attributes
-
-```
+## Usage Example
+Pylana provides a simple interface which supports:
+* Uploading / retrieving / sharing event logs
+* Uploading / connecting target models
+* Creating / connecting / sharing shiny dashboards
+ 
+__Upload an Event Log__ 
+```python
+# without case attribute
 myLana.uploadEventLog(logFile, logSemantics)
-```
 
-## Upload an Event Log with case attributes
-
-```
+# with case attributes
 myLana.uploadEventLogWithCaseAttributes(logFile, logSemantics, 
     caseAttributeFile, caseAttributeSemantics)
 ```
 
-## Get User Logs
-
-```
+__Retrieve Event Logs__
+```python
+# get a list of event logs associated with the current user
 myLana.getUserLogs()
+
+# get the log id of a particular log
+mylana.chooseLog(logName)
 ```
 
-## Choose Log
+__Create a Shiny Dashboard__
+```python
+# initate a new shiny dashboard id
+id = mylana.createShinyDashboard(dashboardName)
 
-```
-myLana.chooseLog(logName)
-```
+# upload the dashboard file to server
+mylana.uploadShinyDashboard(dashboardFile, id)
 
-## Append Events
-
-```
-myLana.appendEvents(logId, logFile, logSemantics)
-```
-
-## Append Attributes
-
-```
-myLana.appendAttributes(logId, caseAttributeFile, caseAttributeSemantics)
+# connect the dashboard to an event log
+mylana.connectDashboardToLog(id, logId)
 ```
 
-## Share Log with Organization
-
-```
-myLana.shareLogWithOrg(logId)
-```
-
-## Unshare Log with Organization
-
-```
-myLana.unshareLogWithOrg(logId)
-```
+## License
+[Apache License 2.0](http://www.apache.org/licenses/)
