@@ -20,7 +20,7 @@ setup(name='pylana',
       long_description_content_type='text/markdown',
       url='https://github.com/lanalabs/pylana',
       author='Yunfan Yang',
-      author_email='yunfan.yang@minerva.kgi.edu',
+      author_email='contact@lanalabs.com',
       license='Apache2',
       classifiers=[
           'Development Status :: 4 - Beta',
