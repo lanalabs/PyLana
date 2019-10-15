@@ -1,6 +1,6 @@
 # Pylana
 [![Python 3.7](https://img.shields.io/badge/python-3.7-blue.svg)](https://www.python.org/downloads/release/python-374/)
-[![Pylana](https://img.shields.io/badge/pylana-v0.0.1-orange)](https://www.python.org/downloads/release/python-374/)
+[![Pylana](https://img.shields.io/badge/pylana-v0.0.1-orange)](https://pypi.org/project/pylana/)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/lanalabs/pylana/graphs/commit-activity)
 
 > Python API for LANA Process Mining
