@@ -7,8 +7,15 @@ from os.path import basename
 
 
 class LanaAPI:
-    def __init__(self, token, url):
-        self.token = token
+    def __init__(self, url, token = None, apikey = None):
+
+        if token:
+            self.authorization_header = token
+        elif apikey:
+            self.authorization_header = "API-Key %s" % apikey
+        else:
+            raise Exception("Either api key or access token is needed for initialization")
+
         self.url = url
 
         # add schema check
@@ -17,7 +24,7 @@ class LanaAPI:
         if not url.endswith('/'):
             self.url += '/'
 
-        self.headers = {"Authorization": self.token}
+        self.headers = {"Authorization": self.authorization_header}
 
         userInfoEndpoint = 'api/users/by-token'
         self.userInfo = requests.get(url=self.url + userInfoEndpoint, headers=self.headers, verify=False).json()
