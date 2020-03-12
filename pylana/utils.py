@@ -27,4 +27,3 @@ def handle_response(func):
         resp.raise_for_status()
         return resp
     return wrapper
-

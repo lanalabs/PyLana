@@ -3,6 +3,7 @@ import unittest
 
 import pandas as pd
 
+from pylana import create_api
 from pylana.pylana_v2 import LanaAPI2
 from pylana.semantics import create_semantics
 
@@ -13,7 +14,7 @@ class TestLanaAPI2(unittest.TestCase):
     def setUpClass(cls) -> None:
         with open('./config.json') as f:
             cls.credentials = json.load(f)
-        cls.api = LanaAPI2(**cls.credentials)
+        cls.api = create_api(**cls.credentials, verify=True)
 
     def test_init(self):
         self.api.list_logs()
@@ -31,11 +32,11 @@ class TestLanaAPI2(unittest.TestCase):
                                          numerical_attributes=['number'])
         case_semantics = create_semantics(['id', 'category', 'age'], numerical_attributes=['age'])
 
-        with open('./data/event-log.csv') as event_stream:
-            with open('./data/case-attributes.csv') as case_stream:
+        with open('data/pylana-event-log.csv') as event_stream:
+            with open('data/pylana-case-attributes.csv') as case_stream:
                 resp = self.api.upload_event_log_stream(
-                    log_stream=event_stream,
-                    case_stream=case_stream,
+                    log=event_stream,
+                    case=case_stream,
                     log_semantics=log_semantics,
                     case_semantics=case_semantics)
 
@@ -46,14 +47,14 @@ class TestLanaAPI2(unittest.TestCase):
                                          numerical_attributes=['number'])
         case_semantics = create_semantics(['id', 'category', 'age'], numerical_attributes=['age'])
 
-        with open('./data/event-log.csv') as f:
+        with open('data/pylana-event-log.csv') as f:
             log = f.read()
 
-        with open('./data/case-attributes.csv') as f:
+        with open('data/pylana-case-attributes.csv') as f:
             case_attributes = f.read()
 
         resp = self.api.upload_event_log(
-            name='test-log',
+            name='pylana-test-log',
             log=log,
             case_attributes=case_attributes,
             log_semantics=log_semantics,
@@ -82,6 +83,17 @@ class TestLanaAPI2(unittest.TestCase):
             .astype({'Case_ID': str, 'Case_Numeric': int, 'Case_Category': str})
 
         resp = self.api.upload_event_log_df(
-            'test-from-df', df_log, df_case, time_format='yyyy-MM-dd HH:mm:ss')
+            'pylana-test-log-from-df', df_log, df_case, time_format='yyyy-MM-dd HH:mm:ss')
 
         self.assertEqual(resp.status_code, 200)
+
+        log_id = resp.json()['logId']
+
+        resp_appended = self.api.append_events_df(log_id, df_log, time_format='yyyy-MM-dd HH:mm:ss')
+        self.assertEqual(resp_appended.status_code, 200)
+
+    # the z character ensures that this is the last test to be executed
+    def test_z_delete_logs(self):
+        resps = self.api.delete_logs('pylana.*')
+        for status_code in [r.status_code for r in resps]:
+            self.assertEqual(status_code, 200)

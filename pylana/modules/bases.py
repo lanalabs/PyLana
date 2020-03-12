@@ -26,20 +26,22 @@ class _API(abc.ABC):
     url: str
     headers: dict
 
+    def _request(self, method, route, additional_headers=None, **kwargs):
+        headers = {**self.headers, **(additional_headers or dict())}
+        return requests.request(method, self.url + route, headers=headers, **kwargs)
+
     @handle_response
     def get(self, route, additional_headers=None, **kwargs):
-        headers = {**self.headers, **(additional_headers or dict())}
-        resp = requests.get(self.url + route, headers=headers, **kwargs)
-        return resp
+        return self._request('GET', route, additional_headers, **kwargs)
 
     @handle_response
     def post(self, route, additional_headers=None, **kwargs):
-        headers = {**self.headers, **(additional_headers or dict())}
-        resp = requests.post(self.url + route, headers=headers, **kwargs)
-        return resp
+        return self._request('POST', route, additional_headers, **kwargs)
 
     @handle_response
     def patch(self, route, additional_headers=None, **kwargs):
-        headers = {**self.headers, **(additional_headers or dict())}
-        resp = requests.patch(self.url + route, headers=headers, **kwargs)
-        return resp
+        return self._request('PATCH', route, additional_headers, **kwargs)
+
+    @handle_response
+    def delete(self, route, additional_headers=None, **kwargs):
+        return self._request('DELETE', route, additional_headers, **kwargs)
