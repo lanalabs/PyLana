@@ -1,19 +1,45 @@
 import abc
+import functools
+import warnings
+
 import requests
+
+from pylana.utils import handle_response
+
+
+def handle_http_error(func):
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        resp = func(*args, **kwargs)
+        try:
+            resp.raise_for_status()
+        except requests.exceptions.HTTPError as e:
+            pass
+            warnings.warn(str(e), Warning)
+
+        return resp
+    return wrapper
 
 
 class _API(abc.ABC):
 
-    headers = dict()
+    url: str
+    headers: dict
 
-    def get(self, url, additional_headers=None, **kwargs):
+    @handle_response
+    def get(self, route, additional_headers=None, **kwargs):
         headers = {**self.headers, **(additional_headers or dict())}
-        resp = requests.get(url, headers=headers, **kwargs)
-        resp.raise_for_status()
+        resp = requests.get(self.url + route, headers=headers, **kwargs)
         return resp
 
-    def post(self, url, additional_headers=None, **kwargs):
+    @handle_response
+    def post(self, route, additional_headers=None, **kwargs):
         headers = {**self.headers, **(additional_headers or dict())}
-        resp = requests.post(url, headers=headers, **kwargs)
-        resp.raise_for_status()
+        resp = requests.post(self.url + route, headers=headers, **kwargs)
+        return resp
+
+    @handle_response
+    def patch(self, route, additional_headers=None, **kwargs):
+        headers = {**self.headers, **(additional_headers or dict())}
+        resp = requests.patch(self.url + route, headers=headers, **kwargs)
         return resp

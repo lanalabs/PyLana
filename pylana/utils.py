@@ -1,7 +1,6 @@
 import functools
-from typing import List
-
 import json
+from typing import List
 
 
 def _create_headers(token: str):
@@ -20,4 +19,12 @@ def expect_json(func):
         return jsn
     return parse_json
 
+
+def handle_response(func):
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        resp = func(*args, **kwargs)
+        resp.raise_for_status()
+        return resp
+    return wrapper
 
