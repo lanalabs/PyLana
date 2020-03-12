@@ -1,0 +1,7 @@
+name: pylana-dev
+channels:
+  - defaults
+dependencies:
+  - requests
+  - python=3.8
+  - pandas
