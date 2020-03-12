@@ -1,9 +1,16 @@
-import requests
-import pandas as pd
 import json
 import re
 import zipfile
 from os.path import basename
+
+import pandas as pd
+import requests
+
+from pylana.modules.user_management import get_user_information
+
+from pylana.utils import _create_headers
+from pylana.modules.logs import LogsAPI
+from pylana.modules.bases import _API
 
 
 class LanaAPI:

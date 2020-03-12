@@ -1,0 +1,8 @@
+# credentiols
+tests/config.json
+
+# Byte-compiled / optimized / DLL files
+**/__pycache__/
+
+# IDE
+.idea/
