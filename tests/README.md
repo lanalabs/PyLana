@@ -10,4 +10,5 @@
       "token": "<token>"
     }
     ```
-  
+ * we require the user has access to one log named `Incident_management.csv`
+ 
