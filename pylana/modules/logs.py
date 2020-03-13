@@ -87,14 +87,15 @@ class LogsAPI(_API, abc.ABC):
                                 log: Union[TextIO, BinaryIO],
                                 log_semantics: Union[list, str],
                                 case: Union[TextIO, BinaryIO],
-                                case_semantics: Union[list, str], **kwargs) -> Response:
+                                case_semantics: Union[list, str],
+                                prefix='pylana-', **kwargs) -> Response:
         """
         upload a log with prepared semantics by passing open streams
 
         WARNING: does not close the passed streams
         """
 
-        name = str(hash(log))
+        name = f'{prefix}{hash(log)}'
         return self.upload_event_log(name, log.read(), log_semantics,
                                      case.read(), case_semantics, **kwargs)
 
