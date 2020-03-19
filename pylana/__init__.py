@@ -16,7 +16,7 @@ import pylana.modules
 name = "pylana"
 
 
-def create_api(scheme, host, token, port,
+def create_api(scheme, host, token, port=None,
                verify=False, compatibility=False, url=None, api_key=None):
     """
     create a Lana API instance
