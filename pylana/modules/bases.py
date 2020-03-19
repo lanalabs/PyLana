@@ -1,9 +1,11 @@
-import abc
 import functools
 import warnings
 
 import requests
 
+from pylana.modules.structures import User
+from pylana.modules.user_management import get_user_information
+from pylana.utils import _create_headers
 from pylana.utils import handle_response
 
 
@@ -21,10 +23,21 @@ def handle_http_error(func):
     return wrapper
 
 
-class _API(abc.ABC):
+# TODO: consider certificate passing for TLS
+class API:
 
-    url: str
-    headers: dict
+    def __init__(self, scheme: str, host: str, token: str, port: int = None):
+
+        self.url = f'{scheme}://{host}' + (f':{port}' if port else '')
+        user_info = get_user_information(scheme, host, token, port)
+        self.user = User(user_id=user_info.get('id'),
+                         organization_id=user_info.get('organizationId'),
+                         api_key=user_info.get('apiKey'),
+                         role=user_info.get('role'))
+        self.headers = _create_headers(token)
+
+        # legacy
+        self.user_info = user_info
 
     def _request(self, method, route, additional_headers=None, **kwargs):
         headers = {**self.headers, **(additional_headers or dict())}

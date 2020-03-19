@@ -1,4 +1,3 @@
-import abc
 import io
 import json
 import re
@@ -7,8 +6,7 @@ from typing import Union, List, TextIO, BinaryIO
 import pandas as pd
 from requests import Response
 
-from pylana.modules.bases import _API
-from pylana.modules.structures import User
+from pylana.modules.bases import API
 from pylana.semantics import create_case_semantics_from_df, create_event_semantics_from_df
 from pylana.utils import expect_json
 from pylana.utils import handle_response
@@ -18,12 +16,7 @@ def prepare_semantics(semantics: Union[str, list]):
     return json.dumps(semantics) if not isinstance(semantics, str) else semantics
 
 
-class LogsAPI(_API, abc.ABC):
-
-    headers: dict
-    userInfo: dict
-    user: User
-    url: str
+class LogsAPI(API):
 
     @expect_json
     @handle_response
