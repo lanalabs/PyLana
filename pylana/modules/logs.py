@@ -6,7 +6,7 @@ from typing import Union, List, TextIO, BinaryIO
 import pandas as pd
 from requests import Response
 
-from pylana.modules.bases import API
+from pylana.modules.api import API
 from pylana.semantics import create_case_semantics_from_df, create_event_semantics_from_df
 from pylana.utils import expect_json
 from pylana.utils import handle_response
