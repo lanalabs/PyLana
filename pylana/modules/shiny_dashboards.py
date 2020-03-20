@@ -2,15 +2,12 @@ import io
 import json
 import os
 import re
-from typing import List
 import zipfile
+from typing import List
 
 from requests import Response
 
-from pylana.modules.api import API
 from pylana.modules.resources import ResourceAPI
-from pylana.utils import expect_json, extract_id, extract_ids
-from pylana.utils import handle_response
 
 
 class ShinyDashboardAPI(ResourceAPI):
@@ -37,7 +34,7 @@ class ShinyDashboardAPI(ResourceAPI):
         """
         return self.describe_resource('shiny-dashboards', contains, shiny_dashboard_id, **kwargs)
 
-    # TODO json lacking sharing options
+    # TODO json lacks sharing options
     def create_shiny_dashboard(self, name: str) -> dict:
         return self.create_resource('shiny-dashboards', json={'name': name})
 
@@ -49,6 +46,21 @@ class ShinyDashboardAPI(ResourceAPI):
 
     def delete_shiny_dashboards(self, contains: str = None, ids: List[str] = None, **kwargs):
         return self.delete_resources('shiny-dashboards', contains, ids, **kwargs)
+
+    # TODO consider sharing by names
+    def share_shiny_dashboard(self, shiny_dashboard_id: str,
+                              user_ids: List[str], project_ids: List[str], organization_ids: str) -> Response:
+        body = {"sharedInformation": {
+            "userIds": user_ids,
+            "projectIds": project_ids,
+            "organizationIds": organization_ids
+        }}
+        return self.patch(f"/api/shiny-dashboards/{shiny_dashboard_id}", data=body)
+
+    def connect_shiny_dashboard(self, log_id, shiny_dashboard_id):
+        dct = {'log_id': log_id, 'shiny_dashboard_id': shiny_dashboard_id}
+        return self.connect_resources(dct)
+
 
     # legacy
     # ------
