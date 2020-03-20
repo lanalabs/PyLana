@@ -17,8 +17,9 @@ class TestLanaAPI2(unittest.TestCase):
         cls.api = create_api(**cls.credentials, verify=True)
 
     def test_init(self):
-        self.api.list_logs()
-        self.api.list_user_logs()
+        _ = self.api.list_logs()
+        _ = self.api.list_user_logs()
+        _ = self.api.get('/invalid-route')
 
     def test_get_log_id(self):
         log_id = self.api.get_log_id('Incident_Management.csv')

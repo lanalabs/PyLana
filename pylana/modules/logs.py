@@ -19,7 +19,6 @@ def prepare_semantics(semantics: Union[str, list]):
 class LogsAPI(API):
 
     @expect_json
-    @handle_response
     def list_logs(self, **kwargs) -> list:
         """
         lists all logs that are available to the user
@@ -30,7 +29,6 @@ class LogsAPI(API):
         return self.get('/api/logs', **kwargs)
 
     @expect_json
-    @handle_response
     def list_user_logs(self, **kwargs) -> list:
         """
         list all logs owned bt the user
@@ -75,7 +73,6 @@ class LogsAPI(API):
 
         return log_id
 
-    @handle_response
     def upload_event_log_stream(self,
                                 log: Union[TextIO, BinaryIO],
                                 log_semantics: Union[list, str],
@@ -92,7 +89,6 @@ class LogsAPI(API):
         return self.upload_event_log(name, log.read(), log_semantics,
                                      case.read(), case_semantics, **kwargs)
 
-    @handle_response
     def upload_event_log(self, name,
                          log: str, log_semantics: Union[str, List[dict]],
                          case_attributes=None, case_attribute_semantics=None, **kwargs) \
@@ -122,7 +118,6 @@ class LogsAPI(API):
         return self.post('/api/logs/csv-case-attributes-event-semantics',
                          files=files, data=semantics, **kwargs)
 
-    @handle_response
     def upload_event_log_df(self, name: str,
                             df_log: pd.DataFrame, df_case: pd.DataFrame,
                             time_format: str, **kwargs) -> Response:
@@ -139,7 +134,6 @@ class LogsAPI(API):
                                      case_attributes=df_cases.to_csv(index=False),
                                      case_attribute_semantics=case_semantics, **kwargs)
 
-    @handle_response
     def append_events_df(self, log_id,
                          df_log: pd.DataFrame, time_format: str, **kwargs) -> Response:
         """
@@ -152,7 +146,6 @@ class LogsAPI(API):
 
         return self.post('/api/logs/' + log_id + '/csv', files=files, data=semantics, **kwargs)
 
-    @handle_response
     def delete_log(self, log_id: str, **kwargs) -> Response:
         """
         delete a log by its id
@@ -166,7 +159,6 @@ class LogsAPI(API):
         log_ids = self.get_log_ids(contains, **kwargs)
         return [self.delete_log(log_id) for log_id in log_ids]
 
-    @handle_response
     def request_event_csv(self, log_id: str, **kwargs) -> Response:
         """
         request the enriched event csv
