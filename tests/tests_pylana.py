@@ -21,6 +21,13 @@ class TestLanaAPI2(unittest.TestCase):
         _ = self.api.list_user_logs()
         _ = self.api.get('/invalid-route')
 
+    def test_describe(self):
+        log = self.api.describe_log('Incident.*')
+        self.assertIsInstance(log.get('id'), str)
+
+        with self.assertRaises(Exception):
+            _ = self.api.describe_log('never-ever-matches-a-log')
+
     def test_get_log_id(self):
         log_id = self.api.get_log_id('Incident_Management.csv')
         self.assertIsInstance(log_id, str)

@@ -61,21 +61,20 @@ class LogsAPI(API):
         """
         return self.get_log_ids(contains, **kwargs)
 
-    def upload_event_log_stream(self,
-                                log: Union[TextIO, BinaryIO],
-                                log_semantics: Union[list, str],
-                                case: Union[TextIO, BinaryIO],
-                                case_semantics: Union[list, str],
-                                prefix='pylana-', **kwargs) -> Response:
+    @expect_json
+    def describe_log(self, contains: str = None, log_id: str = None, **kwargs) -> dict:
         """
-        upload a log with prepared semantics by passing open streams
+        get description of log
 
-        WARNING: does not close the passed streams
+        Args:
+            log_id: The id of the log, takes precedence over contains
+            contains: a regex matching the log's name, matching several names raises an exception
+
+        Returns:
+
         """
-
-        name = f'{prefix}{hash(log)}'
-        return self.upload_event_log(name, log.read(), log_semantics,
-                                     case.read(), case_semantics, **kwargs)
+        log_id = log_id or self.get_log_id(contains, **kwargs)
+        return self.get(f'/api/logs/{log_id}')
 
     def upload_event_log(self, name,
                          log: str, log_semantics: Union[str, List[dict]],
@@ -105,6 +104,22 @@ class LogsAPI(API):
 
         return self.post('/api/logs/csv-case-attributes-event-semantics',
                          files=files, data=semantics, **kwargs)
+
+    def upload_event_log_stream(self,
+                                log: Union[TextIO, BinaryIO],
+                                log_semantics: Union[list, str],
+                                case: Union[TextIO, BinaryIO],
+                                case_semantics: Union[list, str],
+                                prefix='pylana-', **kwargs) -> Response:
+        """
+        upload a log with prepared semantics by passing open streams
+
+        WARNING: does not close the passed streams
+        """
+
+        name = f'{prefix}{hash(log)}'
+        return self.upload_event_log(name, log.read(), log_semantics,
+                                     case.read(), case_semantics, **kwargs)
 
     def upload_event_log_df(self, name: str,
                             df_log: pd.DataFrame, df_case: pd.DataFrame,
