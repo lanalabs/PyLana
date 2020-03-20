@@ -1,14 +1,13 @@
 import io
 import json
-import re
 from typing import Union, List, TextIO, BinaryIO
 
 import pandas as pd
 from requests import Response
 
-from pylana.modules.api import API
+from pylana.modules.resources import ResourceAPI
 from pylana.semantics import create_case_semantics_from_df, create_event_semantics_from_df
-from pylana.utils import expect_json, extract_id, extract_ids
+from pylana.utils import expect_json
 from pylana.utils import handle_response
 
 
@@ -16,9 +15,8 @@ def prepare_semantics(semantics: Union[str, list]):
     return json.dumps(semantics) if not isinstance(semantics, str) else semantics
 
 
-class LogsAPI(API):
+class LogsAPI(ResourceAPI):
 
-    @expect_json
     def list_logs(self, **kwargs) -> list:
         """
         lists all logs that are available to the user
@@ -26,8 +24,10 @@ class LogsAPI(API):
         Args:
             **kwargs: arguments passed to requests functions
         """
-        return self.get('/api/logs', **kwargs)
+        return self.list_resources('logs', **kwargs)
+        # return self.get('/api/logs', **kwargs)
 
+    # TODO check whether it can move to resource api
     @expect_json
     def list_user_logs(self, **kwargs) -> list:
         """
@@ -39,7 +39,6 @@ class LogsAPI(API):
         """
         return self.get('/api/users/' + self.user.user_id + '/logs', **kwargs)
 
-    @extract_ids
     def get_log_ids(self, contains: str, **kwargs) -> List[str]:
         """
         get all log ids which names are matched by the passed regular expression
@@ -50,18 +49,16 @@ class LogsAPI(API):
         Returns:
             a list of strings representing log ids
         """
-        return self.list_logs(**kwargs)
+        return self.get_resource_ids('logs', contains, **kwargs)
 
-    @extract_id
     def get_log_id(self, contains: str, **kwargs) -> str:
         """
         get id of a log by its name
 
         name needs to be unique or an exception is raised
         """
-        return self.get_log_ids(contains, **kwargs)
+        return self.get_resource_id('logs', contains, **kwargs)
 
-    @expect_json
     def describe_log(self, contains: str = None, log_id: str = None, **kwargs) -> dict:
         """
         get description of log
@@ -73,8 +70,7 @@ class LogsAPI(API):
         Returns:
 
         """
-        log_id = log_id or self.get_log_id(contains, **kwargs)
-        return self.get(f'/api/logs/{log_id}')
+        return self.describe_resource('logs', contains, log_id, **kwargs)
 
     def upload_event_log(self, name,
                          log: str, log_semantics: Union[str, List[dict]],
