@@ -8,7 +8,7 @@ from requests import Response
 
 from pylana.modules.api import API
 from pylana.semantics import create_case_semantics_from_df, create_event_semantics_from_df
-from pylana.utils import expect_json
+from pylana.utils import expect_json, extract_id, extract_ids
 from pylana.utils import handle_response
 
 
@@ -39,39 +39,27 @@ class LogsAPI(API):
         """
         return self.get('/api/users/' + self.user.user_id + '/logs', **kwargs)
 
-    def get_log_ids(self, contains: str, **kwargs) -> list:
+    @extract_ids
+    def get_log_ids(self, contains: str, **kwargs) -> List[str]:
         """
         get all log ids which names are matched by the passed regular expression
 
         Args:
             contains: a regular expression matched against the log names
-            application_key:
-            host: backend host
-            port: backend port
 
         Returns:
             a list of strings representing log ids
         """
-        resp = self.get('/api/logs', **kwargs)
+        return self.list_logs(**kwargs)
 
-        rc = re.compile(contains)
-        return [log['id'] for log in resp.json() if rc.search(log['name'])]
-
-    def get_log_id(self, log_name: str, **kwargs) -> str:
+    @extract_id
+    def get_log_id(self, contains: str, **kwargs) -> str:
         """
         get id of a log by its name
 
         name needs to be unique or an exception is raised
         """
-
-        logs_matching = self.get_log_ids(log_name, **kwargs)
-
-        try:
-            [log_id] = logs_matching
-        except ValueError as e:
-            raise Exception(f'Found {len(logs_matching)} logs with the name {log_name}')
-
-        return log_id
+        return self.get_log_ids(contains, **kwargs)
 
     def upload_event_log_stream(self,
                                 log: Union[TextIO, BinaryIO],
