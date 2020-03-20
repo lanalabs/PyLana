@@ -1,4 +1,5 @@
 import functools
+import re
 import warnings
 
 import requests
@@ -58,3 +59,21 @@ class API:
     @handle_response
     def delete(self, route, additional_headers=None, **kwargs):
         return self._request('DELETE', route, additional_headers, **kwargs)
+
+    def get_resource_ids_by_name(self, route: str, contains: str, **kwargs) -> list:
+        """
+        get all log ids which names are matched by the passed regular expression
+
+        Args:
+            contains: a regular expression matched against the log names
+            application_key:
+            host: backend host
+            port: backend port
+
+        Returns:
+            a list of strings representing log ids
+        """
+        resp = self.get(route, **kwargs)
+
+        rc = re.compile(contains)
+        return [resource['id'] for resource in resp.json() if rc.search(resource['name'])]

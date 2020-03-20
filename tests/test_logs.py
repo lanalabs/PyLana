@@ -4,11 +4,10 @@ import unittest
 import pandas as pd
 
 from pylana import create_api
-from pylana.pylana_v2 import LanaAPI2
 from pylana.semantics import create_semantics
 
 
-class TestLanaAPI2(unittest.TestCase):
+class TestLogsAPI(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls) -> None:
