@@ -149,14 +149,13 @@ class LogsAPI(ResourceAPI):
         """
         delete a log by its id
         """
-        return self.delete(f'/api/logs/{log_id}', **kwargs)
+        return self.delete_resource('logs', log_id, **kwargs)
 
-    def delete_logs(self, contains: str, **kwargs) -> List[Response]:
+    def delete_logs(self, contains: str = None, ids: List[str] = None, **kwargs) -> List[Response]:
         """
         deletes one or multiple logs matching the passed regular expression
         """
-        log_ids = self.get_log_ids(contains, **kwargs)
-        return [self.delete_log(log_id) for log_id in log_ids]
+        return self.delete_resources('logs', contains, ids, **kwargs)
 
     def request_event_csv(self, log_id: str, **kwargs) -> Response:
         """

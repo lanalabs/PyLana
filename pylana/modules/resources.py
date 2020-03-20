@@ -1,4 +1,6 @@
-from typing import List
+from typing import List, Union
+
+from requests import Response
 
 from pylana.modules.api import API
 from pylana.utils import expect_json, extract_id, extract_ids
@@ -55,6 +57,25 @@ class ResourceAPI(API):
         """
         resource_id = resource_id or self.get_resource_id(kind, contains, **kwargs)
         return self.get(f'/api/{kind}/{resource_id}')
+
+    @expect_json
+    def create_resource(self, kind: str, json: Union[list, dict, str], **kwargs):
+        return self.post(f'/api/{kind}', json=json, **kwargs)
+
+    def delete_resource(self, kind, id_: str, **kwargs) -> Response:
+        """
+        delete a log by its id
+        """
+        return self.delete(f'/api/{kind}/{id_}', **kwargs)
+
+    def delete_resources(self, kind: str, contains: str = None, ids: List[str] = None, **kwargs) -> List[Response]:
+        """
+        deletes one or multiple logs matching the passed regular expression
+        """
+        ids = ids or self.get_resource_ids(kind, contains, **kwargs)
+        return [self.delete_resource(kind, id_) for id_ in ids]
+
+    # resource connections
 
     def connect_resources(self, dct):
         return self.post('/api/v2/resource-connections',  json=dct)

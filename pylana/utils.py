@@ -38,8 +38,8 @@ def handle_response(method):
 
 def extract_ids(method):
     @functools.wraps(method)
-    def wrapper(self, contains, **kwargs):
-        resources = method(self, contains, **kwargs)
+    def wrapper(self, kind, contains, **kwargs):
+        resources = method(self, kind, contains, **kwargs)
         rc = re.compile(contains)
         return [log['id'] for log in resources if rc.search(log['name'])]
     return wrapper
@@ -47,8 +47,8 @@ def extract_ids(method):
 
 def extract_id(method):
     @functools.wraps(method)
-    def wrapper(self, contains, **kwargs):
-        ids = method(self, contains, **kwargs)
+    def wrapper(self, kind, contains, **kwargs):
+        ids = method(self, kind, contains, **kwargs)
         try:
             [id_] = ids
         except ValueError as e:
