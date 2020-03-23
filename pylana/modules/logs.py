@@ -145,6 +145,18 @@ class LogsAPI(ResourceAPI):
 
         return self.post('/api/logs/' + log_id + '/csv', files=files, data=semantics, **kwargs)
 
+    def append_case_attributes_df(self, log_id,
+                                  df_case: pd.DataFrame, **kwargs) -> Response:
+        """
+        append events to a log from a pandas dataframe with inferred semantics
+        """
+        df_case, case_semantics = create_case_semantics_from_df(df_case)
+
+        files = {'caseAttributeFile': ('event-file', df_case.to_csv(index=False), 'text/csv')}
+        semantics = {'caseSemantics': prepare_semantics(case_semantics)}
+
+        return self.post('/api/logs/' + log_id + '/csv-case-attributes', files=files, data=semantics, **kwargs)
+
     def delete_log(self, log_id: str, **kwargs) -> Response:
         """
         delete a log by its id

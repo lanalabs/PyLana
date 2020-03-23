@@ -99,6 +99,9 @@ class TestLogsAPI(unittest.TestCase):
         resp_appended = self.api.append_events_df(log_id, df_log, time_format='yyyy-MM-dd HH:mm:ss')
         self.assertEqual(resp_appended.status_code, 200)
 
+        resp_appended = self.api.append_case_attributes_df(log_id, df_case)
+        self.assertEqual(resp_appended.status_code, 200)
+
     # the z character ensures that this is the last test to be executed
     def test_z_delete_logs(self):
         resps = self.api.delete_logs('pylana.*')
