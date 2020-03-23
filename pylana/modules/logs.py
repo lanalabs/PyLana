@@ -195,6 +195,15 @@ class LogsAPI(ResourceAPI):
         csv_stream = io.StringIO(resp.text)
         return pd.read_csv(csv_stream, dtype='object', **kwargs)
 
+    @handle_response
+    def share_log(self, log_id: str) -> Response:
+        return self.get(f'/api/shareLogWithOrg/{log_id}')
+
+    @handle_response
+    def unshare_log(self, log_id: str) -> Response:
+        return self.get(f'/api/unshareLogWithOrg/{log_id}')
+
+
     # legacy methods
     # --------------
 

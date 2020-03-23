@@ -102,6 +102,16 @@ class TestLogsAPI(unittest.TestCase):
         resp_appended = self.api.append_case_attributes_df(log_id, df_case)
         self.assertEqual(resp_appended.status_code, 200)
 
+    def test_log_sharing(self):
+        log_id = self.api.get_log_id('Incident.*')
+        resp_share = self.api.share_log(log_id)
+        resp_share.raise_for_status()
+        # self.assertEqual(resp_share.status_code, 201)
+
+        resp_unshare = self.api.unshare_log(log_id)
+        resp_unshare.raise_for_status()
+        # self.assertEqual(resp_unshare.status_code, 200)
+
     # the z character ensures that this is the last test to be executed
     def test_z_delete_logs(self):
         resps = self.api.delete_logs('pylana.*')
