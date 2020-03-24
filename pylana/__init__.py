@@ -1,6 +1,4 @@
 """
-pylana
-=================================
 Python API for LANA Process Mining
 """
 

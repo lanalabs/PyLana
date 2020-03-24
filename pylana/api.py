@@ -2,13 +2,10 @@
 generic api requests including authorization
 """
 
-import functools
-import warnings
-
 import requests
 
-from .structures import User
 from .decorators import handle_response, expect_json
+from .structures import User
 
 
 def _create_authorization_header(token: str) -> dict:
@@ -39,7 +36,7 @@ class API:
     """
     an api instanced for a specific user and Lana API
 
-    Attributes
+    Attributes:
         url (str): the base url of the api (scheme, host and port)
         user (User): a User dataclass encapsulating the user of the api information
         headers (dict): the authorization header
