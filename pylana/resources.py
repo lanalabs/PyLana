@@ -77,17 +77,17 @@ class ResourceAPI(API):
 
     # resource connections
 
-    def connect_resources(self, dct):
-        return self.post('/api/v2/resource-connections',  json=dct)
+    def connect_resources(self, dct, **kwargs):
+        return self.post('/api/v2/resource-connections', json=dct, **kwargs)
 
-    def connect_model(self, log_id, model_id):
+    def connect_model(self, log_id, model_id, **kwargs):
         dct = {'log_id': log_id, 'model_id': model_id}
-        return self.connect_resources(dct)
+        return self.connect_resources(dct, **kwargs)
 
-    def connect_dashboard(self, log_id, dashboard_id):
+    def connect_dashboard(self, log_id, dashboard_id, **kwargs):
         dct = {'log_id': log_id, 'dashboard_id': dashboard_id}
-        return self.connect_resources(dct)
+        return self.connect_resources(dct, **kwargs)
 
-    def connect_working_schedule(self, log_id, working_schedule_id):
+    def connect_working_schedule(self, log_id, working_schedule_id, **kwargs):
         dct = {'log_id': log_id, 'working_schedule_id': working_schedule_id}
-        return self.connect_resources(dct)
+        return self.connect_resources(dct, **kwargs)

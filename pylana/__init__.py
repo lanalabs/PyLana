@@ -1,15 +1,15 @@
-'''
+"""
 pylana
 =================================
 Python API for LANA Process Mining
-'''
+"""
 
 import functools
 
 from .v1 import LanaAPI
 from .v2 import LanaAPI2
 
-# name = "pylana"
+name = "pylana"
 
 
 def create_api(scheme, host, token, port=None,
