@@ -1,3 +1,7 @@
+"""
+wrappers for http verbs including authorization
+"""
+
 import functools
 import warnings
 
@@ -39,8 +43,8 @@ class API:
         # legacy
         self.user_info = user_info
 
-    def _request(self, method, route, additional_headers=None, **kwargs):
-        headers = {**self.headers, **(additional_headers or dict())}
+    def _request(self, method, route, headers=None, additional_headers=None, **kwargs):
+        headers = {**self.headers, **(additional_headers or dict()), **(headers or dict())}
         return requests.request(method, self.url + route, headers=headers, **kwargs)
 
     @handle_response
