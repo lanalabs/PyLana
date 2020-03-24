@@ -1,13 +1,12 @@
 import functools
-import re
 import warnings
 
 import requests
 
-from pylana.modules.structures import User
-from pylana.modules.user_management import get_user_information
-from pylana.utils import _create_headers
-from pylana.utils import handle_response
+from .structures import User
+from .user_management import get_user_information
+from .utils import _create_headers
+from .utils import handle_response
 
 
 def handle_http_error(func):

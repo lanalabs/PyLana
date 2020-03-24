@@ -6,12 +6,6 @@ from os.path import basename
 import pandas as pd
 import requests
 
-from pylana.modules.user_management import get_user_information
-
-from pylana.utils import _create_headers
-from pylana.modules.logs import LogsAPI
-from pylana.modules.api import API
-
 
 class LanaAPI:
     def __init__(self, url, token = None, apikey = None):

@@ -2,8 +2,8 @@ from typing import List, Union
 
 from requests import Response
 
-from pylana.modules.api import API
-from pylana.utils import expect_json, extract_id, extract_ids
+from .api import API
+from .utils import expect_json, extract_id, extract_ids
 
 
 class ResourceAPI(API):

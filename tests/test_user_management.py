@@ -3,7 +3,7 @@ import unittest
 
 import requests
 
-from pylana.modules.user_management import get_user_information
+from pylana.user_management import get_user_information
 
 
 class TestGetUserInformation(unittest.TestCase):
@@ -25,6 +25,6 @@ class TestGetUserInformation(unittest.TestCase):
 
     def test_failure(self):
         with self.assertRaises(requests.exceptions.HTTPError):
-            _ = get_user_information(scheme='https',
+            r = get_user_information(scheme='https',
                                      host='cloud-backend.lanalabs.com',
                                      token='not-a-valid-token ')

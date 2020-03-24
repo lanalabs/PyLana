@@ -7,7 +7,7 @@ from typing import List
 
 from requests import Response
 
-from pylana.modules.resources import ResourceAPI
+from .resources import ResourceAPI
 
 
 class ShinyDashboardAPI(ResourceAPI):

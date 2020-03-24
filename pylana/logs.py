@@ -5,10 +5,10 @@ from typing import Union, List, TextIO, BinaryIO
 import pandas as pd
 from requests import Response
 
-from pylana.modules.resources import ResourceAPI
-from pylana.semantics import create_case_semantics_from_df, create_event_semantics_from_df
-from pylana.utils import expect_json
-from pylana.utils import handle_response
+from .resources import ResourceAPI
+from .semantics import create_case_semantics_from_df, create_event_semantics_from_df
+from .utils import expect_json
+from .utils import handle_response
 
 
 def prepare_semantics(semantics: Union[str, list]):

@@ -26,7 +26,7 @@ def expect_json(method):
 # TODO: introduce proper logging
 def handle_response(method):
     @functools.wraps(method)
-    def wrapper(*args, **kwargs):
+    def wrapper(*args, **kwargs) -> requests.Response:
         resp = method(*args, **kwargs)
         try:
             resp.raise_for_status()

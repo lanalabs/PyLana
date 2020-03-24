@@ -6,14 +6,10 @@ Python API for LANA Process Mining
 
 import functools
 
-from pylana.pylana import LanaAPI
-from pylana.pylana_v2 import LanaAPI2
+from .v1 import LanaAPI
+from .v2 import LanaAPI2
 
-
-import pylana.modules
-
-
-name = "pylana"
+# name = "pylana"
 
 
 def create_api(scheme, host, token, port=None,
