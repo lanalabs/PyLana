@@ -8,4 +8,11 @@ from pylana.shiny_dashboards import ShinyDashboardAPI
 
 
 class LanaAPI2(LogsAPI, ShinyDashboardAPI, ResourceAPI):
+    """
+    lana api
+
+    allows programmatic amanagement of
+        * logs
+        * shiny dashboards
+    """
     pass

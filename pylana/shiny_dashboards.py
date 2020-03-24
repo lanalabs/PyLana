@@ -125,7 +125,6 @@ class ShinyDashboardAPI(ResourceAPI):
         dct = {'log_id': log_id, 'shiny_dashboard_id': shiny_dashboard_id}
         return self.connect_resources(dct, **kwargs)
 
-
     # legacy
     # ------
 

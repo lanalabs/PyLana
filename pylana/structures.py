@@ -2,7 +2,7 @@
 data classes
 """
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import List
 
 
@@ -19,9 +19,12 @@ class User:
 
 @dataclass(eq=True, frozen=True)
 class SharedInformation:
-    user_ids: List[str]
-    project_ids: List[str]
-    organization_ids: List[str]
+    """
+    sharing information of a resource
+    """
+    user_ids: List[str] = field(default_factory=list)
+    project_ids: List[str] = field(default_factory=list)
+    organization_ids: List[str] = field(default_factory=list)
 
 
 @dataclass(eq=True, frozen=True)
@@ -39,4 +42,4 @@ class Log(Resource):
 
 class ShinyDashboard(Resource):
     owner: str
-    shared_information: SharedInformation
+    shared_information: SharedInformation = field(default_factory=SharedInformation)

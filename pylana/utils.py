@@ -8,10 +8,6 @@ from typing import Iterable, Dict, List, Tuple
 import pandas as pd
 
 
-def _create_authorization_header(token: str) -> dict:
-    return {"Authorization": f"API-Key {token}"}
-
-
 # TODO: check whether this function is actually required
 def create_semantics(columns: Iterable[str],
                      case_id: str = "id", action: str = "action", start: str = "start", complete: str = "complete",

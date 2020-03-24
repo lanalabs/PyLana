@@ -79,8 +79,6 @@ class ResourceAPI(API):
         ids = ids or self.get_resource_ids(kind, contains, **kwargs)
         return [self.delete_resource(kind, id_) for id_ in ids]
 
-    # resource connections
-
     def connect_resources(self, dct, **kwargs):
         return self.post('/api/v2/resource-connections', json=dct, **kwargs)
 
