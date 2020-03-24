@@ -1,9 +1,13 @@
+"""
+resource management api requests
+"""
+
 from typing import List, Union
 
 from requests import Response
 
 from .api import API
-from .utils import expect_json, extract_id, extract_ids
+from .decorators import expect_json, extract_id, extract_ids
 
 
 class ResourceAPI(API):

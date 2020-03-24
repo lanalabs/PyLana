@@ -1,5 +1,5 @@
 """
-wrappers for http verbs including authorization
+generic api requests including authorization
 """
 
 import functools
@@ -9,8 +9,8 @@ import requests
 
 from .structures import User
 from .user_management import get_user_information
-from .utils import _create_headers
-from .utils import handle_response
+from .utils import _create_authorization_header
+from .decorators import handle_response
 
 
 def handle_http_error(func):
@@ -38,7 +38,7 @@ class API:
                          organization_id=user_info.get('organizationId'),
                          api_key=user_info.get('apiKey'),
                          role=user_info.get('role'))
-        self.headers = _create_headers(token)
+        self.headers = _create_authorization_header(token)
 
         # legacy
         self.user_info = user_info

@@ -1,3 +1,7 @@
+"""
+log management api requests
+"""
+
 import io
 import json
 from typing import Union, List, TextIO, BinaryIO
@@ -6,9 +10,9 @@ import pandas as pd
 from requests import Response
 
 from .resources import ResourceAPI
-from .semantics import create_case_semantics_from_df, create_event_semantics_from_df
-from .utils import expect_json
-from .utils import handle_response
+from .utils import create_case_semantics_from_df, create_event_semantics_from_df
+from .decorators import expect_json
+from .decorators import handle_response
 
 
 def prepare_semantics(semantics: Union[str, list]):

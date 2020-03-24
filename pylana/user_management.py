@@ -1,8 +1,12 @@
+"""
+user management functions
+"""
+
 import requests
 
 from .structures import User
-from .utils import _create_headers
-from .utils import handle_response, expect_json
+from .utils import _create_authorization_header
+from .decorators import handle_response, expect_json
 
 
 @expect_json
@@ -10,7 +14,7 @@ from .utils import handle_response, expect_json
 def get_user_information(scheme: str, host: str, token: str, port=None) -> dict:
 
     base_url = f'{scheme}://{host}' + (f':{port}' if port else '')
-    headers = _create_headers(token)
+    headers = _create_authorization_header(token)
     r = requests.get(base_url + '/api/users/by-token', headers=headers)
     r.raise_for_status()
     return r
