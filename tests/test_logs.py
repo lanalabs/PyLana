@@ -11,7 +11,7 @@ class TestLogsAPI(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls) -> None:
-        with open('./config.json') as f:
+        with open('./tests/config.json') as f:
             cls.credentials = json.load(f)
         cls.api = create_api(**cls.credentials, verify=True)
 
@@ -39,8 +39,8 @@ class TestLogsAPI(unittest.TestCase):
                                          numerical_attributes=['number'])
         case_semantics = create_semantics(['id', 'category', 'age'], numerical_attributes=['age'])
 
-        with open('data/pylana-event-log.csv') as event_stream:
-            with open('data/pylana-case-attributes.csv') as case_stream:
+        with open('./tests/data/pylana-event-log.csv') as event_stream:
+            with open('./tests/data/pylana-case-attributes.csv') as case_stream:
                 resp = self.api.upload_event_log_stream(
                     log=event_stream,
                     case=case_stream,
@@ -54,10 +54,10 @@ class TestLogsAPI(unittest.TestCase):
                                          numerical_attributes=['number'])
         case_semantics = create_semantics(['id', 'category', 'age'], numerical_attributes=['age'])
 
-        with open('data/pylana-event-log.csv') as f:
+        with open('./tests/data/pylana-event-log.csv') as f:
             log = f.read()
 
-        with open('data/pylana-case-attributes.csv') as f:
+        with open('./tests/data/pylana-case-attributes.csv') as f:
             case_attributes = f.read()
 
         resp = self.api.upload_event_log(

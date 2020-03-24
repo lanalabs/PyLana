@@ -11,4 +11,5 @@
     }
     ```
  * we require the user has access to one log named `Incident_management.csv`
+ * the dev environment uses [pytest](https://docs.pytest.org/en/latest/), but the tests also work with [unittest](https://docs.python.org/3/library/unittest.html)
  

@@ -8,7 +8,7 @@ class TestDashboardAPI(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls) -> None:
-        with open('./config.json') as f:
+        with open('./tests/config.json') as f:
             cls.credentials = json.load(f)
         cls.api = create_api(**cls.credentials, verify=True)
 

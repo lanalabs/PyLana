@@ -10,7 +10,7 @@ class TestGetUserInformation(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls) -> None:
-        with open('./config.json') as f:
+        with open('./tests/config.json') as f:
             cls.credentials = json.load(f)
 
     def test_success(self):
