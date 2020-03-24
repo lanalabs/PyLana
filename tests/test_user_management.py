@@ -3,7 +3,7 @@ import unittest
 
 import requests
 
-from pylana.user_management import get_user_information
+from pylana.api import get_user_information
 
 
 class TestGetUserInformation(unittest.TestCase):

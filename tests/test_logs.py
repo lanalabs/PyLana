@@ -4,7 +4,7 @@ import unittest
 import pandas as pd
 
 from pylana import create_api
-from pylana.semantics import create_semantics
+from pylana.utils import create_semantics
 
 
 class TestLogsAPI(unittest.TestCase):
@@ -15,7 +15,7 @@ class TestLogsAPI(unittest.TestCase):
             cls.credentials = json.load(f)
         cls.api = create_api(**cls.credentials, verify=True)
 
-    def test_init(self):
+    def test_list(self):
         _ = self.api.list_logs()
         _ = self.api.list_user_logs()
         _ = self.api.get('/invalid-route')
