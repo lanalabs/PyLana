@@ -1,0 +1,10 @@
+name: pylana-dev
+channels:
+  - defaults
+dependencies:
+  - python=3.8
+  - requests
+  - pandas
+  - pytest
+  - sphinx
+  - sphinx_rtd_theme

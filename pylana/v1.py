@@ -1,9 +1,14 @@
-import requests
-import pandas as pd
+"""
+legacy lana api
+"""
+
 import json
 import re
 import zipfile
 from os.path import basename
+
+import pandas as pd
+import requests
 
 
 class LanaAPI:
