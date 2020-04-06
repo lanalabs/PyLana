@@ -17,6 +17,8 @@ from .resources import ResourceAPI
 
 class ShinyDashboardAPI(ResourceAPI):
 
+
+
     def list_shiny_dashboards(self, **kwargs) -> List[dict]:
         """
         list all shiny dashboards available to the user
@@ -65,7 +67,7 @@ class ShinyDashboardAPI(ResourceAPI):
         """
         return self.create_resource('shiny-dashboards', json={'name': name}, **kwargs)
 
-    def upload_shiny_dashboard(self, dashboard_id: str, file: io.IOBase, **kwargs) -> Response:
+    def upload_shiny_dashboard(self, dashboard_id: str, file_path: str, **kwargs) -> Response:
         """
         upload and replace shiny dashboard source code
 
@@ -76,11 +78,12 @@ class ShinyDashboardAPI(ResourceAPI):
 
         Args:
             dashboard_id: a string denoting the shiny dashboard
-            file: a io.Base pointing to the zipped dashboard code
+            file_path: a io.Base pointing to the zipped dashboard code
 
         Returns:
             the response of the api call
         """
+        file = {'file': open(file_path, 'rb')}
         return self.post(f"/api/shiny-dashboards/{dashboard_id}/source", files=file, **kwargs)
 
     def delete_shiny_dashboard(self, shiny_dashboard_id: str, **kwargs):

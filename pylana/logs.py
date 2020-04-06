@@ -137,6 +137,25 @@ class LogsAPI(ResourceAPI):
                                      case_attributes=df_cases.to_csv(index=False),
                                      case_attribute_semantics=case_semantics, **kwargs)
 
+    def upload_event_log_file(self, name: str,
+                            event_file_path: str, case_file_path: str,
+                            event_semantics: str, case_semantics: str,
+                            time_format: str, **kwargs) -> Response:
+        """
+        upload an event log from file locastion with inferred semantics
+
+        Semantic file via path
+        """
+
+        df_events, event_semantics = create_event_semantics_from_df(df_log, time_format=time_format)
+        df_cases, case_semantics = create_case_semantics_from_df(df_case)
+
+        return self.upload_event_log(name,
+                                     log=df_events.to_csv(index=False),
+                                     log_semantics=event_semantics,
+                                     case_attributes=df_cases.to_csv(index=False),
+                                     case_attribute_semantics=case_semantics, **kwargs)
+
     def append_events_df(self, log_id,
                          df_log: pd.DataFrame, time_format: str, **kwargs) -> Response:
         """
