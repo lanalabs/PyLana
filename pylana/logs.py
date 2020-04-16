@@ -128,13 +128,13 @@ class LogsAPI(ResourceAPI):
         upload an event log from pandas dataframes with inferred semantics
         """
 
-        df_events, event_semantics = create_event_semantics_from_df(df_log, time_format=time_format)
-        df_cases, case_semantics = create_case_semantics_from_df(df_case)
+        event_semantics = create_event_semantics_from_df(df_log, time_format=time_format)
+        case_semantics = create_case_semantics_from_df(df_case)
 
         return self.upload_event_log(name,
-                                     log=df_events.to_csv(index=False),
+                                     log=df_log.to_csv(index=False),
                                      log_semantics=event_semantics,
-                                     case_attributes=df_cases.to_csv(index=False),
+                                     case_attributes=df_case.to_csv(index=False),
                                      case_attribute_semantics=case_semantics, **kwargs)
 
     def upload_event_log_file(self, name: str,
@@ -168,9 +168,9 @@ class LogsAPI(ResourceAPI):
         """
         append events to a log from a pandas dataframe with inferred semantics
         """
-        df_events, event_semantics = create_event_semantics_from_df(df_log, time_format=time_format)
+        event_semantics = create_event_semantics_from_df(df_log, time_format=time_format)
 
-        files = {'eventCSVFile': ('event-file', df_events.to_csv(index=False), 'text/csv')}
+        files = {'eventCSVFile': ('event-file', df_log.to_csv(index=False), 'text/csv')}
         semantics = {'eventSemantics': prepare_semantics(event_semantics)}
 
         return self.post('/api/logs/' + log_id + '/csv', files=files, data=semantics, **kwargs)
@@ -180,7 +180,7 @@ class LogsAPI(ResourceAPI):
         """
         append events to a log from a pandas dataframe with inferred semantics
         """
-        df_case, case_semantics = create_case_semantics_from_df(df_case)
+        case_semantics = create_case_semantics_from_df(df_case)
 
         files = {'caseAttributeFile': ('event-file', df_case.to_csv(index=False), 'text/csv')}
         semantics = {'caseSemantics': prepare_semantics(case_semantics)}

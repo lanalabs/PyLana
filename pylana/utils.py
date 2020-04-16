@@ -11,7 +11,7 @@ import pandas as pd
 # TODO: check whether this function is actually required
 def create_semantics(columns: Iterable[str],
                      case_id: str = "id", action: str = "action", start: str = "start", complete: str = "complete",
-                     numerical_attributes: Iterable[str] = tuple(), time_format: str = "yyyy-MM-dd HH:mm:ss")\
+                     numerical_attributes: Iterable[str] = tuple(), time_format: str = "yyyy-MM-dd HH:mm:ss") \
         -> List[Dict[str, str]]:
     """
     create semantics including numeric and categorical attributes
@@ -47,12 +47,12 @@ def create_semantics(columns: Iterable[str],
     ]
 
 
-def create_event_semantics_from_df(df: pd.DataFrame, time_format: str = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS") -> Tuple[pd.DataFrame, List[dict]]:
+def create_event_semantics_from_df(df: pd.DataFrame, time_format: str = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS") -> List[dict]:
     """
     create event semantics from a pandas data frame
 
     We expect specific names for columns
-        * case id column: Case_ID
+        * case id column: Case ID
         * activity column: Action
         * first timestamp of activity: Start
         * last timestamp of activity: Complete
@@ -62,40 +62,36 @@ def create_event_semantics_from_df(df: pd.DataFrame, time_format: str = "yyyy-MM
     time stamps need to have the same time format. For an overview over time stamp formats
     see https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#patterns
     """
+    bares = ['Case ID', 'Action']
+    dct_bare = []
+    for i in range(0, len(df.columns)):
+        col = df.columns[i]
+        if pd.api.types.is_object_dtype(df[col]) and col not in bares:
+            dct_bare += [{
+                'name': col,
+                'semantic': 'CategorialAttribute',
+                'format': None,
+                'idx': i}]
+        elif pd.api.types.is_numeric_dtype(df[col]) and col not in bares:
+            dct_bare += [{
+                'name': col,
+                'semantic': 'NumericAttribute',
+                'format': None,
+                'idx': i}]
+        elif col == "Start" or col == "Complete":
+            dct_bare += [{
+                'name': col,
+                'semantic': col,
+                'format': time_format,
+                'idx': i}]
+        else:
+            dct_bare += [{
+                'name': col,
+                'semantic': col,
+                'format': None,
+                'idx': i}]
 
-    dct_bare = [
-        {'name': 'Case_ID', 'semantic': 'Case ID', 'format': None},
-        {'name': 'Action', 'semantic': 'Action', 'format': None}
-    ]
-
-    bares = ['Case_ID', 'Action']
-
-    dct_bare += [{
-        'name': col,
-        'semantic': col,
-        'format': time_format}
-        for col in df.columns.intersection(['Start', 'Complete'])
-        if col not in bares
-    ]
-
-    dct_bare += [{
-        'name': col,
-        'semantic': 'CategorialAttribute',
-        'format': None}
-        for col in df.select_dtypes('object').columns
-        if col not in bares
-    ]
-
-    dct_bare += [{
-        'name': col,
-        'semantic': 'NumericAttribute',
-        'format': None}
-        for col in df.select_dtypes('number').columns
-        if col not in bares
-    ]
-    dct_bare = [{**{'idx': n}, **dct} for n, dct in enumerate(dct_bare)]
-
-    return df.loc[:, [c['name'] for c in dct_bare]], dct_bare
+    return dct_bare
 
 
 def create_case_semantics_from_df(df: pd.DataFrame) -> Tuple[pd.DataFrame, List[dict]]:
@@ -109,28 +105,27 @@ def create_case_semantics_from_df(df: pd.DataFrame) -> Tuple[pd.DataFrame, List[
     will be converted to categorical attributes, besides numbers.
     """
 
-    if df.empty:
-        return df, []
+    bares = ['Case ID']
+    dct_bare = []
+    for i in range(0, len(df.columns)):
+        col = df.columns[i]
+        if pd.api.types.is_object_dtype(df[col]) and col not in bares:
+            dct_bare += [{
+                'name': col,
+                'semantic': 'CategorialAttribute',
+                'format': None,
+                'idx': i}]
+        elif pd.api.types.is_numeric_dtype(df[col]) and col not in bares:
+            dct_bare += [{
+                'name': col,
+                'semantic': 'NumericAttribute',
+                'format': None,
+                'idx': i}]
+        else:
+            dct_bare += [{
+                'name': col,
+                'semantic': col,
+                'format': None,
+                'idx': i}]
 
-    dct_bare = [
-        {'name': 'Case_ID', 'semantic': 'Case ID'},
-    ]
-
-    bares = ['Case_ID']
-
-    dct_bare += [{
-        'name': col,
-        'semantic': 'CategorialAttribute'}
-        for col in df.select_dtypes(['bool', 'object']).columns
-        if col not in bares
-    ]
-
-    dct_bare += [{
-        'name': col,
-        'semantic': 'NumericAttribute'}
-        for col in df.select_dtypes('number').columns
-        if col not in bares
-    ]
-    dct_bare = [{**{'idx': n}, **dct} for n, dct in enumerate(dct_bare)]
-
-    return df.loc[:, [c['name'] for c in dct_bare]], dct_bare
+    return dct_bare
