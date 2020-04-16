@@ -93,3 +93,10 @@ class ResourceAPI(API):
     def connect_working_schedule(self, log_id, working_schedule_id, **kwargs):
         dct = {'log_id': log_id, 'working_schedule_id': working_schedule_id}
         return self.connect_resources(dct, **kwargs)
+
+    def connect_shiny_dashboard(self, log_id, shiny_dashboard_id, **kwargs):
+        """
+        connect an shiny dashboard with a log by their ids
+        """
+        dct = {'log_id': log_id, 'shiny_dashboard_id': shiny_dashboard_id}
+        return self.connect_resources(dct, **kwargs)

@@ -138,23 +138,30 @@ class LogsAPI(ResourceAPI):
                                      case_attribute_semantics=case_semantics, **kwargs)
 
     def upload_event_log_file(self, name: str,
-                            event_file_path: str, case_file_path: str,
-                            event_semantics: str, case_semantics: str,
-                            time_format: str, **kwargs) -> Response:
+                            event_file_path: str,
+                            case_file_path: str,
+                            event_semantics: str,
+                            case_semantics: str) -> Response:
         """
-        upload an event log from file locastion with inferred semantics
+        upload an event log from file location with semantics
 
         Semantic file via path
         """
+        files = {
+            'eventCSVFile': (event_file_path.split('/')[-1], open(event_file_path, 'rb'), 'text/csv'),
+            'caseAttributeFile': (case_file_path.split('/')[-1], open(case_file_path, 'rb'), 'text/csv'),
+        }
 
-        df_events, event_semantics = create_event_semantics_from_df(df_log, time_format=time_format)
-        df_cases, case_semantics = create_case_semantics_from_df(df_case)
+        semantics = {
+            'eventSemantics': open(event_semantics).read(),
+            'caseSemantics': open(case_semantics).read(),
+            'logName': name,
+            'timeZone': "Europe/Berlin"
+        }
 
-        return self.upload_event_log(name,
-                                     log=df_events.to_csv(index=False),
-                                     log_semantics=event_semantics,
-                                     case_attributes=df_cases.to_csv(index=False),
-                                     case_attribute_semantics=case_semantics, **kwargs)
+        return self.post('/api/logs/csv-case-attributes-event-semantics',
+                         files=files, data=semantics)
+
 
     def append_events_df(self, log_id,
                          df_log: pd.DataFrame, time_format: str, **kwargs) -> Response:
@@ -246,7 +253,7 @@ class LogsAPI(ResourceAPI):
 
         files = {
             'eventCSVFile': (logFile.split('/')[-1], open(logFile, 'rb'), 'text/csv'),
-            'caseAttributeFile': (caseAttributeFile.split('/')[-1], open(caseAttributeFile, 'rb'), 'text/csv'),
+            'caseAttributesFile': (caseAttributeFile.split('/')[-1], open(caseAttributeFile, 'rb'), 'text/csv'),
         }
 
         semantics = {

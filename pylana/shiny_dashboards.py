@@ -121,12 +121,6 @@ class ShinyDashboardAPI(ResourceAPI):
         }}
         return self.patch(f"/api/shiny-dashboards/{shiny_dashboard_id}", data=body, **kwargs)
 
-    def connect_shiny_dashboard(self, log_id, shiny_dashboard_id, **kwargs):
-        """
-        connect an shiny dashboard with a log by their ids
-        """
-        dct = {'log_id': log_id, 'shiny_dashboard_id': shiny_dashboard_id}
-        return self.connect_resources(dct, **kwargs)
 
     # legacy
     # ------
