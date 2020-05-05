@@ -196,7 +196,7 @@ class LogsAPI(ResourceAPI):
 
         log_id = log_id or self.get_log_id(log_name)
         resp = self.request_event_csv(log_id)
-        csv_stream = io.StringIO(resp.text)
+        csv_stream = io.BytesIO(resp.content)
         return pd.read_csv(csv_stream, dtype='object', **kwargs)
 
     @handle_response
