@@ -173,11 +173,11 @@ class LogsAPI(ResourceAPI):
         """
         return self.delete_resources('logs', contains, ids, **kwargs)
 
-    def request_event_csv(self, log_id: str, **kwargs) -> Response:
+    def request_event_csv(self, log_id: str, mining_request: dict = None, **kwargs) -> Response:
         """
         request the enriched event csv
         """
-        request_field = json.dumps({
+        request_field = json.dumps(mining_request) if mining_request else json.dumps({
             'activityExclusionFilter': [],
             'includeHeader': True,
             'includeLogId': False,
