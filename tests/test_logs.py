@@ -34,6 +34,48 @@ class TestLogsAPI(unittest.TestCase):
         with self.assertRaises(Exception):
             self.api.get_log_id('1212')
 
+    def test_request_event_csv(self):
+        log_id = self.api.get_log_id('Incident_Management.csv')
+        resp = self.api.request_event_csv(log_id)
+        self.assertEqual(resp.status_code, 200)
+
+        mining_request = {
+            'activityExclusionFilter': [],
+            'includeHeader': True,
+            'includeLogId': False,
+            'logId': log_id,
+            'edgeThreshold': 1,
+            'traceFilterSequence': [],
+            'exportCaseAttributes': True,
+            'onlyColumns': ["Case ID", "Action"],
+            'runConformance': False}
+        resp = self.api.request_event_csv(log_id, mining_request=mining_request)
+        self.assertEqual(resp.status_code, 200)
+
+        resp = self.api.request_event_csv('never-ever-matches-a-log-id')
+        self.assertNotEqual(resp.status_code, 200)
+
+    def test_get_event_log(self):
+        log_id = self.api.get_log_id('Incident_Management.csv')
+        log = self.api.get_event_log(log_id=log_id)
+        self.assertGreater(len(log), 0)
+
+        mining_request = {
+            'activityExclusionFilter': [],
+            'includeHeader': True,
+            'includeLogId': False,
+            'logId': log_id,
+            'edgeThreshold': 1,
+            'traceFilterSequence': [],
+            'exportCaseAttributes': True,
+            'onlyColumns': ["Case ID", "Action"],
+            'runConformance': False}
+        log = self.api.get_event_log(log_id=log_id, mining_request=mining_request)
+        self.assertGreater(len(log), 0)
+
+        log = self.api.get_event_log(log_id='never-ever-matches-a-log-id')
+        self.assertEqual(len(log), 0)
+
     def test_upload_event_log_stream(self):
         log_semantics = create_semantics(['id', 'action', 'start', 'complete', 'number'],
                                          numerical_attributes=['number'])

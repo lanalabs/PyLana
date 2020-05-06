@@ -4,7 +4,7 @@ log management api requests
 
 import io
 import json
-from typing import Union, List, TextIO, BinaryIO
+from typing import Union, List, TextIO, BinaryIO, Optional
 
 import pandas as pd
 from requests import Response
@@ -173,7 +173,8 @@ class LogsAPI(ResourceAPI):
         """
         return self.delete_resources('logs', contains, ids, **kwargs)
 
-    def request_event_csv(self, log_id: str, mining_request: dict = None, **kwargs) -> Response:
+    def request_event_csv(self, log_id: str, mining_request: Optional[dict] = None,
+                          **kwargs) -> Response:
         """
         request the enriched event csv
         """
@@ -187,15 +188,15 @@ class LogsAPI(ResourceAPI):
             'graphControl': {'sizeControl': 'Frequency', 'colorControl': 'AverageDuration'}})
         return self.get(f'/api/eventCsvWithFilter?request={request_field}', **kwargs)
 
-    def get_event_log(self, log_name: str = None, log_id: str = None, **kwargs) -> pd.DataFrame:
+    def get_event_log(self, log_name: str = None, log_id: str = None,
+                      mining_request: Optional[dict] = None, **kwargs) -> pd.DataFrame:
         """
         get the enriched event log as a pandas dataframe
 
         only columns with time stamps are type cast, the other columns remain objects
         """
-
         log_id = log_id or self.get_log_id(log_name)
-        resp = self.request_event_csv(log_id)
+        resp = self.request_event_csv(log_id, mining_request, **kwargs)
         csv_stream = io.BytesIO(resp.content)
         return pd.read_csv(csv_stream, dtype='object', **kwargs)
 
