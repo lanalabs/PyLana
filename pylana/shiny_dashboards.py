@@ -80,10 +80,9 @@ class ShinyDashboardAPI(ResourceAPI):
         Returns:
             the response of the api call
         """
-        file = open(file_path, 'rb')
-        shiny_dashboard = {'file': open(file_path, 'rb')}
-        resp = self.post(f"/api/shiny-dashboards/{dashboard_id}/source", files=shiny_dashboard, **kwargs)
-        file.close()
+        with open(file_path, "rb") as file:
+            shiny_dashboard = {'file': open(file_path, 'rb')}
+            resp = self.post(f"/api/shiny-dashboards/{dashboard_id}/source", files=shiny_dashboard, **kwargs)
         return resp
 
     def delete_shiny_dashboard(self, shiny_dashboard_id: str, **kwargs):
