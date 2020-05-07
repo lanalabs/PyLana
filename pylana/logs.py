@@ -13,6 +13,8 @@ from .resources import ResourceAPI
 from .utils import create_case_semantics_from_df, create_event_semantics_from_df
 from .decorators import expect_json
 from .decorators import handle_response
+from pathlib import Path
+
 
 
 def prepare_semantics(semantics: Union[str, list]):
@@ -140,28 +142,40 @@ class LogsAPI(ResourceAPI):
     def upload_event_log_file(self, name: str,
                             event_file_path: str,
                             case_file_path: str,
-                            event_semantics: str,
-                            case_semantics: str) -> Response:
+                            event_semantics_path: str,
+                            case_semantics_path: str) -> Response:
         """
-        upload an event log from file location with semantics
-
-        Semantic file via path
+        upload an event log from the file locations of the event log, case attributes and corresponding
+        semantics
         """
+        event_file = open(event_file_path, 'rb')
+        case_file = open(case_file_path, 'rb')
         files = {
-            'eventCSVFile': (event_file_path.split('/')[-1], open(event_file_path, 'rb'), 'text/csv'),
-            'caseAttributeFile': (case_file_path.split('/')[-1], open(case_file_path, 'rb'), 'text/csv'),
+            'eventCSVFile': (Path(event_file_path).name, event_file, 'text/csv'),
+            'caseAttributeFile': (Path(case_file_path).name, case_file, 'text/csv'),
         }
 
+
+        event_semantics = open(event_semantics_path)
+        case_semantics = open(case_semantics_path)
         semantics = {
-            'eventSemantics': open(event_semantics).read(),
-            'caseSemantics': open(case_semantics).read(),
+            'eventSemantics': event_semantics.read(),
+            'caseSemantics': case_semantics.read(),
             'logName': name,
             'timeZone': "Europe/Berlin"
         }
 
-        return self.post('/api/logs/csv-case-attributes-event-semantics',
+
+
+        resp =  self.post('/api/logs/csv-case-attributes-event-semantics',
                          files=files, data=semantics)
 
+        event_file.close()
+        case_file.close()
+        event_semantics.close()
+        case_semantics.close()
+
+        return resp
 
     def append_events_df(self, log_id,
                          df_log: pd.DataFrame, time_format: str, **kwargs) -> Response:
