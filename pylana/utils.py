@@ -62,34 +62,40 @@ def create_event_semantics_from_df(df: pd.DataFrame, time_format: str = "yyyy-MM
     time stamps need to have the same time format. For an overview over time stamp formats
     see https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#patterns
     """
-    bares = ['Case ID', 'Action']
     dct_bare = []
-    for i in range(0, len(df.columns)):
-        col = df.columns[i]
-        if pd.api.types.is_object_dtype(df[col]) and col not in bares:
+    ids = ["Case ID", "Action"]
+    timestamps = ["Start", "Complete"]
+
+    for i, col in enumerate(df.columns):
+
+        if col in ids:
+            # the most general branch, that exists in all logs
             dct_bare += [{
                 'name': col,
-                'semantic': 'CategorialAttribute',
+                'semantic': col,
                 'format': None,
                 'idx': i}]
-        elif pd.api.types.is_numeric_dtype(df[col]) and col not in bares:
-            dct_bare += [{
-                'name': col,
-                'semantic': 'NumericAttribute',
-                'format': None,
-                'idx': i}]
-        elif col == "Start" or col == "Complete":
+        elif col in timestamps:
+            # the second most general branch, Start exists always, Complete sometimes
             dct_bare += [{
                 'name': col,
                 'semantic': col,
                 'format': time_format,
                 'idx': i}]
         else:
-            dct_bare += [{
-                'name': col,
-                'semantic': col,
-                'format': None,
-                'idx': i}]
+            # an optional branch, defined by not being (partially) required and thus inferred
+            if pd.api.types.is_object_dtype(df[col]):
+                dct_bare += [{
+                    'name': col,
+                    'semantic': 'CategorialAttribute',
+                    'format': None,
+                    'idx': i}]
+            elif pd.api.types.is_numeric_dtype(df[col]):
+                dct_bare += [{
+                    'name': col,
+                    'semantic': 'NumericAttribute',
+                    'format': None,
+                    'idx': i}]
 
     return dct_bare
 
