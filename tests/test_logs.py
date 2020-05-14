@@ -37,7 +37,7 @@ class TestLogsAPI(unittest.TestCase):
     def test_request_event_csv(self):
         log_id = self.api.get_log_id('Incident_Management.csv')
         resp = self.api.request_event_csv(log_id)
-        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(resp.status_code, 200, 'Failed to retrieve existing log')
 
         mining_request = {
             'activityExclusionFilter': [],
@@ -50,10 +50,10 @@ class TestLogsAPI(unittest.TestCase):
             'onlyColumns': ["Case ID", "Action"],
             'runConformance': False}
         resp = self.api.request_event_csv(log_id, mining_request=mining_request)
-        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(resp.status_code, 200, 'Failed to retrieve existing log with mining request')
 
         resp = self.api.request_event_csv('never-ever-matches-a-log-id')
-        self.assertNotEqual(resp.status_code, 200)
+        self.assertNotEqual(resp.status_code, 200, 'Succeeded to retrieve a non-existent log')
 
     def test_get_event_log(self):
         log_id = self.api.get_log_id('Incident_Management.csv')
@@ -71,10 +71,10 @@ class TestLogsAPI(unittest.TestCase):
             'onlyColumns': ["Case ID", "Action"],
             'runConformance': False}
         log = self.api.get_event_log(log_id=log_id, mining_request=mining_request)
-        self.assertGreater(len(log), 0)
+        self.assertGreater(len(log), 0, 'Failed to retrieve existing log')
 
         log = self.api.get_event_log(log_id='never-ever-matches-a-log-id')
-        self.assertEqual(len(log), 0)
+        self.assertTrue(log.empty and log.columns.empty, 'Retrieving non-existent log led to non-empty dataframe')
 
     def test_upload_event_log_stream(self):
         log_semantics = create_semantics(['id', 'action', 'start', 'complete', 'number'],

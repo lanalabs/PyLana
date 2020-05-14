@@ -197,8 +197,10 @@ class LogsAPI(ResourceAPI):
         """
         log_id = log_id or self.get_log_id(log_name)
         resp = self.request_event_csv(log_id, mining_request, **kwargs)
+        if resp.status_code >= 400:
+            return pd.DataFrame()
         csv_stream = io.BytesIO(resp.content)
-        return pd.read_csv(csv_stream, dtype='object', **kwargs)
+        return pd.read_csv(csv_stream, dtype='object')
 
     @handle_response
     def share_log(self, log_id: str) -> Response:
