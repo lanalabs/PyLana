@@ -12,7 +12,7 @@ from typing import List
 
 from requests import Response
 
-from .resources import ResourceAPI
+from pylana.resources import ResourceAPI
 
 
 class ShinyDashboardAPI(ResourceAPI):

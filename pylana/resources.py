@@ -6,8 +6,8 @@ from typing import List, Union
 
 from requests import Response
 
-from .api import API
-from .decorators import expect_json, extract_id, extract_ids
+from pylana.api import API
+from pylana.decorators import expect_json, extract_id, extract_ids
 
 
 class ResourceAPI(API):

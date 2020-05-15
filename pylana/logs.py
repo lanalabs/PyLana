@@ -9,10 +9,10 @@ from typing import Union, List, TextIO, BinaryIO
 import pandas as pd
 from requests import Response
 
-from .resources import ResourceAPI
-from .utils import create_case_semantics_from_df, create_event_semantics_from_df
-from .decorators import expect_json
-from .decorators import handle_response
+from pylana.resources import ResourceAPI
+from pylana.utils import create_case_semantics_from_df, create_event_semantics_from_df
+from pylana.decorators import expect_json
+from pylana.decorators import handle_response
 
 
 def prepare_semantics(semantics: Union[str, list]):

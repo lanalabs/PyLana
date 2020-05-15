@@ -4,8 +4,8 @@ generic api requests including authorization
 
 import requests
 
-from .decorators import handle_response, expect_json
-from .structures import User
+from pylana.decorators import handle_response, expect_json
+from pylana.structures import User
 
 
 def _create_authorization_header(token: str) -> dict:
@@ -34,7 +34,7 @@ def get_user(scheme: str, host: str, token: str, port=None) -> User:
 # TODO: consider certificate passing for TLS
 class API:
     """
-    an api instanced for a specific user and Lana API
+    an api for a specific user at a Lana deployment
 
     Attributes:
         url (str): the base url of the api (scheme, host and port)
