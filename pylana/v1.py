@@ -12,7 +12,7 @@ import requests
 
 
 class LanaAPI:
-    def __init__(self, url, token = None, apikey = None):
+    def __init__(self, url, token=None, apikey=None):
 
         if token:
             self.authorization_header = token
@@ -24,7 +24,7 @@ class LanaAPI:
         self.url = url
 
         # add schema check
-        if not url.startswith('http://') or not url.startswith('https://'):
+        if not (url.startswith('http://') or url.startswith('https://')):
             self.url = 'http://' + self.url
         if not url.endswith('/'):
             self.url += '/'

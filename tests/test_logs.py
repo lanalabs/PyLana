@@ -13,7 +13,7 @@ class TestLogsAPI(unittest.TestCase):
     def setUpClass(cls) -> None:
         with open('./tests/config.json') as f:
             cls.credentials = json.load(f)
-        cls.api = create_api(**cls.credentials, verify=True)
+        cls.api = create_api(verify=True, **cls.credentials)
 
     def test_list(self):
         _ = self.api.list_logs()

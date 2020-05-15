@@ -10,7 +10,7 @@ class TestDashboardAPI(unittest.TestCase):
     def setUpClass(cls) -> None:
         with open('./tests/config.json') as f:
             cls.credentials = json.load(f)
-        cls.api = create_api(**cls.credentials, verify=True)
+        cls.api = create_api(verify=True, **cls.credentials)
 
     def test_list(self):
         shiny_dashboards = self.api.list_shiny_dashboards()
