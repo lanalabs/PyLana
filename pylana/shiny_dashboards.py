@@ -20,6 +20,12 @@ class ShinyDashboardAPI(ResourceAPI):
     def list_shiny_dashboards(self, **kwargs) -> List[dict]:
         """
         list all shiny dashboards available to the user
+        
+        Args:
+            **kwargs: arguments passed to requests functions
+            
+        Returns: 
+            list of shiny dashboards
         """
         return self.list_resources('shiny-dashboards', **kwargs)
 
@@ -29,6 +35,10 @@ class ShinyDashboardAPI(ResourceAPI):
 
         Args:
             contains: a python re module regular expression
+            **kwargs: arguments passed to requests functions
+            
+        Returns:
+            list of shiny dashboard ids
         """
         return self.get_resource_ids('shiny-dashboards', contains, **kwargs)
 
@@ -40,6 +50,10 @@ class ShinyDashboardAPI(ResourceAPI):
 
         Args:
             contains: a python re module regular expression
+            **kwargs: arguments passed to requests functions
+            
+        Returns: 
+            shiny dashboard id
         """
         return self.get_resource_id('shiny-dashboards', contains, **kwargs)
 
@@ -48,8 +62,12 @@ class ShinyDashboardAPI(ResourceAPI):
         get shiny dashboard metadata
 
         Args:
-            shiny_dashboard_id: The id of the log, takes precedence over contains
             contains: a regex matching the log's name, matching several names raises an exception
+            shiny_dashboard_id: The id of the log, takes precedence over contains
+            **kwargs: arguments passed to requests functions
+            
+        Returns:
+            description of shiny dashboard
         """
         return self.describe_resource('shiny-dashboards', contains, shiny_dashboard_id, **kwargs)
 
@@ -59,6 +77,7 @@ class ShinyDashboardAPI(ResourceAPI):
         create a named shiny dashboard
         Args:
             name: a string denoting the dashboards name
+            **kwargs: arguments passed to requests functions
 
         Returns:
             a dictionary representing the shiny dashboard metadata
@@ -77,6 +96,7 @@ class ShinyDashboardAPI(ResourceAPI):
         Args:
             dashboard_id: a string denoting the shiny dashboard
             file: a io.Base pointing to the zipped dashboard code
+            **kwargs: arguments passed to requests functions
 
         Returns:
             the response of the api call
@@ -86,6 +106,10 @@ class ShinyDashboardAPI(ResourceAPI):
     def delete_shiny_dashboard(self, shiny_dashboard_id: str, **kwargs):
         """
         delete a shiny dashboard by its id
+        
+        Args:
+            shiny_dashboard_id: a string denoting the shiny dashboard
+            **kwargs: arguments passed to requests functions
         """
         return self.delete_resource('shiny-dashboards', shiny_dashboard_id, **kwargs)
 
@@ -121,6 +145,11 @@ class ShinyDashboardAPI(ResourceAPI):
     def connect_shiny_dashboard(self, log_id, shiny_dashboard_id, **kwargs):
         """
         connect an shiny dashboard with a log by their ids
+        
+        Args:
+            log_id: ID of the log in LANA
+            shiny_dashboard_id: a string representing the id of the shiny dashboard
+            **kwargs: arguments passed to requests functions
         """
         dct = {'log_id': log_id, 'shiny_dashboard_id': shiny_dashboard_id}
         return self.connect_resources(dct, **kwargs)
