@@ -14,7 +14,7 @@ from pylana.utils import create_case_semantics_from_df, create_event_semantics_f
 from pylana.decorators import expect_json
 from pylana.decorators import handle_response
 
-
+# TODO docstring missing 
 def prepare_semantics(semantics: Union[str, list]):
     return json.dumps(semantics) if not isinstance(semantics, str) else semantics
 
@@ -27,7 +27,10 @@ class LogsAPI(ResourceAPI):
 
         Args:
             **kwargs: arguments passed to requests functions
-        """
+            
+        Returns:
+            a list of log names
+        """    
         return self.list_resources('logs', **kwargs)
         # return self.get('/api/logs', **kwargs)
 
@@ -35,11 +38,13 @@ class LogsAPI(ResourceAPI):
     @expect_json
     def list_user_logs(self, **kwargs) -> list:
         """
-        list all logs owned bt the user
+        list all logs owned by the user
 
         Args:
             **kwargs: arguments passed to requests functions
-
+            
+        Returns: 
+            a list of log names
         """
         return self.get('/api/users/' + self.user.user_id + '/logs', **kwargs)
 
@@ -49,6 +54,7 @@ class LogsAPI(ResourceAPI):
 
         Args:
             contains: a regular expression matched against the log names
+            **kwargs: arguments passed to requests functions
 
         Returns:
             a list of strings representing log ids
@@ -58,8 +64,14 @@ class LogsAPI(ResourceAPI):
     def get_log_id(self, contains: str, **kwargs) -> str:
         """
         get id of a log by its name
+        
+        Args:
+            contains: a regular expression matched against the log names
+            **kwargs: arguments passed to requests functions
 
         name needs to be unique or an exception is raised
+        
+        Returns: log name
         """
         return self.get_resource_id('logs', contains, **kwargs)
 
@@ -70,8 +82,9 @@ class LogsAPI(ResourceAPI):
         Args:
             log_id: The id of the log, takes precedence over contains
             contains: a regex matching the log's name, matching several names raises an exception
-
+            **kwargs: arguments passed to requests functions
         Returns:
+            description of the log
 
         """
         return self.describe_resource('logs', contains, log_id, **kwargs)
@@ -82,6 +95,14 @@ class LogsAPI(ResourceAPI):
             -> Response:
         """
         upload an event log with prepared semantics
+        
+        Args:
+            name: name for the uploaded log
+            log: event log
+            log_semantics: event log semantics
+            case_attributes: optional case attribute log
+            case_attribute_semantics: case attribute semantics
+            **kwargs: arguments passed to requests functions
         """
 
         files_required = {
@@ -113,8 +134,15 @@ class LogsAPI(ResourceAPI):
                                 prefix='pylana-', **kwargs) -> Response:
         """
         upload a log with prepared semantics by passing open streams
-
+        
         WARNING: does not close the passed streams
+
+        Args:
+            log: event log
+            log_semantics: event log semantics
+            case_attributes: optional case attribute log
+            case_attribute_semantics: case attribute semantics
+            **kwargs: arguments passed to requests functions
         """
 
         name = f'{prefix}{hash(log)}'
@@ -126,6 +154,12 @@ class LogsAPI(ResourceAPI):
                             time_format: str, **kwargs) -> Response:
         """
         upload an event log from pandas dataframes with inferred semantics
+        
+        Args:
+            df_log: event log as pandas dataframe
+            df_cases: case log as pandas dataframe
+            time_format: datetime format
+            **kwargs: arguments passed to requests functions
         """
 
         df_events, event_semantics = create_event_semantics_from_df(df_log, time_format=time_format)
@@ -141,6 +175,11 @@ class LogsAPI(ResourceAPI):
                          df_log: pd.DataFrame, time_format: str, **kwargs) -> Response:
         """
         append events to a log from a pandas dataframe with inferred semantics
+        Args:
+            log_id: ID of the log in LANA
+            df_log: event log as pandas dataframe
+            time_format: datetime format
+            **kwargs: arguments passed to requests functions
         """
         df_events, event_semantics = create_event_semantics_from_df(df_log, time_format=time_format)
 
@@ -152,7 +191,11 @@ class LogsAPI(ResourceAPI):
     def append_case_attributes_df(self, log_id,
                                   df_case: pd.DataFrame, **kwargs) -> Response:
         """
-        append events to a log from a pandas dataframe with inferred semantics
+        append case attributes to a log from a pandas dataframe with inferred semantics
+        Args:
+            log_id: ID of the log in LANA
+            df_case: case attribute log as pandas dataframe
+            **kwargs: arguments passed to requests functions
         """
         df_case, case_semantics = create_case_semantics_from_df(df_case)
 
@@ -164,19 +207,36 @@ class LogsAPI(ResourceAPI):
     def delete_log(self, log_id: str, **kwargs) -> Response:
         """
         delete a log by its id
+        
+        Args:
+            log_id: ID of the log in LANA
+            **kwargs: arguments passed to requests functions
         """
         return self.delete_resource('logs', log_id, **kwargs)
 
     def delete_logs(self, contains: str = None, ids: List[str] = None, **kwargs) -> List[Response]:
         """
         deletes one or multiple logs matching the passed regular expression
+        
+        Args:
+            ids: list of log IDs in LANA
+            contains: a regular expression matched against the log names
+            **kwargs: arguments passed to requests functions
         """
         return self.delete_resources('logs', contains, ids, **kwargs)
 
+    # TODO: dosctring param mining_request
     def request_event_csv(self, log_id: str, mining_request: Optional[dict] = None,
                           **kwargs) -> Response:
         """
         request the enriched event csv
+        
+        Args:
+            log_id: ID of the log in LANA
+            **kwargs: arguments passed to requests functions
+            
+        Returns: 
+            csv event log
         """
         request_field = json.dumps(mining_request) if mining_request else json.dumps({
             'activityExclusionFilter': [],
@@ -188,12 +248,18 @@ class LogsAPI(ResourceAPI):
             'graphControl': {'sizeControl': 'Frequency', 'colorControl': 'AverageDuration'}})
         return self.get(f'/api/eventCsvWithFilter?request={request_field}', **kwargs)
 
+    # TODO: dosctring param mining_request
     def get_event_log(self, log_name: str = None, log_id: str = None,
                       mining_request: Optional[dict] = None, **kwargs) -> pd.DataFrame:
         """
         get the enriched event log as a pandas dataframe
 
         only columns with time stamps are type cast, the other columns remain objects
+        
+        Args: 
+            log_name: name of the log in LANA
+            log_id: id of the log in LANA
+            **kwargs: arguments passed to requests functions
         """
         log_id = log_id or self.get_log_id(log_name)
         resp = self.request_event_csv(log_id, mining_request, **kwargs)
