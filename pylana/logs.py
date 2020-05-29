@@ -14,8 +14,9 @@ from pylana.utils import create_case_semantics_from_df, create_event_semantics_f
 from pylana.decorators import expect_json
 from pylana.decorators import handle_response
 
+
 # TODO docstring missing 
-def prepare_semantics(semantics: Union[str, list]):
+def _serialise_semantics(semantics: Union[str, list]):
     return json.dumps(semantics) if not isinstance(semantics, str) else semantics
 
 
@@ -23,93 +24,125 @@ class LogsAPI(ResourceAPI):
 
     def list_logs(self, **kwargs) -> list:
         """
-        lists all logs that are available to the user
+        Lists all logs that are available to the user.
 
         Args:
-            **kwargs: arguments passed to requests functions
+            **kwargs:
+                Keyword arguments passed to requests functions.
             
         Returns:
-            a list of log names
+            A list of log names.
         """    
         return self.list_resources('logs', **kwargs)
-        # return self.get('/api/logs', **kwargs)
 
     # TODO check whether it can move to resource api
     @expect_json
     def list_user_logs(self, **kwargs) -> list:
         """
-        list all logs owned by the user
+        List all logs owned by the user,
 
         Args:
-            **kwargs: arguments passed to requests functions
+            **kwargs:
+                Keyword arguments passed to requests functions.
             
         Returns: 
-            a list of log names
+            A list of log names.
         """
         return self.get('/api/users/' + self.user.user_id + '/logs', **kwargs)
 
     def get_log_ids(self, contains: str, **kwargs) -> List[str]:
         """
-        get all log ids which names are matched by the passed regular expression
+        Get all log ids which names are matched by the passed regular
+        expression.
 
         Args:
-            contains: a regular expression matched against the log names
-            **kwargs: arguments passed to requests functions
+            contains:
+                A string representing a regular expression
+                matched against the log names.
+            **kwargs:
+                Keyword arguments passed to requests functions.
 
         Returns:
-            a list of strings representing log ids
+            A list of strings representing log ids.
         """
         return self.get_resource_ids('logs', contains, **kwargs)
 
     def get_log_id(self, contains: str, **kwargs) -> str:
         """
-        get id of a log by its name
-        
-        Args:
-            contains: a regular expression matched against the log names
-            **kwargs: arguments passed to requests functions
+        Get id of a log by its name.
 
-        name needs to be unique or an exception is raised
-        
-        Returns: log name
+        The name needs to be unique, otherwise an exception is raised.
+
+
+        Args:
+            contains:
+                A string representing a regular expression
+                matched against the log names.
+            **kwargs:
+                Keyword arguments passed to requests functions.
+
+
+        Returns:
+            A string denoting the name of the log.
         """
         return self.get_resource_id('logs', contains, **kwargs)
 
     def describe_log(self, contains: str = None, log_id: str = None, **kwargs) -> dict:
         """
-        get description of log
+        Get the description of log.
 
         Args:
-            log_id: The id of the log, takes precedence over contains
-            contains: a regex matching the log's name, matching several names raises an exception
-            **kwargs: arguments passed to requests functions
+            log_id:
+                A string representing the id of the log, takes precedence
+                over contains.
+            contains:
+                A string representing a regular expression matched against
+                the log names, matching several names raises an exception.
+            **kwargs:
+                Keyword arguments passed to requests functions.
         Returns:
-            description of the log
+            A dictionary representing the log description.
 
         """
         return self.describe_resource('logs', contains, log_id, **kwargs)
 
     def upload_event_log(self, name,
                          log: str, log_semantics: Union[str, List[dict]],
-                         case_attributes=None, case_attribute_semantics=None, **kwargs) \
+                         case_attributes: Optional[str] = None,
+                         case_attribute_semantics: Optional[Union[str, List[dict]]] = None,
+                         **kwargs) \
             -> Response:
         """
-        upload an event log with prepared semantics
+        Upload an event log with prepared semantics.
         
         Args:
-            name: name for the uploaded log
-            log: event log
-            log_semantics: event log semantics
-            case_attributes: optional case attribute log
-            case_attribute_semantics: case attribute semantics
-            **kwargs: arguments passed to requests functions
+            name:
+                A string denoting the name for the uploaded log.
+            log:
+                A string representing the event log as csv.
+            log_semantics:
+                The event log semantics either serialised as a
+                string or a list of dictionaries.
+            case_attributes:
+                (optional) A string representing the case
+                attributes as csv.
+            case_attribute_semantics:
+                (optional) The event case attributes semantics
+                either serialised as a string or a list of
+                dictionaries, required if case_attributes is
+                passed.
+            **kwargs:
+                Keyword arguments passed to requests functions.
+
+        Returns:
+            The requests response of the lana api call.
         """
 
         files_required = {
             'eventCSVFile': (name, log, 'text/csv')
         }
         semantics_required = {
-            'eventSemantics': prepare_semantics(log_semantics),
+            'eventSemantics': _serialise_semantics(log_semantics),
             'logName': name,
             'timeZone': "Europe/Berlin"
         }
@@ -120,7 +153,7 @@ class LogsAPI(ResourceAPI):
         } if case_attributes else files_required
         semantics = {
             **semantics_required,
-            **{'caseSemantics': prepare_semantics(case_attribute_semantics)}
+            **{'caseSemantics': _serialise_semantics(case_attribute_semantics)}
         } if case_attribute_semantics else semantics_required
 
         return self.post('/api/logs/csv-case-attributes-event-semantics',
@@ -129,37 +162,84 @@ class LogsAPI(ResourceAPI):
     def upload_event_log_stream(self,
                                 log: Union[TextIO, BinaryIO],
                                 log_semantics: Union[list, str],
-                                case: Union[TextIO, BinaryIO],
-                                case_semantics: Union[list, str],
-                                prefix='pylana-', **kwargs) -> Response:
+                                case: Optional[Union[TextIO, BinaryIO]] = None,
+                                case_semantics: Optional[Union[list, str]] = None,
+                                prefix: str = 'pylana-', **kwargs) -> Response:
         """
-        upload a log with prepared semantics by passing open streams
-        
-        WARNING: does not close the passed streams
+        Upload a log with prepared semantics by passing open streams.
+
+        The log name is generated from hash value of the passed event log
+        stream. We use the built-in hash function, so it can change when you
+        restart the interpreter.
+
+        WARNING: This method does not close the passed streams.
 
         Args:
-            log: event log
-            log_semantics: event log semantics
-            case_attributes: optional case attribute log
-            case_attribute_semantics: case attribute semantics
-            **kwargs: arguments passed to requests functions
+            log:
+                A string or binary stream representing the event log.
+            log_semantics:
+                The event log semantics either serialised as a
+                string or a list of dictionaries.
+            case:
+                (optional) A text or binary stream representing the
+                case attributes as csv.
+            case_semantics:
+                (optional) The event case attributes semantics
+                either serialised as a string or a list of
+                dictionaries, required if case_attributes is
+                passed.
+            prefix:
+                (optional) A string representing a prefix of the log name.
+                Defaults to "pylana-".
+            **kwargs:
+                Keyword arguments passed to requests functions.
+
+        Returns:
+            The requests response of the lana api call.
         """
 
         name = f'{prefix}{hash(log)}'
         return self.upload_event_log(name, log.read(), log_semantics,
                                      case.read(), case_semantics, **kwargs)
 
-    def upload_event_log_df(self, name: str,
-                            df_log: pd.DataFrame, df_case: pd.DataFrame,
-                            time_format: str, **kwargs) -> Response:
+    def upload_event_log_df(self, name: str, df_log: pd.DataFrame,
+                            time_format: str, df_case: pd.DataFrame,
+                            **kwargs) -> Response:
         """
-        upload an event log from pandas dataframes with inferred semantics
-        
+        Upload an event log from pandas data frames with inferred semantics.
+
+        For the passed event log data frame we expect at least the following
+        columns:
+        - "Case_ID" for the case id, any dtype
+        - "Action" of dtype object for activities
+        - "Start" of dtype datetime64 or object for the first timestamp
+        The "Complete" column of type datetime64 or object is optional.
+
+        For the passed case attributes we expect at last the columns "Case_ID"
+        of any dtype.
+
+        Types of other columns are inferred from their dtypes.
+
         Args:
-            df_log: event log as pandas dataframe
-            df_cases: case log as pandas dataframe
-            time_format: datetime format
-            **kwargs: arguments passed to requests functions
+            name:
+                A string representing the name under which the log is uploaded.
+            df_log:
+                A pandas data frame representing the event log.
+            time_format:
+                A string denoting the timestamp format. Needs to match the
+                string format of the "Start" and, if present, "Complete"
+                columns. If either or both columns are of dtype datetime64,
+                the time format needs to match its string representation.
+                For a format definition, see
+                https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#patterns
+            df_case:
+                (Optional) A pandas data frame representing the case
+                attributes.
+            **kwargs:
+                Keyword arguments passed to requests functions.
+
+            Returns:
+                The requests response of the lana api call.
         """
 
         df_events, event_semantics = create_event_semantics_from_df(df_log, time_format=time_format)
@@ -174,69 +254,135 @@ class LogsAPI(ResourceAPI):
     def append_events_df(self, log_id,
                          df_log: pd.DataFrame, time_format: str, **kwargs) -> Response:
         """
-        append events to a log from a pandas dataframe with inferred semantics
+        Append events to a log from a pandas data frame.
+
+        For the passed event log data frame we expect at least the following
+        columns:
+        * "Case_ID" for the case id, any dtype
+        * "Action" of dtype object for activities
+        * "Start" of dtype datetime64 or object for the first timestamp
+        The "Complete" column of type datetime64 or object is optional.
+
+        For the passed case attributes we expect at last the columns "Case_ID"
+        of any dtype.
+
+        Types of other columns are inferred from their dtypes.
+
         Args:
-            log_id: ID of the log in LANA
-            df_log: event log as pandas dataframe
-            time_format: datetime format
-            **kwargs: arguments passed to requests functions
+            log_id:
+                A string representing the id of the log to which the events
+                should be appended.
+            df_log:
+                A pandas data frame representing the event log.
+            time_format:
+                A string denoting the timestamp format. Needs to match the
+                string format of the "Start" and, if present, "Complete"
+                columns. If either or both columns are of dtype datetime64,
+                the time format needs to match its string representation.
+                For a format definition, see
+                https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#patterns
+            **kwargs:
+                Keyword arguments passed to requests functions.
+
+            Returns:
+                The requests response of the lana api call.
         """
-        df_events, event_semantics = create_event_semantics_from_df(df_log, time_format=time_format)
+        df_events, event_semantics = \
+            create_event_semantics_from_df(df_log, time_format=time_format)
 
-        files = {'eventCSVFile': ('event-file', df_events.to_csv(index=False), 'text/csv')}
-        semantics = {'eventSemantics': prepare_semantics(event_semantics)}
+        files = {
+            'eventCSVFile': ('event-file',
+                             df_events.to_csv(index=False),
+                             'text/csv')}
+        semantics = {'eventSemantics': _serialise_semantics(event_semantics)}
 
-        return self.post('/api/logs/' + log_id + '/csv', files=files, data=semantics, **kwargs)
+        return self.post('/api/logs/' + log_id + '/csv', files=files,
+                         data=semantics, **kwargs)
 
     def append_case_attributes_df(self, log_id,
                                   df_case: pd.DataFrame, **kwargs) -> Response:
         """
-        append case attributes to a log from a pandas dataframe with inferred semantics
+        Append case attributes to a log from a pandas data frame.
+
+        For the passed case attributes we expect at last the columns "Case_ID"
+        of any dtype.
+
         Args:
-            log_id: ID of the log in LANA
-            df_case: case attribute log as pandas dataframe
-            **kwargs: arguments passed to requests functions
+            log_id:
+                A string representing the id of the log for which the case
+                attributes should be appended.
+            df_case:
+                A pandas data frame representing the case attributes.
+            **kwargs:
+                Keyword arguments passed to requests functions.
+
+        Returns:
+            The requests response of the lana api call.
         """
         df_case, case_semantics = create_case_semantics_from_df(df_case)
 
-        files = {'caseAttributeFile': ('event-file', df_case.to_csv(index=False), 'text/csv')}
-        semantics = {'caseSemantics': prepare_semantics(case_semantics)}
+        files = {
+            'caseAttributeFile': ('event-file',
+                                  df_case.to_csv(index=False),
+                                  'text/csv')}
+        semantics = {'caseSemantics': _serialise_semantics(case_semantics)}
 
-        return self.post('/api/logs/' + log_id + '/csv-case-attributes', files=files, data=semantics, **kwargs)
+        return self.post('/api/logs/' + log_id + '/csv-case-attributes',
+                         files=files, data=semantics, **kwargs)
 
     def delete_log(self, log_id: str, **kwargs) -> Response:
         """
-        delete a log by its id
+        Delete a log by its id.
         
         Args:
-            log_id: ID of the log in LANA
-            **kwargs: arguments passed to requests functions
+            log_id:
+                A string representing the id of the log.
+            **kwargs:
+                Keyword arguments passed to requests functions.
+
+        Returns:
+            The requests response of the lana api call.
         """
         return self.delete_resource('logs', log_id, **kwargs)
 
-    def delete_logs(self, contains: str = None, ids: List[str] = None, **kwargs) -> List[Response]:
+    def delete_logs(self, log_ids: List[str] = None, contains: str = None,
+                    **kwargs) -> List[Response]:
         """
-        deletes one or multiple logs matching the passed regular expression
+        Delete one or multiple logs.
         
         Args:
-            ids: list of log IDs in LANA
-            contains: a regular expression matched against the log names
-            **kwargs: arguments passed to requests functions
-        """
-        return self.delete_resources('logs', contains, ids, **kwargs)
+            log_ids:
+                A list of strings denoting the ids of logs to delete. Tales
+                precedence over contains.
+            contains:
+                A string representing a regular expression matched against
+                the log names.
+            **kwargs:
+                Keyword arguments passed to requests functions.
 
-    # TODO: dosctring param mining_request
-    def request_event_csv(self, log_id: str, mining_request: Optional[dict] = None,
+        Returns:
+            The requests response of the lana api call.
+        """
+        return self.delete_resources('logs', contains, log_ids, **kwargs)
+
+    def request_event_csv(self, log_id: str,
+                          mining_request: Optional[dict] = None,
                           **kwargs) -> Response:
         """
-        request the enriched event csv
+        Request the enriched event log.
         
         Args:
-            log_id: ID of the log in LANA
-            **kwargs: arguments passed to requests functions
+            log_id:
+                A string representing the id of the log.
+            mining_request:
+                (optional) A mining request data structure sent with
+                request to filter down the log.
+            **kwargs:
+                Keyword arguments passed to requests functions.
             
-        Returns: 
-            csv event log
+        Returns:
+            The requests response of the lana api call. The event log can be
+            accessed under the text attribute of the response.
         """
         request_field = json.dumps(mining_request) if mining_request else json.dumps({
             'activityExclusionFilter': [],
@@ -248,19 +394,32 @@ class LogsAPI(ResourceAPI):
             'graphControl': {'sizeControl': 'Frequency', 'colorControl': 'AverageDuration'}})
         return self.get(f'/api/eventCsvWithFilter?request={request_field}', **kwargs)
 
-    # TODO: dosctring param mining_request
     def get_event_log(self, log_name: str = None, log_id: str = None,
-                      mining_request: Optional[dict] = None, **kwargs) -> pd.DataFrame:
+                      mining_request: Optional[dict] = None,
+                      **kwargs) -> pd.DataFrame:
         """
-        get the enriched event log as a pandas dataframe
+        Get the enriched event log as a pandas data frame
 
-        only columns with time stamps are type cast, the other columns remain objects
+        Only columns with time stamps are type cast, the other columns
+        remain objects. If type casting is not desired, use to the method
+        'request_event_csv'.
         
-        Args: 
-            log_name: name of the log in LANA
-            log_id: id of the log in LANA
-            **kwargs: arguments passed to requests functions
+        Args:
+            log_id:
+                A string representing the id of the log. Tales precedence
+                over log_name.
+            log_name:
+                A string denoting the name of the log.
+            mining_request:
+                (optional) A mining request data structure sent with
+                request to filter down the log.
+            **kwargs:
+                Keyword arguments passed to requests functions.
+
+        Returns:
+            A data frame representing the enriched log.
         """
+
         log_id = log_id or self.get_log_id(log_name)
         resp = self.request_event_csv(log_id, mining_request, **kwargs)
         if resp.status_code >= 400:
@@ -270,10 +429,30 @@ class LogsAPI(ResourceAPI):
 
     @handle_response
     def share_log(self, log_id: str) -> Response:
+        """
+        Share log with organisation.
+
+        Args:
+            log_id:
+                A string denoting the log id.
+
+        Returns:
+            The requests response of the lana api call.
+        """
         return self.get(f'/api/shareLogWithOrg/{log_id}')
 
     @handle_response
     def unshare_log(self, log_id: str) -> Response:
+        """
+        Un-share log with organisation.
+
+        Args:
+            log_id:
+                A string denoting the log id.
+
+        Returns:
+            The requests response of the lana api call.
+        """
         return self.get(f'/api/unshareLogWithOrg/{log_id}')
 
 

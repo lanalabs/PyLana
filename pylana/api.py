@@ -31,7 +31,8 @@ def get_user(scheme: str, host: str, token: str, port=None) -> User:
                 role=user_info.get('role'))
 
 
-# TODO: consider certificate passing for TLS
+# TODO consider certificate passing for TLS
+# TODO consider letting kwargs replace authentication header
 class API:
     """
     an api for a specific user at a Lana deployment

@@ -132,7 +132,7 @@ class TestLogsAPI(unittest.TestCase):
             .astype({'Case_ID': str, 'Case_Numeric': int, 'Case_Category': str})
 
         resp = self.api.upload_event_log_df(
-            'pylana-test-log-from-df', df_log, df_case, time_format='yyyy-MM-dd HH:mm:ss')
+            'pylana-test-log-from-df', df_log, 'yyyy-MM-dd HH:mm:ss', df_case)
 
         self.assertEqual(resp.status_code, 200)
 
@@ -156,6 +156,6 @@ class TestLogsAPI(unittest.TestCase):
 
     # the z character ensures that this is the last test to be executed
     def test_z_delete_logs(self):
-        resps = self.api.delete_logs('pylana.*')
+        resps = self.api.delete_logs(contains='pylana.*')
         for status_code in [r.status_code for r in resps]:
             self.assertEqual(status_code, 200)

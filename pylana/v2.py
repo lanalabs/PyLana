@@ -12,5 +12,8 @@ class LanaAPI2(LogsAPI, ShinyDashboardAPI, ResourceAPI):
     lana api
 
     allows programmatic management of lana resources
+
+    most methods take kwargs for the named request methods
+    of the library requests
     """
     pass
