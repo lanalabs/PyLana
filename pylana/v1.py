@@ -1,5 +1,5 @@
 """
-legacy lana api
+The to-be phased out legacy PyLana API.
 """
 
 import json

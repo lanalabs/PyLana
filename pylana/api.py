@@ -14,8 +14,8 @@ def _create_authorization_header(token: str) -> dict:
 
 @expect_json
 @handle_response
-def get_user_information(scheme: str, host: str, token: str, port=None) -> dict:
-
+def get_user_information(scheme: str, host: str, token: str,
+                         port=None) -> dict:
     base_url = f'{scheme}://{host}' + (f':{port}' if port else '')
     headers = _create_authorization_header(token)
     r = requests.get(base_url + '/api/users/by-token', headers=headers)
@@ -35,16 +35,24 @@ def get_user(scheme: str, host: str, token: str, port=None) -> User:
 # TODO consider letting kwargs replace authentication header
 class API:
     """
-    an api for a specific user at a Lana deployment
+    An api for a specific user at a Lana deployment.
+
+    All required information to make authenticated requests to the api are
+    passed during construction and stored. Named request methods are
+    provided as wrappers around requests library methods, that add required
+    header fields. Additional headers to the requests library methods can be
+    passed as keyword arguments.
 
     Attributes:
-        url (str): the base url of the api (scheme, host and port)
-        user (User): a User dataclass encapsulating the user of the api information
-        headers (dict): the authorization header
+        url (str):
+            The base url of the api (scheme, host and port).
+        user (User):
+            A User dataclass encapsulating the user of the api information.
+        headers (dict):
+            The authorization header used for every request by default.
     """
 
     def __init__(self, scheme: str, host: str, token: str, port: int = None):
-
         self.url = f'{scheme}://{host}' + (f':{port}' if port else '')
         user_info = get_user_information(scheme, host, token, port)
         self.user = User(user_id=user_info.get('id'),
@@ -53,9 +61,12 @@ class API:
                          role=user_info.get('role'))
         self.headers = _create_authorization_header(token)
 
-    def _request(self, method, route, headers=None, additional_headers=None, **kwargs):
-        headers = {**self.headers, **(additional_headers or dict()), **(headers or dict())}
-        return requests.request(method, self.url + route, headers=headers, **kwargs)
+    def _request(self, method, route, headers=None, additional_headers=None,
+                 **kwargs):
+        headers = {**self.headers, **(additional_headers or dict()),
+                   **(headers or dict())}
+        return requests.request(method, self.url + route, headers=headers,
+                                **kwargs)
 
     @handle_response
     def get(self, route, additional_headers=None, **kwargs):

@@ -1,5 +1,5 @@
 """
-Python API for LANA Process Mining
+Methods for creating the python API for LANA Process Mining.
 """
 
 import functools
@@ -15,21 +15,38 @@ def create_api(scheme, host, token, port=None, compatibility=False, url=None, ve
     """
     create a Lana API instance
 
-    It is still possible to create an api conform with old versions of PyLana, if absolutely necessary.
-    It will be phased out over time, as most oif its functionalities move into the new version,
+    It is still possible to create an api conform with old versions of
+    PyLana, if absolutely necessary. It will be phased out over time,
+    as most of its functinoality moves into the new version,
 
     Args:
-        scheme: a string denoting the scheme of the connection to lan a, usually http or https
-        host: a string denoting the host of the lana api
-        token: a string representing the user token used for authenticating at the api
-        port: (optional) the port for the lana api, if not set default ports for the scheme will be used
-        verify: (optional) if set to false, disables tls certification verification
-        compatibility: (optional) a boolean indicating whether an older python interfac e for lana should be used
-        url: (optional) if compatibility is True, you can pass the base url as "<scheme>://<host>:<port>/"
+        scheme:
+            A string denoting the scheme of the connection to Lana, usually
+            http or https.
+        host:
+            A string denoting the host of the Lana API.
+        token:
+            A string representing the user token used for user authentication.
+        port:
+            (optional) An integer or string denoting the port for the lana
+            api. If not set, default ports for the scheme are be used.
+        verify:
+            (optional) If set to False, disables TLS certification
+            verification.
+        compatibility:
+            (optional) A boolean indicating whether the legacy PyLana should
+            be created.
+        url:
+            (optional) If compatibility is True, you can pass the base url
+            as "<scheme>://<host>:<port>/".
     """
 
     if compatibility:
-        warnings.warn(DeprecationWarning('Support for the old PyLana api will deprecate soon.'))
+        warnings.warn(
+            DeprecationWarning(
+                'Support for the old PyLana api will deprecate soon.'
+            )
+        )
         url = url if url else f'{scheme}://{host}:{port}/'
         return LanaAPI(url, token=token)
 
