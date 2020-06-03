@@ -72,35 +72,38 @@ class TestLogsAPI(unittest.TestCase):
     def test_upload_event_log_from_df(self):
         
         records = [
-            {'Case ID': 1, 'Action': 'A', 'Start': '2020-02-02 12:00:00', 'Event_Numeric': 1.0, 'Event_Category': 'A1'},
-            {'Case ID': 1, 'Action': 'B', 'Start': '2020-02-02 13:00:00', 'Event_Numeric': 1.1, 'Event_Category': 'B1'},
-            {'Case ID': 2, 'Action': 'A', 'Start': '2020-02-02 12:30:00', 'Event_Numeric': 1.2, 'Event_Category': 'C1'},
-            {'Case ID': 3, 'Action': 'C', 'Start': '2020-02-02 13:30:00', 'Event_Numeric': 1.3, 'Event_Category': 'D1'}
+            {'Case_ID': 1, 'Action': 'A', 'Start': '2020-02-02 12:00:00', 'Event_Numeric': 1.0, 'Event_Category': 'A1'},
+            {'Case_ID': 1, 'Action': 'B', 'Start': '2020-02-02 13:00:00', 'Event_Numeric': 1.1, 'Event_Category': 'B1'},
+            {'Case_ID': 2, 'Action': 'A', 'Start': '2020-02-02 12:30:00', 'Event_Numeric': 1.2, 'Event_Category': 'C1'},
+            {'Case_ID': 3, 'Action': 'C', 'Start': '2020-02-02 13:30:00', 'Event_Numeric': 1.3, 'Event_Category': 'D1'}
         ]
         df_log = pd.DataFrame(records)\
-            .astype({'Case ID': str, 'Action': str, 'Start': 'datetime64[ns]', 'Event_Numeric': int, 'Event_Category': str})\
-            .loc[:, ['Action', 'Case ID', 'Start', 'Event_Numeric', 'Event_Category']]
+            .astype({'Case_ID': str, 'Action': str, 'Start': 'datetime64[ns]', 'Event_Numeric': int, 'Event_Category': str})\
+            .loc[:, ['Action', 'Case_ID', 'Start', 'Event_Numeric', 'Event_Category']]
 
         records = [
-            {'Case ID': 1, 'Case_Numeric': 1000, 'Case_Category': 'A2'},
-            {'Case ID': 2, 'Case_Numeric': 3000, 'Case_Category': 'C2'},
-            {'Case ID': 3, 'Case_Numeric': 2000, 'Case_Category': 'D2'}
+            {'CaseID': 1, 'Case_Numeric': 1000, 'Case_Category': 'A2'},
+            {'CaseID': 2, 'Case_Numeric': 3000, 'Case_Category': 'C2'},
+            {'CaseID': 3, 'Case_Numeric': 2000, 'Case_Category': 'D2'}
         ]
         df_case = pd.DataFrame(records)\
-            .astype({'Case ID': str, 'Case_Numeric': int, 'Case_Category': str})
+            .astype({'CaseID': str, 'Case_Numeric': int, 'Case_Category': str})
 
+        msg = 'failed to upload event log from data frame'
         resp = self.api.upload_event_log_df(
             'pylana-test-log-from-df', df_log, df_case, time_format='yyyy-MM-dd HH:mm:ss')
-
-        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(resp.status_code, 200, msg)
 
         log_id = resp.json()['logId']
 
+        msg = 'failed to append events to existing event log from data frame'
         resp_appended = self.api.append_events_df(log_id, df_log, time_format='yyyy-MM-dd HH:mm:ss')
-        self.assertEqual(resp_appended.status_code, 200)
+        self.assertEqual(resp_appended.status_code, 200, msg)
 
+        msg = 'failed to append case attributes  to existing event log from ' \
+              'data frame'
         resp_appended = self.api.append_case_attributes_df(log_id, df_case)
-        self.assertEqual(resp_appended.status_code, 200)
+        self.assertEqual(resp_appended.status_code, 200, msg)
 
     def test_log_sharing(self):
         log_id = self.api.get_log_id('Incident.*')

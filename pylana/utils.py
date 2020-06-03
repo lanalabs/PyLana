@@ -52,7 +52,7 @@ def create_event_semantics_from_df(df: pd.DataFrame, time_format: str = "yyyy-MM
     create event semantics from a pandas data frame
 
     We expect specific names for columns
-        * case id column: Case ID
+        * case id column: Case_ID or CaseID
         * activity column: Action
         * first timestamp of activity: Start
         * last timestamp of activity: Complete
@@ -62,22 +62,23 @@ def create_event_semantics_from_df(df: pd.DataFrame, time_format: str = "yyyy-MM
     time stamps need to have the same time format. For an overview over time stamp formats
     see https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#patterns
     """
-    dct_bare = []
-    ids = ["Case ID", "Action"]
+    semantics = []
+    id_mappings = {
+        "Case_ID": "Case ID", "CaseID": "Case ID", "Action": "Action"}
     timestamps = ["Start", "Complete"]
 
     for i, col in enumerate(df.columns):
 
-        if col in ids:
+        if col in id_mappings:
             # the most general branch, that exists in all logs
-            dct_bare += [{
-                'name': col,
-                'semantic': col,
+            semantics += [{
+                'name': id_mappings[col],
+                'semantic': id_mappings[col],
                 'format': None,
                 'idx': i}]
         elif col in timestamps:
             # the second most general branch, Start exists always, Complete sometimes
-            dct_bare += [{
+            semantics += [{
                 'name': col,
                 'semantic': col,
                 'format': time_format,
@@ -85,19 +86,19 @@ def create_event_semantics_from_df(df: pd.DataFrame, time_format: str = "yyyy-MM
         else:
             # an optional branch, defined by not being (partially) required and thus inferred
             if pd.api.types.is_object_dtype(df[col]):
-                dct_bare += [{
+                semantics += [{
                     'name': col,
                     'semantic': 'CategorialAttribute',
                     'format': None,
                     'idx': i}]
             elif pd.api.types.is_numeric_dtype(df[col]):
-                dct_bare += [{
+                semantics += [{
                     'name': col,
                     'semantic': 'NumericAttribute',
                     'format': None,
                     'idx': i}]
 
-    return dct_bare
+    return semantics
 
 
 def create_case_semantics_from_df(df: pd.DataFrame) -> Tuple[pd.DataFrame, List[dict]]:
@@ -105,33 +106,32 @@ def create_case_semantics_from_df(df: pd.DataFrame) -> Tuple[pd.DataFrame, List[
     create case semantics from a pandas data frame
 
     We expect specific names for columns
-        * case id column: Case_ID
+        * case id column: Case_ID or CaseID
 
     The columns semantic for lana will be derived from the data frame's dtypes. All types
     will be converted to categorical attributes, besides numbers.
     """
 
-    bares = ['Case ID']
-    dct_bare = []
-    for i in range(0, len(df.columns)):
-        col = df.columns[i]
-        if pd.api.types.is_object_dtype(df[col]) and col not in bares:
-            dct_bare += [{
+    semantics = []
+    id_mappings = {"Case_ID": "Case ID", "CaseID": "Case ID"}
+    for i, col in enumerate(df.columns):
+        if pd.api.types.is_object_dtype(df[col]) and col not in id_mappings:
+            semantics += [{
                 'name': col,
                 'semantic': 'CategorialAttribute',
                 'format': None,
                 'idx': i}]
-        elif pd.api.types.is_numeric_dtype(df[col]) and col not in bares:
-            dct_bare += [{
+        elif pd.api.types.is_numeric_dtype(df[col]) and col not in id_mappings:
+            semantics += [{
                 'name': col,
                 'semantic': 'NumericAttribute',
                 'format': None,
                 'idx': i}]
-        else:
-            dct_bare += [{
-                'name': col,
-                'semantic': col,
+        elif col in id_mappings:
+            semantics += [{
+                'name': id_mappings[col],
+                'semantic': id_mappings[col],
                 'format': None,
                 'idx': i}]
 
-    return dct_bare
+    return semantics
