@@ -88,7 +88,8 @@ class LogsAPI(ResourceAPI):
         """
         return self.get_resource_id('logs', contains, **kwargs)
 
-    def describe_log(self, contains: str = None, log_id: str = None, **kwargs) -> dict:
+    def describe_log(self, contains: str = None, log_id: str = None,
+                     **kwargs) -> dict:
         """
         Get the description of log.
 
@@ -211,7 +212,7 @@ class LogsAPI(ResourceAPI):
 
         For the passed event log data frame we expect at least the following
         columns:
-        - "Case_ID" for the case id, any dtype
+        - "Case_ID" or "CaseID" for the case id, any dtype
         - "Action" of dtype object for activities
         - "Start" of dtype datetime64 or object for the first timestamp
         The "Complete" column of type datetime64 or object is optional.
@@ -289,7 +290,7 @@ class LogsAPI(ResourceAPI):
 
         For the passed event log data frame we expect at least the following
         columns:
-        * "Case_ID" for the case id, any dtype
+        * "Case_ID" or "CaseID" for the case id, any dtype
         * "Action" of dtype object for activities
         * "Start" of dtype datetime64 or object for the first timestamp
         The "Complete" column of type datetime64 or object is optional.
