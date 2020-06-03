@@ -4,17 +4,17 @@ log management api requests
 
 import io
 import json
+from pathlib import Path
 from typing import Union, List, TextIO, BinaryIO
 
 import pandas as pd
 from requests import Response
 
-from .resources import ResourceAPI
-from .utils import create_case_semantics_from_df, create_event_semantics_from_df
 from .decorators import expect_json
 from .decorators import handle_response
-from pathlib import Path
-
+from .resources import ResourceAPI
+from .utils import create_case_semantics_from_df, \
+    create_event_semantics_from_df
 
 
 def prepare_semantics(semantics: Union[str, list]):
@@ -258,8 +258,8 @@ class LogsAPI(ResourceAPI):
                                          caseAttributeFile, caseAttributeSemantics, logName=None):
 
         files = {
-            'eventCSVFile': (logFile.split('/')[-1], open(logFile, 'rb'), 'text/csv'),
-            'caseAttributesFile': (caseAttributeFile.split('/')[-1], open(caseAttributeFile, 'rb'), 'text/csv'),
+            'eventCSVFile': (Path(logFile).name, open(logFile, 'rb'), 'text/csv'),
+            'caseAttributesFile': (Path(caseAttributeFile).name, open(caseAttributeFile, 'rb'), 'text/csv'),
         }
 
         semantics = {
