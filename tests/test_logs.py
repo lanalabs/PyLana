@@ -124,25 +124,28 @@ class TestLogsAPI(unittest.TestCase):
             .loc[:, ['Action', 'Case_ID', 'Start', 'Event_Numeric', 'Event_Category']]
 
         records = [
-            {'Case_ID': 1, 'Case_Numeric': 1000, 'Case_Category': 'A2'},
-            {'Case_ID': 2, 'Case_Numeric': 3000, 'Case_Category': 'C2'},
-            {'Case_ID': 3, 'Case_Numeric': 2000, 'Case_Category': 'D2'}
+            {'CaseID': 1, 'Case_Numeric': 1000, 'Case_Category': 'A2'},
+            {'CaseID': 2, 'Case_Numeric': 3000, 'Case_Category': 'C2'},
+            {'CaseID': 3, 'Case_Numeric': 2000, 'Case_Category': 'D2'}
         ]
         df_case = pd.DataFrame(records)\
-            .astype({'Case_ID': str, 'Case_Numeric': int, 'Case_Category': str})
+            .astype({'CaseID': str, 'Case_Numeric': int, 'Case_Category': str})
 
+        msg = 'failed to upload event log from data frame'
         resp = self.api.upload_event_log_df(
             'pylana-test-log-from-df', df_log, df_case, time_format='yyyy-MM-dd HH:mm:ss')
-
-        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(resp.status_code, 200, msg)
 
         log_id = resp.json()['logId']
 
+        msg = 'failed to append events to existing event log from data frame'
         resp_appended = self.api.append_events_df(log_id, df_log, time_format='yyyy-MM-dd HH:mm:ss')
-        self.assertEqual(resp_appended.status_code, 200)
+        self.assertEqual(resp_appended.status_code, 200, msg)
 
+        msg = 'failed to append case attributes  to existing event log from ' \
+              'data frame'
         resp_appended = self.api.append_case_attributes_df(log_id, df_case)
-        self.assertEqual(resp_appended.status_code, 200)
+        self.assertEqual(resp_appended.status_code, 200, msg)
 
     def test_upload_event_log_file(self):
 
