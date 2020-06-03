@@ -129,20 +129,47 @@ class TestLogsAPI(unittest.TestCase):
             {'Case_ID': 3, 'Case_Numeric': 2000, 'Case_Category': 'D2'}
         ]
         df_case = pd.DataFrame(records)\
-            .astype({'Case_ID': str, 'Case_Numeric': int, 'Case_Category': str})
+            .astype({'Case_ID': str, 'Case_Numeric': int, 'Case_Category':
+            str})
 
+        msg = 'failed to upload event log from data frame'
         resp = self.api.upload_event_log_df(
             'pylana-test-log-from-df', df_log, 'yyyy-MM-dd HH:mm:ss', df_case)
-
-        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(resp.status_code, 200, msg)
 
         log_id = resp.json()['logId']
 
+        msg = 'failed to append events to existing event log from data frame'
         resp_appended = self.api.append_events_df(log_id, df_log, time_format='yyyy-MM-dd HH:mm:ss')
-        self.assertEqual(resp_appended.status_code, 200)
+        self.assertEqual(resp_appended.status_code, 200, msg)
 
+        msg = 'failed to append case attributes  to existing event log from ' \
+              'data frame'
         resp_appended = self.api.append_case_attributes_df(log_id, df_case)
-        self.assertEqual(resp_appended.status_code, 200)
+        self.assertEqual(resp_appended.status_code, 200, msg)
+
+    def test_upload_event_log_file(self):
+
+        event_path = './tests/data/pylana-event-log.csv'
+        case_path = './tests/data/pylana-case-attributes.csv'
+
+        event_semantics = "./tests/data/pylana_event_semantics.json"
+        case_semantics = "./tests/data/pylana_case_semantics.json"
+
+        log_name = "Test_Log"
+        time_format = "yyyy-MM-dd"
+
+        resp = self.api.upload_event_log_file(log_name, event_file_path=event_path,
+                                  case_file_path=case_path,
+                                  event_semantics_path=event_semantics,
+                                  case_semantics_path=case_semantics)
+        self.assertEqual(resp.status_code, 200)
+
+
+
+
+
+
 
     def test_log_sharing(self):
         log_id = self.api.get_log_id('Incident.*')
@@ -153,6 +180,7 @@ class TestLogsAPI(unittest.TestCase):
         resp_unshare = self.api.unshare_log(log_id)
         resp_unshare.raise_for_status()
         # self.assertEqual(resp_unshare.status_code, 200)
+
 
     # the z character ensures that this is the last test to be executed
     def test_z_delete_logs(self):

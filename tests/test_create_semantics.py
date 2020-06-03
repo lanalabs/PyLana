@@ -34,22 +34,25 @@ class TestCreateSemantics(unittest.TestCase):
         df_log = pd.DataFrame(records)\
             .astype({'Case_ID': str, 'Action': str, 'Start': 'datetime64[ns]', 'Count': float, 'Category': str})\
             .loc[:, ['Action', 'Case_ID', 'Start', 'Count', 'Category']]
-        expected = [{'format': None, 'idx': 0, 'name': 'Case_ID', 'semantic': 'Case ID'},
-                    {'format': None, 'idx': 1, 'name': 'Action', 'semantic': 'Action'},
+        expected = [{'format': None, 'idx': 0, 'name': 'Action',
+                     'semantic': 'Action'},
+                    {'format': None, 'idx': 1, 'name': 'Case ID',
+                     'semantic': 'Case ID'},
                     {'format': "yyyy-MM-dd'T'HH:mm:ss.SSSSSS",
                      'idx': 2,
                      'name': 'Start',
                      'semantic': 'Start'},
+                    {'format': None, 'idx': 3, 'name': 'Count',
+                     'semantic': 'NumericAttribute'},
                     {'format': None,
-                     'idx': 3,
+                     'idx': 4,
                      'name': 'Category',
-                     'semantic': 'CategorialAttribute'},
-                    {'format': None, 'idx': 4, 'name': 'Count', 'semantic': 'NumericAttribute'}]
+                     'semantic': 'CategorialAttribute'}
+                    ]
 
-        df_res, semantics_res = create_event_semantics_from_df(df_log)
+        semantics_res = create_event_semantics_from_df(df_log)
 
         msg = 'failed to derive semantics from pandas data frame'
-        self.assertListEqual(df_res.columns.values.tolist(), ['Case_ID', 'Action', 'Start', 'Category', 'Count'], msg)
         self.assertCountEqual(semantics_res, expected, msg)
 
     def test_create_case_semantics_from_df(self):
@@ -60,13 +63,17 @@ class TestCreateSemantics(unittest.TestCase):
         ]
         df_case = pd.DataFrame(records)\
             .astype({'Case_ID': str, 'Numeric': int, 'Categorical': str})
-        expected = [{'idx': 0, 'name': 'Case_ID', 'semantic': 'Case ID'},
-                    {'idx': 1, 'name': 'Categorical', 'semantic': 'CategorialAttribute'},
-                    {'idx': 2, 'name': 'Boolean', 'semantic': 'CategorialAttribute'},
-                    {'idx': 3, 'name': 'Numeric', 'semantic': 'NumericAttribute'}]
+        expected = [
+            {'format': None, 'idx': 0, 'name': 'Case ID',
+             'semantic': 'Case ID'},
+            {'format': None, 'idx': 1, 'name': 'Numeric',
+             'semantic': 'NumericAttribute'},
+            {'format': None, 'idx': 2, 'name': 'Categorical',
+             'semantic': 'CategorialAttribute'},
+            {'format': None, 'idx': 3, 'name': 'Boolean',
+             'semantic': 'CategorialAttribute'}
+                    ]
 
-        df_res, semantics_res = create_case_semantics_from_df(df_case)
         msg = 'failed to derive case semantics from pandas data frame: '
-        self.assertListEqual(df_res.columns.values.tolist(), [semantics['name'] for semantics in semantics_res],
-                             msg + 'inconsistent column ordering')
+        semantics_res = create_case_semantics_from_df(df_case)
         self.assertCountEqual(semantics_res, expected, msg + 'wrong type semantics')
