@@ -5,7 +5,7 @@ log management api requests
 import io
 import json
 from pathlib import Path
-from typing import Union, List, TextIO, BinaryIO
+from typing import Union, List, TextIO, BinaryIO, Optional
 
 import pandas as pd
 from requests import Response
@@ -205,11 +205,12 @@ class LogsAPI(ResourceAPI):
         """
         return self.delete_resources('logs', contains, ids, **kwargs)
 
-    def request_event_csv(self, log_id: str, **kwargs) -> Response:
+    def request_event_csv(self, log_id: str, mining_request: Optional[dict] = None,
+                          **kwargs) -> Response:
         """
         request the enriched event csv
         """
-        request_field = json.dumps({
+        request_field = json.dumps(mining_request) if mining_request else json.dumps({
             'activityExclusionFilter': [],
             'includeHeader': True,
             'includeLogId': False,
@@ -219,17 +220,19 @@ class LogsAPI(ResourceAPI):
             'graphControl': {'sizeControl': 'Frequency', 'colorControl': 'AverageDuration'}})
         return self.get(f'/api/eventCsvWithFilter?request={request_field}', **kwargs)
 
-    def get_event_log(self, log_name: str = None, log_id: str = None, **kwargs) -> pd.DataFrame:
+    def get_event_log(self, log_name: str = None, log_id: str = None,
+                      mining_request: Optional[dict] = None, **kwargs) -> pd.DataFrame:
         """
         get the enriched event log as a pandas dataframe
 
         only columns with time stamps are type cast, the other columns remain objects
         """
-
         log_id = log_id or self.get_log_id(log_name)
-        resp = self.request_event_csv(log_id)
-        csv_stream = io.StringIO(resp.text)
-        return pd.read_csv(csv_stream, dtype='object', **kwargs)
+        resp = self.request_event_csv(log_id, mining_request, **kwargs)
+        if resp.status_code >= 400:
+            return pd.DataFrame()
+        csv_stream = io.BytesIO(resp.content)
+        return pd.read_csv(csv_stream, dtype='object')
 
     @handle_response
     def share_log(self, log_id: str) -> Response:
