@@ -57,13 +57,13 @@ class LogsAPI(ResourceAPI):
 
         Args:
             contains:
-                A string representing a regular expression
+                A string denoting a regular expression
                 matched against the log names.
             **kwargs:
                 Keyword arguments passed to requests functions.
 
         Returns:
-            A list of strings representing log ids.
+            A list of strings denoting log ids.
         """
         return self.get_resource_ids('logs', contains, **kwargs)
 
@@ -76,14 +76,14 @@ class LogsAPI(ResourceAPI):
 
         Args:
             contains:
-                A string representing a regular expression
+                A string denoting a regular expression
                 matched against the log names.
             **kwargs:
                 Keyword arguments passed to requests functions.
 
 
         Returns:
-            A string denoting the name of the log.
+            A string denoting the id of the log.
         """
         return self.get_resource_id('logs', contains, **kwargs)
 
@@ -93,15 +93,15 @@ class LogsAPI(ResourceAPI):
 
         Args:
             log_id:
-                A string representing the id of the log, takes precedence
+                A string denoting the id of the log, takes precedence
                 over contains.
             contains:
-                A string representing a regular expression matched against
+                A string denoting a regular expression matched against
                 the log names, matching several names raises an exception.
             **kwargs:
                 Keyword arguments passed to requests functions.
         Returns:
-            A dictionary representing the log description.
+            A dictionary denoting the log description.
 
         """
         return self.describe_resource('logs', contains, log_id, **kwargs)
@@ -119,12 +119,12 @@ class LogsAPI(ResourceAPI):
             name:
                 A string denoting the name for the uploaded log.
             log:
-                A string representing the event log as csv.
+                A string denoting the event log as csv.
             log_semantics:
                 The event log semantics either serialised as a
                 string or a list of dictionaries.
             case_attributes:
-                (optional) A string representing the case
+                (optional) A string denoting the case
                 attributes as csv.
             case_attribute_semantics:
                 (optional) The event case attributes semantics
@@ -176,12 +176,12 @@ class LogsAPI(ResourceAPI):
 
         Args:
             log:
-                A string or binary stream representing the event log.
+                A string or binary stream denoting the event log.
             log_semantics:
                 The event log semantics either serialised as a
                 string or a list of dictionaries.
             case:
-                (optional) A text or binary stream representing the
+                (optional) A text or binary stream denoting the
                 case attributes as csv.
             case_semantics:
                 (optional) The event case attributes semantics
@@ -189,7 +189,7 @@ class LogsAPI(ResourceAPI):
                 dictionaries, required if case_attributes is
                 passed.
             prefix:
-                (optional) A string representing a prefix of the log name.
+                (optional) A string denoting a prefix of the log name.
                 Defaults to "pylana-".
             **kwargs:
                 Keyword arguments passed to requests functions.
@@ -222,9 +222,9 @@ class LogsAPI(ResourceAPI):
 
         Args:
             name:
-                A string representing the name under which the log is uploaded.
+                A string denoting the name under which the log is uploaded.
             df_log:
-                A pandas data frame representing the event log.
+                A pandas data frame denoting the event log.
             time_format:
                 A string denoting the timestamp format. Needs to match the
                 string format of the "Start" and, if present, "Complete"
@@ -233,7 +233,7 @@ class LogsAPI(ResourceAPI):
                 For a format definition, see
                 https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#patterns
             df_case:
-                (Optional) A pandas data frame representing the case
+                (Optional) A pandas data frame denoting the case
                 attributes.
             **kwargs:
                 Keyword arguments passed to requests functions.
@@ -270,10 +270,10 @@ class LogsAPI(ResourceAPI):
 
         Args:
             log_id:
-                A string representing the id of the log to which the events
+                A string denoting the id of the log to which the events
                 should be appended.
             df_log:
-                A pandas data frame representing the event log.
+                A pandas data frame denoting the event log.
             time_format:
                 A string denoting the timestamp format. Needs to match the
                 string format of the "Start" and, if present, "Complete"
@@ -309,10 +309,10 @@ class LogsAPI(ResourceAPI):
 
         Args:
             log_id:
-                A string representing the id of the log for which the case
+                A string denoting the id of the log for which the case
                 attributes should be appended.
             df_case:
-                A pandas data frame representing the case attributes.
+                A pandas data frame denoting the case attributes.
             **kwargs:
                 Keyword arguments passed to requests functions.
 
@@ -336,7 +336,7 @@ class LogsAPI(ResourceAPI):
         
         Args:
             log_id:
-                A string representing the id of the log.
+                A string denoting the id of the log.
             **kwargs:
                 Keyword arguments passed to requests functions.
 
@@ -355,7 +355,7 @@ class LogsAPI(ResourceAPI):
                 A list of strings denoting the ids of logs to delete. Tales
                 precedence over contains.
             contains:
-                A string representing a regular expression matched against
+                A string denoting a regular expression matched against
                 the log names.
             **kwargs:
                 Keyword arguments passed to requests functions.
@@ -373,7 +373,7 @@ class LogsAPI(ResourceAPI):
         
         Args:
             log_id:
-                A string representing the id of the log.
+                A string denoting the id of the log.
             mining_request:
                 (optional) A mining request data structure sent with
                 request to filter down the log.
@@ -406,7 +406,7 @@ class LogsAPI(ResourceAPI):
         
         Args:
             log_id:
-                A string representing the id of the log. Tales precedence
+                A string denoting the id of the log. Tales precedence
                 over log_name.
             log_name:
                 A string denoting the name of the log.
@@ -417,7 +417,7 @@ class LogsAPI(ResourceAPI):
                 Keyword arguments passed to requests functions.
 
         Returns:
-            A data frame representing the enriched log.
+            A data frame denoting the enriched log.
         """
 
         log_id = log_id or self.get_log_id(log_name)
