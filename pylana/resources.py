@@ -79,7 +79,7 @@ class ResourceAPI(API):
         ids = ids or self.get_resource_ids(kind, contains, **kwargs)
         return [self.delete_resource(kind, id_) for id_ in ids]
 
-    def connect_resources(self, dct, **kwargs):
+    def connect_resources(self, dct, **kwargs) -> Response:
         return self.post('/api/v2/resource-connections', json=dct, **kwargs)
 
     def connect_model(self, log_id, model_id, **kwargs):
@@ -92,4 +92,22 @@ class ResourceAPI(API):
 
     def connect_working_schedule(self, log_id, working_schedule_id, **kwargs):
         dct = {'log_id': log_id, 'working_schedule_id': working_schedule_id}
+        return self.connect_resources(dct, **kwargs)
+
+    def connect_shiny_dashboard(self, log_id, shiny_dashboard_id, **kwargs) \
+            -> Response:
+        """
+        Connect an shiny dashboard and a log by ids.
+
+        Args:
+            log_id:
+                A string representing the id of the log.
+            shiny_dashboard_id:
+                A string representing the id of the shiny dashboard.
+            **kwargs:
+                Keyword arguments passed to requests functions.
+        Returns:
+            The requests response of the lana api call.
+        """
+        dct = {'log_id': log_id, 'shiny_dashboard_id': shiny_dashboard_id}
         return self.connect_resources(dct, **kwargs)

@@ -2,7 +2,6 @@
 shiny dashboard management api requests
 """
 
-
 import io
 import json
 import os
@@ -65,7 +64,7 @@ class ShinyDashboardAPI(ResourceAPI):
         """
         return self.create_resource('shiny-dashboards', json={'name': name}, **kwargs)
 
-    def upload_shiny_dashboard(self, dashboard_id: str, file: io.IOBase, **kwargs) -> Response:
+    def upload_shiny_dashboard(self, dashboard_id: str, file_path: str, **kwargs) -> Response:
         """
         upload and replace shiny dashboard source code
 
@@ -76,12 +75,15 @@ class ShinyDashboardAPI(ResourceAPI):
 
         Args:
             dashboard_id: a string denoting the shiny dashboard
-            file: a io.Base pointing to the zipped dashboard code
+            file_path: a path pointing to the zipped dashboard file
 
         Returns:
             the response of the api call
         """
-        return self.post(f"/api/shiny-dashboards/{dashboard_id}/source", files=file, **kwargs)
+        with open(file_path, "rb") as file:
+            resp = self.post(f"/api/shiny-dashboards/{dashboard_id}/source",
+                             files={'file': file}, **kwargs)
+        return resp
 
     def delete_shiny_dashboard(self, shiny_dashboard_id: str, **kwargs):
         """
@@ -118,13 +120,6 @@ class ShinyDashboardAPI(ResourceAPI):
         }}
         return self.patch(f"/api/shiny-dashboards/{shiny_dashboard_id}", data=body, **kwargs)
 
-    def connect_shiny_dashboard(self, log_id, shiny_dashboard_id, **kwargs):
-        """
-        connect an shiny dashboard with a log by their ids
-        """
-        dct = {'log_id': log_id, 'shiny_dashboard_id': shiny_dashboard_id}
-        return self.connect_resources(dct, **kwargs)
-
     # legacy
     # ------
 
@@ -152,7 +147,7 @@ class ShinyDashboardAPI(ResourceAPI):
         return self.post(f"/api/shiny-dashboards/{dashboardId}/source", files=file)
 
     # Id arguments need to be lists
-    def shareDashboard(self, dashboardId:str, userIds: str, projectIds: str, organizationIds: str) -> Response:
+    def shareDashboard(self, dashboardId: str, userIds: str, projectIds: str, organizationIds: str) -> Response:
         body = {"sharedInformation": {
             "userIds": userIds,
             "projectIds": projectIds,

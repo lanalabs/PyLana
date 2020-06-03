@@ -144,6 +144,29 @@ class TestLogsAPI(unittest.TestCase):
         resp_appended = self.api.append_case_attributes_df(log_id, df_case)
         self.assertEqual(resp_appended.status_code, 200)
 
+    def test_upload_event_log_file(self):
+
+        event_path = './tests/data/pylana-event-log.csv'
+        case_path = './tests/data/pylana-case-attributes.csv'
+
+        event_semantics = "./tests/data/pylana_event_semantics.json"
+        case_semantics = "./tests/data/pylana_case_semantics.json"
+
+        log_name = "Test_Log"
+        time_format = "yyyy-MM-dd"
+
+        resp = self.api.upload_event_log_file(log_name, event_file_path=event_path,
+                                  case_file_path=case_path,
+                                  event_semantics_path=event_semantics,
+                                  case_semantics_path=case_semantics)
+        self.assertEqual(resp.status_code, 200)
+
+
+
+
+
+
+
     def test_log_sharing(self):
         log_id = self.api.get_log_id('Incident.*')
         resp_share = self.api.share_log(log_id)
@@ -153,6 +176,7 @@ class TestLogsAPI(unittest.TestCase):
         resp_unshare = self.api.unshare_log(log_id)
         resp_unshare.raise_for_status()
         # self.assertEqual(resp_unshare.status_code, 200)
+
 
     # the z character ensures that this is the last test to be executed
     def test_z_delete_logs(self):
