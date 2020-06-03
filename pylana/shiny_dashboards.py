@@ -2,7 +2,6 @@
 shiny dashboard management api requests
 """
 
-
 import io
 import json
 import os
@@ -16,8 +15,6 @@ from .resources import ResourceAPI
 
 
 class ShinyDashboardAPI(ResourceAPI):
-
-
 
     def list_shiny_dashboards(self, **kwargs) -> List[dict]:
         """
@@ -78,13 +75,15 @@ class ShinyDashboardAPI(ResourceAPI):
 
         Args:
             dashboard_id: a string denoting the shiny dashboard
-            file_path: a io.Base pointing to the zipped dashboard code
+            file_path: a path pointing to the zipped dashboard file
 
         Returns:
             the response of the api call
         """
-        file = {'file': open(file_path, 'rb')}
-        return self.post(f"/api/shiny-dashboards/{dashboard_id}/source", files=file, **kwargs)
+        with open(file_path, "rb") as file:
+            resp = self.post(f"/api/shiny-dashboards/{dashboard_id}/source",
+                             files={'file': file}, **kwargs)
+        return resp
 
     def delete_shiny_dashboard(self, shiny_dashboard_id: str, **kwargs):
         """
@@ -121,7 +120,6 @@ class ShinyDashboardAPI(ResourceAPI):
         }}
         return self.patch(f"/api/shiny-dashboards/{shiny_dashboard_id}", data=body, **kwargs)
 
-
     # legacy
     # ------
 
@@ -149,7 +147,7 @@ class ShinyDashboardAPI(ResourceAPI):
         return self.post(f"/api/shiny-dashboards/{dashboardId}/source", files=file)
 
     # Id arguments need to be lists
-    def shareDashboard(self, dashboardId:str, userIds: str, projectIds: str, organizationIds: str) -> Response:
+    def shareDashboard(self, dashboardId: str, userIds: str, projectIds: str, organizationIds: str) -> Response:
         body = {"sharedInformation": {
             "userIds": userIds,
             "projectIds": projectIds,

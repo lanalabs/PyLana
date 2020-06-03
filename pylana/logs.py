@@ -4,15 +4,17 @@ log management api requests
 
 import io
 import json
-from typing import Union, List, TextIO, BinaryIO
+from pathlib import Path
+from typing import Union, List, TextIO, BinaryIO, Optional
 
 import pandas as pd
 from requests import Response
 
-from .resources import ResourceAPI
-from .utils import create_case_semantics_from_df, create_event_semantics_from_df
 from .decorators import expect_json
 from .decorators import handle_response
+from .resources import ResourceAPI
+from .utils import create_case_semantics_from_df, \
+    create_event_semantics_from_df
 
 
 def prepare_semantics(semantics: Union[str, list]):
@@ -140,28 +142,32 @@ class LogsAPI(ResourceAPI):
     def upload_event_log_file(self, name: str,
                             event_file_path: str,
                             case_file_path: str,
-                            event_semantics: str,
-                            case_semantics: str) -> Response:
+                            event_semantics_path: str,
+                            case_semantics_path: str, **kwargs) -> Response:
         """
-        upload an event log from file location with semantics
+        upload an event log from the file locations of the event log, case attributes and corresponding
+        semantics
 
-        Semantic file via path
+        files are read in as binaries to be able to allow for multiple encodings in the source file
         """
-        files = {
-            'eventCSVFile': (event_file_path.split('/')[-1], open(event_file_path, 'rb'), 'text/csv'),
-            'caseAttributeFile': (case_file_path.split('/')[-1], open(case_file_path, 'rb'), 'text/csv'),
-        }
+        with open(event_file_path, "rb") as event_file, open(case_file_path, "rb") as case_file, \
+                open(event_semantics_path) as event_semantics, open(case_semantics_path) as case_semantics:
 
-        semantics = {
-            'eventSemantics': open(event_semantics).read(),
-            'caseSemantics': open(case_semantics).read(),
-            'logName': name,
-            'timeZone': "Europe/Berlin"
-        }
+            files = {
+                'eventCSVFile': (Path(event_file_path).name, event_file, 'text/csv'),
+                'caseAttributeFile': (Path(case_file_path).name, case_file, 'text/csv'),
+            }
 
-        return self.post('/api/logs/csv-case-attributes-event-semantics',
-                         files=files, data=semantics)
+            semantics = {
+                'eventSemantics': event_semantics.read(),
+                'caseSemantics': case_semantics.read(),
+                'logName': name,
+                'timeZone': "Europe/Berlin"
+            }
 
+            resp = self.post('/api/logs/csv-case-attributes-event-semantics',
+                             files=files, data=semantics, **kwargs)
+        return resp
 
     def append_events_df(self, log_id,
                          df_log: pd.DataFrame, time_format: str, **kwargs) -> Response:
@@ -199,11 +205,12 @@ class LogsAPI(ResourceAPI):
         """
         return self.delete_resources('logs', contains, ids, **kwargs)
 
-    def request_event_csv(self, log_id: str, **kwargs) -> Response:
+    def request_event_csv(self, log_id: str, mining_request: Optional[dict] = None,
+                          **kwargs) -> Response:
         """
         request the enriched event csv
         """
-        request_field = json.dumps({
+        request_field = json.dumps(mining_request) if mining_request else json.dumps({
             'activityExclusionFilter': [],
             'includeHeader': True,
             'includeLogId': False,
@@ -213,17 +220,19 @@ class LogsAPI(ResourceAPI):
             'graphControl': {'sizeControl': 'Frequency', 'colorControl': 'AverageDuration'}})
         return self.get(f'/api/eventCsvWithFilter?request={request_field}', **kwargs)
 
-    def get_event_log(self, log_name: str = None, log_id: str = None, **kwargs) -> pd.DataFrame:
+    def get_event_log(self, log_name: str = None, log_id: str = None,
+                      mining_request: Optional[dict] = None, **kwargs) -> pd.DataFrame:
         """
         get the enriched event log as a pandas dataframe
 
         only columns with time stamps are type cast, the other columns remain objects
         """
-
         log_id = log_id or self.get_log_id(log_name)
-        resp = self.request_event_csv(log_id)
-        csv_stream = io.StringIO(resp.text)
-        return pd.read_csv(csv_stream, dtype='object', **kwargs)
+        resp = self.request_event_csv(log_id, mining_request, **kwargs)
+        if resp.status_code >= 400:
+            return pd.DataFrame()
+        csv_stream = io.BytesIO(resp.content)
+        return pd.read_csv(csv_stream, dtype='object')
 
     @handle_response
     def share_log(self, log_id: str) -> Response:
@@ -252,8 +261,8 @@ class LogsAPI(ResourceAPI):
                                          caseAttributeFile, caseAttributeSemantics, logName=None):
 
         files = {
-            'eventCSVFile': (logFile.split('/')[-1], open(logFile, 'rb'), 'text/csv'),
-            'caseAttributesFile': (caseAttributeFile.split('/')[-1], open(caseAttributeFile, 'rb'), 'text/csv'),
+            'eventCSVFile': (Path(logFile).name, open(logFile, 'rb'), 'text/csv'),
+            'caseAttributesFile': (Path(caseAttributeFile).name, open(caseAttributeFile, 'rb'), 'text/csv'),
         }
 
         semantics = {
