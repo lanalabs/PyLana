@@ -1,5 +1,5 @@
 """
-log management api requests
+log management api requests functions and methods
 """
 
 import io
@@ -16,9 +16,9 @@ from pylana.decorators import expect_json
 from pylana.decorators import handle_response
 
 
-# TODO docstring missing 
 def _serialise_semantics(semantics: Union[str, list]):
-    return json.dumps(semantics) if not isinstance(semantics, str) else semantics
+    return \
+        json.dumps(semantics) if not isinstance(semantics, str) else semantics
 
 
 class LogsAPI(ResourceAPI):
@@ -36,7 +36,6 @@ class LogsAPI(ResourceAPI):
         """    
         return self.list_resources('logs', **kwargs)
 
-    # TODO check whether it can move to resource api
     @expect_json
     def list_user_logs(self, **kwargs) -> list:
         """
@@ -74,14 +73,12 @@ class LogsAPI(ResourceAPI):
 
         The name needs to be unique, otherwise an exception is raised.
 
-
         Args:
             contains:
                 A string denoting a regular expression
                 matched against the log names.
             **kwargs:
                 Keyword arguments passed to requests functions.
-
 
         Returns:
             A string denoting the id of the log.
@@ -102,9 +99,9 @@ class LogsAPI(ResourceAPI):
                 the log names, matching several names raises an exception.
             **kwargs:
                 Keyword arguments passed to requests functions.
+
         Returns:
             A dictionary denoting the log description.
-
         """
         return self.describe_resource('logs', contains, log_id, **kwargs)
 
@@ -254,22 +251,45 @@ class LogsAPI(ResourceAPI):
                                      case_attribute_semantics=case_semantics, **kwargs)
 
     def upload_event_log_file(self, name: str,
-                            event_file_path: str,
-                            case_file_path: str,
-                            event_semantics_path: str,
-                            case_semantics_path: str, **kwargs) -> Response:
+                              event_file_path: str, case_file_path: str,
+                              event_semantics_path: str,
+                              case_semantics_path: str, **kwargs) -> Response:
         """
-        upload an event log from the file locations of the event log, case attributes and corresponding
-        semantics
+        Upload an event log with case attributes by their path.
 
-        files are read in as binaries to be able to allow for multiple encodings in the source file
+        Paths to semantic files have to be passed as well. All files are read
+        in as binaries, the lana backend will try to infer the encoding.
+
+        Args:
+            name:
+                A string denoting the name under which the
+                log will be uploaded.
+            event_file_path:
+                A string denoting the path to the event log csv file.
+            case_file_path:
+                A string denoting the path to the case attribute csv file.
+            event_semantics_path:
+                A string denoting the path to the event log semantics
+                json file.
+            case_semantics_path:
+                A string denoting the path to the case attributes semantics
+                json file.
+            **kwargs:
+                Keyword arguments passed to requests functions.
+
+        Returns:
+            The requests response of the lana api call.
         """
-        with open(event_file_path, "rb") as event_file, open(case_file_path, "rb") as case_file, \
-                open(event_semantics_path) as event_semantics, open(case_semantics_path) as case_semantics:
+        with open(event_file_path, "rb") as event_file, \
+                open(case_file_path, "rb") as case_file, \
+                open(event_semantics_path) as event_semantics,\
+                open(case_semantics_path) as case_semantics:
 
             files = {
-                'eventCSVFile': (Path(event_file_path).name, event_file, 'text/csv'),
-                'caseAttributeFile': (Path(case_file_path).name, case_file, 'text/csv'),
+                'eventCSVFile': (Path(event_file_path).name,
+                                 event_file, 'text/csv'),
+                'caseAttributeFile': (Path(case_file_path).name,
+                                      case_file, 'text/csv'),
             }
 
             semantics = {
@@ -279,9 +299,8 @@ class LogsAPI(ResourceAPI):
                 'timeZone': "Europe/Berlin"
             }
 
-            resp = self.post('/api/logs/csv-case-attributes-event-semantics',
-                             files=files, data=semantics, **kwargs)
-        return resp
+            return self.post('/api/logs/csv-case-attributes-event-semantics',
+                         files=files, data=semantics, **kwargs)
 
     def append_events_df(self, log_id,
                          df_log: pd.DataFrame, time_format: str, **kwargs) -> Response:
@@ -294,11 +313,6 @@ class LogsAPI(ResourceAPI):
         * "Action" of dtype object for activities
         * "Start" of dtype datetime64 or object for the first timestamp
         The "Complete" column of type datetime64 or object is optional.
-
-        For the passed case attributes we expect at last the columns "Case_ID"
-        of any dtype.
-
-        Types of other columns are inferred from their dtypes.
 
         Args:
             log_id:
@@ -336,8 +350,8 @@ class LogsAPI(ResourceAPI):
         """
         Append case attributes to a log from a pandas data frame.
 
-        For the passed case attributes we expect at last the columns "Case_ID"
-        of any dtype.
+        For the passed case attributes we expect at last the case id
+        column named "Case_ID" or "CaseID".
 
         Args:
             log_id:

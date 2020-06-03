@@ -29,7 +29,8 @@ class ShinyDashboardAPI(ResourceAPI):
         """
         return self.list_resources('shiny-dashboards', **kwargs)
 
-    def get_shiny_dashboard_ids(self, contains: str, **kwargs) -> List[str]:
+    def get_shiny_dashboard_ids(self, contains: str = '.*', **kwargs) \
+            -> List[str]:
         """
         List shiny dashboard ids with matching names.
 
@@ -38,7 +39,7 @@ class ShinyDashboardAPI(ResourceAPI):
                 A string denoting a regular expression
                 matched against the shiny dashboard names.
             **kwargs: 
-                Keyword arguments passed to requests functions
+                Keyword arguments passed to requests functions.
             
         Returns:
             A list of strings denoting shiny dashboard ids.
@@ -66,7 +67,9 @@ class ShinyDashboardAPI(ResourceAPI):
         """
         return self.get_resource_id('shiny-dashboards', contains, **kwargs)
 
-    def describe_shiny_dashboard(self, contains: str = None, shiny_dashboard_id: str = None, **kwargs) -> dict:
+    def describe_shiny_dashboard(self, contains: str = None,
+                                 shiny_dashboard_id: str = None, **kwargs) \
+            -> dict:
         """
         Get shiny dashboard metadata.
 
@@ -141,10 +144,12 @@ class ShinyDashboardAPI(ResourceAPI):
         Returns:
             The requests response of the lana api call.
         """
-        return self.delete_resource('shiny-dashboards', shiny_dashboard_id, **kwargs)
+        return self.delete_resource('shiny-dashboards', shiny_dashboard_id,
+                                    **kwargs)
 
     def delete_shiny_dashboards(self, contains: str = None,
-                                ids: List[str] = None, **kwargs) -> Response:
+                                ids: List[str] = None, **kwargs) -> \
+            List[Response]:
         """
         Delete shiny dashboards by id list of name matching
 
@@ -155,9 +160,10 @@ class ShinyDashboardAPI(ResourceAPI):
             ids: 
                 A list of strings denoting shiny dashboard ids.
         Returns:
-            The response of the api call.
+            A list of request responses of the calls to the lana api.
         """
-        return self.delete_resources('shiny-dashboards', contains, ids, **kwargs)
+        return self.delete_resources('shiny-dashboards', contains, ids,
+                                     **kwargs)
 
     # TODO consider sharing by names
     def share_shiny_dashboard(self, shiny_dashboard_id: str,
@@ -179,12 +185,15 @@ class ShinyDashboardAPI(ResourceAPI):
         Returns:
             The requests response of the lana api call.
         """
-        body = {"sharedInformation": {
-            "userIds": user_ids,
-            "projectIds": project_ids,
-            "organizationIds": organization_ids
-        }}
-        return self.patch(f"/api/shiny-dashboards/{shiny_dashboard_id}", data=body, **kwargs)
+        body = {
+            "sharedInformation": {
+                "userIds": user_ids,
+                "projectIds": project_ids,
+                "organizationIds": organization_ids
+            }
+        }
+        return self.patch(f"/api/shiny-dashboards/{shiny_dashboard_id}",
+                          data=body, **kwargs)
 
     def connect_shiny_dashboard(self, log_id, shiny_dashboard_id, **kwargs) \
             -> Response:

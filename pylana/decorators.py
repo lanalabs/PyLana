@@ -34,27 +34,3 @@ def handle_response(method):
             print(e)
         return resp
     return wrapper
-
-
-# TODO check whether this code is actually used more than once
-def extract_ids(method):
-    @functools.wraps(method)
-    def wrapper(self, kind, contains, **kwargs):
-        resources = method(self, kind, contains, **kwargs)
-        rc = re.compile(contains)
-        return [resource['id'] for resource in resources
-                if rc.search(resource['name'])]
-    return wrapper
-
-
-def extract_id(method):
-    @functools.wraps(method)
-    def wrapper(self, kind, contains, **kwargs):
-        ids = method(self, kind, contains, **kwargs)
-        try:
-            [id_] = ids
-        except ValueError as e:
-            raise Exception(f'Found {len(ids)} resources with the pattern {contains}')
-
-        return id_
-    return wrapper

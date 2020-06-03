@@ -2,6 +2,7 @@
 resource management api requests
 """
 
+import re
 from typing import List, Union
 
 from requests import Response
@@ -25,7 +26,7 @@ class ResourceAPI(API):
         """
         return self.get(f'/api/{kind}', **kwargs)
 
-    @extract_ids
+    # @extract_ids
     def get_resource_ids(self, kind: str, contains: str, **kwargs) -> List[str]:
         """
         Get ids of resource with names are matched by regular expression
@@ -42,16 +43,28 @@ class ResourceAPI(API):
         Returns:
             a list of strings representing log ids
         """
-        return self.list_resources(kind, **kwargs)
+        resources = self.list_resources(kind, **kwargs)
+        rc = re.compile(contains)
+        return [resource['id'] for resource in resources
+                if rc.search(resource['name'])]
 
-    @extract_id
+    # @extract_id
     def get_resource_id(self, kind: str, contains: str, **kwargs) -> str:
         """
-        get id of a resource by its name
+        Get id of a resource by its name
 
         name needs to be unique or an exception is raised
         """
-        return self.get_resource_ids(kind, contains, **kwargs)
+        log_ids = self.get_resource_ids(kind, contains, **kwargs)
+
+        try:
+            [log_id] = log_ids
+        except ValueError as e:
+            raise Exception(
+                f'Found {len(log_ids)} resources with the pattern {contains}')
+
+        return log_id
+
 
     @expect_json
     def describe_resource(self, kind: str, contains: str = None, resource_id: str = None, **kwargs) -> dict:
