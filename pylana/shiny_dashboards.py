@@ -2,7 +2,6 @@
 shiny dashboard management api requests
 """
 
-
 import io
 import json
 import os
@@ -97,7 +96,7 @@ class ShinyDashboardAPI(ResourceAPI):
         """
         return self.create_resource('shiny-dashboards', json={'name': name}, **kwargs)
 
-    def upload_shiny_dashboard(self, dashboard_id: str, file: io.IOBase, **kwargs) -> Response:
+    def upload_shiny_dashboard(self, dashboard_id: str, file_path: str, **kwargs) -> Response:
         """
         Upload and replace shiny dashboard source code.
 
@@ -108,14 +107,18 @@ class ShinyDashboardAPI(ResourceAPI):
         Args:
             dashboard_id:
                 A string denoting the shiny dashboard.
-            file: 
-                A io.Base pointing to the zipped dashboard code.
-            **kwargs: Keyword arguments passed to requests functions.
+            file_path:
+                A string denoting the ath to the zipped dashboard code.
+            **kwargs:
+                Keyword arguments passed to requests functions.
 
         Returns:
             The response of the api call
         """
-        return self.post(f"/api/shiny-dashboards/{dashboard_id}/source", files=file, **kwargs)
+        with open(file_path, "rb") as file:
+            resp = self.post(f"/api/shiny-dashboards/{dashboard_id}/source",
+                             files={'file': file}, **kwargs)
+        return resp
 
     def delete_shiny_dashboard(self, shiny_dashboard_id: str, **kwargs):
         """
@@ -209,7 +212,7 @@ class ShinyDashboardAPI(ResourceAPI):
         return self.post(f"/api/shiny-dashboards/{dashboardId}/source", files=file)
 
     # Id arguments need to be lists
-    def shareDashboard(self, dashboardId:str, userIds: str, projectIds: str, organizationIds: str) -> Response:
+    def shareDashboard(self, dashboardId: str, userIds: str, projectIds: str, organizationIds: str) -> Response:
         body = {"sharedInformation": {
             "userIds": userIds,
             "projectIds": projectIds,

@@ -4,6 +4,7 @@ log management api requests
 
 import io
 import json
+from pathlib import Path
 from typing import Union, List, TextIO, BinaryIO, Optional
 
 import pandas as pd
@@ -242,14 +243,44 @@ class LogsAPI(ResourceAPI):
                 The requests response of the lana api call.
         """
 
-        df_events, event_semantics = create_event_semantics_from_df(df_log, time_format=time_format)
-        df_cases, case_semantics = create_case_semantics_from_df(df_case)
+        event_semantics = create_event_semantics_from_df(df_log, time_format=time_format)
+        case_semantics = create_case_semantics_from_df(df_case)
 
         return self.upload_event_log(name,
-                                     log=df_events.to_csv(index=False),
+                                     log=df_log.to_csv(index=False),
                                      log_semantics=event_semantics,
-                                     case_attributes=df_cases.to_csv(index=False),
+                                     case_attributes=df_case.to_csv(index=False),
                                      case_attribute_semantics=case_semantics, **kwargs)
+
+    def upload_event_log_file(self, name: str,
+                            event_file_path: str,
+                            case_file_path: str,
+                            event_semantics_path: str,
+                            case_semantics_path: str, **kwargs) -> Response:
+        """
+        upload an event log from the file locations of the event log, case attributes and corresponding
+        semantics
+
+        files are read in as binaries to be able to allow for multiple encodings in the source file
+        """
+        with open(event_file_path, "rb") as event_file, open(case_file_path, "rb") as case_file, \
+                open(event_semantics_path) as event_semantics, open(case_semantics_path) as case_semantics:
+
+            files = {
+                'eventCSVFile': (Path(event_file_path).name, event_file, 'text/csv'),
+                'caseAttributeFile': (Path(case_file_path).name, case_file, 'text/csv'),
+            }
+
+            semantics = {
+                'eventSemantics': event_semantics.read(),
+                'caseSemantics': case_semantics.read(),
+                'logName': name,
+                'timeZone': "Europe/Berlin"
+            }
+
+            resp = self.post('/api/logs/csv-case-attributes-event-semantics',
+                             files=files, data=semantics, **kwargs)
+        return resp
 
     def append_events_df(self, log_id,
                          df_log: pd.DataFrame, time_format: str, **kwargs) -> Response:
@@ -287,12 +318,12 @@ class LogsAPI(ResourceAPI):
             Returns:
                 The requests response of the lana api call.
         """
-        df_events, event_semantics = \
+        event_semantics = \
             create_event_semantics_from_df(df_log, time_format=time_format)
 
         files = {
             'eventCSVFile': ('event-file',
-                             df_events.to_csv(index=False),
+                             df_log.to_csv(index=False),
                              'text/csv')}
         semantics = {'eventSemantics': _serialise_semantics(event_semantics)}
 
@@ -319,7 +350,7 @@ class LogsAPI(ResourceAPI):
         Returns:
             The requests response of the lana api call.
         """
-        df_case, case_semantics = create_case_semantics_from_df(df_case)
+        case_semantics = create_case_semantics_from_df(df_case)
 
         files = {
             'caseAttributeFile': ('event-file',
@@ -474,8 +505,8 @@ class LogsAPI(ResourceAPI):
                                          caseAttributeFile, caseAttributeSemantics, logName=None):
 
         files = {
-            'eventCSVFile': (logFile.split('/')[-1], open(logFile, 'rb'), 'text/csv'),
-            'caseAttributeFile': (caseAttributeFile.split('/')[-1], open(caseAttributeFile, 'rb'), 'text/csv'),
+            'eventCSVFile': (Path(logFile).name, open(logFile, 'rb'), 'text/csv'),
+            'caseAttributesFile': (Path(caseAttributeFile).name, open(caseAttributeFile, 'rb'), 'text/csv'),
         }
 
         semantics = {
