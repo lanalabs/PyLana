@@ -36,12 +36,14 @@ def handle_response(method):
     return wrapper
 
 
+# TODO check whether this code is actually used more than once
 def extract_ids(method):
     @functools.wraps(method)
     def wrapper(self, kind, contains, **kwargs):
         resources = method(self, kind, contains, **kwargs)
         rc = re.compile(contains)
-        return [log['id'] for log in resources if rc.search(log['name'])]
+        return [resource['id'] for resource in resources
+                if rc.search(resource['name'])]
     return wrapper
 
 

@@ -32,7 +32,14 @@ class TestLogsAPI(unittest.TestCase):
         self.assertIsInstance(log_id, str)
 
         with self.assertRaises(Exception):
-            self.api.get_log_id('1212')
+            self.api.get_log_id('not-an-existing-log')
+
+    def test_get_log_ids(self):
+        log_ids = self.api.get_log_ids()
+        self.assertGreater(len(log_ids), 0)
+
+        log_ids = self.api.get_log_ids(contains='not-an-existing-name-pattern')
+        self.assertEqual(len(log_ids), 0)
 
     def test_request_event_csv(self):
         log_id = self.api.get_log_id('Incident_Management.csv')
@@ -156,20 +163,13 @@ class TestLogsAPI(unittest.TestCase):
         event_semantics = "./tests/data/pylana_event_semantics.json"
         case_semantics = "./tests/data/pylana_case_semantics.json"
 
-        log_name = "Test_Log"
-        time_format = "yyyy-MM-dd"
+        log_name = "pylana-log-from-file"
 
         resp = self.api.upload_event_log_file(log_name, event_file_path=event_path,
                                   case_file_path=case_path,
                                   event_semantics_path=event_semantics,
                                   case_semantics_path=case_semantics)
         self.assertEqual(resp.status_code, 200)
-
-
-
-
-
-
 
     def test_log_sharing(self):
         log_id = self.api.get_log_id('Incident.*')
@@ -180,7 +180,6 @@ class TestLogsAPI(unittest.TestCase):
         resp_unshare = self.api.unshare_log(log_id)
         resp_unshare.raise_for_status()
         # self.assertEqual(resp_unshare.status_code, 200)
-
 
     # the z character ensures that this is the last test to be executed
     def test_z_delete_logs(self):

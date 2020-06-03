@@ -51,7 +51,7 @@ class LogsAPI(ResourceAPI):
         """
         return self.get('/api/users/' + self.user.user_id + '/logs', **kwargs)
 
-    def get_log_ids(self, contains: str, **kwargs) -> List[str]:
+    def get_log_ids(self, contains: str = '.*', **kwargs) -> List[str]:
         """
         Get all log ids which names are matched by the passed regular
         expression.

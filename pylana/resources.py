@@ -15,22 +15,29 @@ class ResourceAPI(API):
     @expect_json
     def list_resources(self, kind: str, **kwargs) -> list:
         """
-        lists all resources of a kind
+        Lists all resources of a kind.
 
         Args:
-            kind: resource type name
-            **kwargs: arguments passed to requests functions
+            kind:
+                A string denoting the resource type.
+            **kwargs:
+                Keyword arguments passed to requests functions.
         """
         return self.get(f'/api/{kind}', **kwargs)
 
     @extract_ids
     def get_resource_ids(self, kind: str, contains: str, **kwargs) -> List[str]:
         """
-        get all resource ids which names are matched by the passed regular expression
+        Get ids of resource with names are matched by regular expression
 
         Args:
-            kind: resource type name
-            contains: a regular expression matched against the log names
+            kind:
+                A string denoting the resource type.
+            contains:
+                A string denoting a regular expression matched against the log
+                names.
+            **kwargs:
+                Keyword arguments passed to requests functions.
 
         Returns:
             a list of strings representing log ids
