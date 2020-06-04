@@ -1,6 +1,6 @@
 import io
 import os
-import sys
+
 from setuptools import setup
 
 here = os.path.abspath(os.path.dirname(__file__))
@@ -13,14 +13,15 @@ try:
 except FileNotFoundError:
     long_description = DESCRIPTION
 
+
 setup(name='pylana',
-      version='0.0.1',
+      version='0.1.0',
       description="Python API for LANA Process Mining",
       long_description=long_description,
       long_description_content_type='text/markdown',
       url='https://github.com/lanalabs/pylana',
-      author='Yunfan Yang',
-      author_email='contact@lanalabs.com',
+      author='Lana Labs GmbH',
+      author_email='support@lanalabs.com',
       license='Apache2',
       classifiers=[
           'Development Status :: 4 - Beta',
