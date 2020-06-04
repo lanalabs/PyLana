@@ -8,11 +8,9 @@ import warnings
 from pylana.v1 import LanaAPI
 from pylana.v2 import LanaAPI2
 
-name = "pylana"
-
 
 def create_api(scheme, host, token, port=None, compatibility=False,
-               url=None, verify=False, application_root=None):
+               url=None, verify=False, application_root=None, **kwargs):
     """Create a configured Lana API.
 
     The returned api stores the url for a LANA Process Mining
@@ -21,7 +19,7 @@ def create_api(scheme, host, token, port=None, compatibility=False,
     upload data from python pandas data frames directly or connect logs
     and shiny dashboard resources referencing them by their names.
 
-        api = create_api(...)
+        api = create_api('https', 'cloud-backend.lanalabs.com', '<a token>')
         upload_response = api.upload_event_log_df(
                                 'new-event-log', df_event_log,
                                 time_format='YYYY-mm-dd,
@@ -68,6 +66,8 @@ def create_api(scheme, host, token, port=None, compatibility=False,
         url:
             (optional) If compatibility is True, you can pass the base url
             as "<scheme>://<host>:<port>/".
+        **kwargs:
+
     """
 
     if compatibility:
@@ -79,7 +79,7 @@ def create_api(scheme, host, token, port=None, compatibility=False,
         url = url if url else f'{scheme}://{host}:{port}/'
         return LanaAPI(url, token=token)
 
-    api = LanaAPI2(scheme, host, token, port, application_root)
+    api = LanaAPI2(scheme, host, token, port, application_root, **kwargs)
     api._request = functools.partial(api._request, verify=verify)
 
     return api

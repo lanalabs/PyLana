@@ -14,7 +14,10 @@ class TestGetUserInformation(unittest.TestCase):
             cls.credentials = json.load(f)
 
     def test_success(self):
-        actual = get_user_information(**self.credentials)
+        url = self.credentials['scheme'] + '://' \
+            + self.credentials['host'] + ':' \
+            + str(self.credentials['port'])
+        actual = get_user_information(url, self.credentials['token'])
 
         # TODO: reduced to required
         expected_keys = [
@@ -25,6 +28,5 @@ class TestGetUserInformation(unittest.TestCase):
 
     def test_failure(self):
         with self.assertRaises(requests.exceptions.HTTPError):
-            r = get_user_information(scheme='https',
-                                     host='cloud-backend.lanalabs.com',
+            r = get_user_information('https://cloud-backend.lanalabs.com',
                                      token='not-a-valid-token ')
