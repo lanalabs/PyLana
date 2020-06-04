@@ -3,7 +3,7 @@ functions to prepare requests for consumption
 """
 
 from collections import defaultdict
-from typing import Iterable, Dict, List, Tuple
+from typing import Iterable, Dict, List
 
 import pandas as pd
 
@@ -101,7 +101,7 @@ def create_event_semantics_from_df(df: pd.DataFrame, time_format: str = "yyyy-MM
     return semantics
 
 
-def create_case_semantics_from_df(df: pd.DataFrame) -> Tuple[pd.DataFrame, List[dict]]:
+def create_case_semantics_from_df(df: pd.DataFrame) -> List[dict]:
     """
     create case semantics from a pandas data frame
 

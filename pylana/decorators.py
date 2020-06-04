@@ -4,7 +4,6 @@ decorators for handling api request responses
 
 import functools
 import json
-import re
 from typing import List
 
 import requests

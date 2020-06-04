@@ -2,6 +2,8 @@
 generic api requests including authorization
 """
 
+from typing import Optional
+
 import requests
 
 from pylana.decorators import handle_response, expect_json
@@ -34,8 +36,7 @@ def get_user(scheme: str, host: str, token: str, port=None) -> User:
 # TODO consider certificate passing for TLS
 # TODO consider letting kwargs replace authentication header
 class API:
-    """
-    An api for a specific user at a Lana deployment.
+    """An api for a specific user at a Lana deployment.
 
     All required information to make authenticated requests to the api are
     passed during construction and stored. Named request methods are
@@ -52,8 +53,14 @@ class API:
             The authorization header used for every request by default.
     """
 
-    def __init__(self, scheme: str, host: str, token: str, port: int = None):
-        self.url = f'{scheme}://{host}' + (f':{port}' if port else '')
+    # TODO document
+    def __init__(self, scheme: str, host: str, token: str,
+                 port: Optional[int] = None, application_root: Optional[str] = None):
+        self.url = (f'{scheme}://{host}'
+                    + (f':{port}' if port else '')
+                    + (f':{application_root}'
+                       if application_root else '').replace('//', '/')
+                    ).strip('/')
         user_info = get_user_information(scheme, host, token, port)
         self.user = User(user_id=user_info.get('id'),
                          organization_id=user_info.get('organizationId'),

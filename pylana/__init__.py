@@ -11,13 +11,37 @@ from pylana.v2 import LanaAPI2
 name = "pylana"
 
 
-def create_api(scheme, host, token, port=None, compatibility=False, url=None, verify=False):
-    """
-    create a Lana API instance
+def create_api(scheme, host, token, port=None, compatibility=False,
+               url=None, verify=False, application_root=None):
+    """Create a configured Lana API.
 
-    It is still possible to create an api conform with old versions of
-    PyLana, if absolutely necessary. It will be phased out over time,
-    as most of its functinoality moves into the new version,
+    The returned api stores the url for a LANA Process Mining
+    api as well as your authentication. After creation you can us it to
+    manage the LANA process mining resources. Among other things you can
+    upload data from python pandas data frames directly or connect logs
+    and shiny dashboard resources referencing them by their names.
+
+        api = create_api(...)
+        upload_response = api.upload_event_log_df(
+                                'new-event-log', df_event_log,
+                                time_format='YYYY-mm-dd,
+                                df_case=df_case_attributes)
+        shiny_dashboard = api.create_shiny_dashboard('new-shiny-dashboard')
+        connection_response = api.connect_shiny_dashboard(
+                                    upload_response.json()['id'],
+                                    shiny_dashboard['id'])
+
+    It also provides basic methods to make HTTP verb requests
+    directly to the lana endpoints. For example
+
+        response_list = api.get('/api/v2/dashboards')
+
+    Will return a response with a list of dashboard metadata.
+
+    We try to provide the old api of pre-0.1.0 PyLana, but can't guarantee
+    that it stays around forever. In case you absolutely require the old
+    interface, you can pass compatibility as True, which creates an old Lana
+    API instance.
 
     Args:
         scheme:
@@ -31,8 +55,13 @@ def create_api(scheme, host, token, port=None, compatibility=False, url=None, ve
             (optional) An integer or string denoting the port for the lana
             api. If not set, default ports for the scheme are be used.
         verify:
-            (optional) If set to False, disables TLS certification
-            verification.
+            (optional) Either a boolean, in which case it controls whether we
+            verify the server’s TLS certificate, or a string, in which case it
+            must be a path to a CA bundle to use. Defaults to False.
+        application_root:
+            (optional) A string denoting the application root. Only required
+            if your lana api is placed outside the URL root, e.g. "/lana-api"
+            instead of "/". Has to start with a slash.
         compatibility:
             (optional) A boolean indicating whether the legacy PyLana should
             be created.
@@ -50,7 +79,7 @@ def create_api(scheme, host, token, port=None, compatibility=False, url=None, ve
         url = url if url else f'{scheme}://{host}:{port}/'
         return LanaAPI(url, token=token)
 
-    api = LanaAPI2(scheme, host, token, port)
+    api = LanaAPI2(scheme, host, token, port, application_root)
     api._request = functools.partial(api._request, verify=verify)
 
     return api

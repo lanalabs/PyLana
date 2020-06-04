@@ -10,10 +10,11 @@ from typing import Union, List, TextIO, BinaryIO, Optional
 import pandas as pd
 from requests import Response
 
-from pylana.resources import ResourceAPI
-from pylana.utils import create_case_semantics_from_df, create_event_semantics_from_df
 from pylana.decorators import expect_json
 from pylana.decorators import handle_response
+from pylana.resources import ResourceAPI
+from pylana.utils import create_case_semantics_from_df, \
+    create_event_semantics_from_df
 
 
 def _serialise_semantics(semantics: Union[str, list]):
@@ -24,8 +25,7 @@ def _serialise_semantics(semantics: Union[str, list]):
 class LogsAPI(ResourceAPI):
 
     def list_logs(self, **kwargs) -> list:
-        """
-        Lists all logs that are available to the user.
+        """List all logs that are available to the user.
 
         Args:
             **kwargs:
@@ -38,8 +38,7 @@ class LogsAPI(ResourceAPI):
 
     @expect_json
     def list_user_logs(self, **kwargs) -> list:
-        """
-        List all logs owned by the user,
+        """List all logs owned by the user.
 
         Args:
             **kwargs:
@@ -51,8 +50,7 @@ class LogsAPI(ResourceAPI):
         return self.get('/api/users/' + self.user.user_id + '/logs', **kwargs)
 
     def get_log_ids(self, contains: str = '.*', **kwargs) -> List[str]:
-        """
-        Get all log ids which names are matched by the passed regular
+        """Get all log ids which names are matched by the passed regular
         expression.
 
         Args:
@@ -68,8 +66,7 @@ class LogsAPI(ResourceAPI):
         return self.get_resource_ids('logs', contains, **kwargs)
 
     def get_log_id(self, contains: str, **kwargs) -> str:
-        """
-        Get id of a log by its name.
+        """Get id of a log by its name.
 
         The name needs to be unique, otherwise an exception is raised.
 
@@ -87,8 +84,7 @@ class LogsAPI(ResourceAPI):
 
     def describe_log(self, contains: str = None, log_id: str = None,
                      **kwargs) -> dict:
-        """
-        Get the description of log.
+        """Get the description of log.
 
         Args:
             log_id:
@@ -111,8 +107,7 @@ class LogsAPI(ResourceAPI):
                          case_attribute_semantics: Optional[Union[str, List[dict]]] = None,
                          **kwargs) \
             -> Response:
-        """
-        Upload an event log with prepared semantics.
+        """Upload an event log with prepared semantics.
         
         Args:
             name:
@@ -164,8 +159,7 @@ class LogsAPI(ResourceAPI):
                                 case: Optional[Union[TextIO, BinaryIO]] = None,
                                 case_semantics: Optional[Union[list, str]] = None,
                                 prefix: str = 'pylana-', **kwargs) -> Response:
-        """
-        Upload a log with prepared semantics by passing open streams.
+        """Upload a log with prepared semantics by passing open streams.
 
         The log name is generated from hash value of the passed event log
         stream. We use the built-in hash function, so it can change when you
@@ -204,8 +198,7 @@ class LogsAPI(ResourceAPI):
     def upload_event_log_df(self, name: str, df_log: pd.DataFrame,
                             time_format: str, df_case: pd.DataFrame,
                             **kwargs) -> Response:
-        """
-        Upload an event log from pandas data frames with inferred semantics.
+        """Upload an event log from pandas data frames with inferred semantics.
 
         For the passed event log data frame we expect at least the following
         columns:
@@ -254,8 +247,7 @@ class LogsAPI(ResourceAPI):
                               event_file_path: str, case_file_path: str,
                               event_semantics_path: str,
                               case_semantics_path: str, **kwargs) -> Response:
-        """
-        Upload an event log with case attributes by their path.
+        """Upload an event log with case attributes by their path.
 
         Paths to semantic files have to be passed as well. All files are read
         in as binaries, the lana backend will try to infer the encoding.
@@ -304,8 +296,7 @@ class LogsAPI(ResourceAPI):
 
     def append_events_df(self, log_id,
                          df_log: pd.DataFrame, time_format: str, **kwargs) -> Response:
-        """
-        Append events to a log from a pandas data frame.
+        """Append events to a log from a pandas data frame.
 
         For the passed event log data frame we expect at least the following
         columns:
@@ -347,8 +338,7 @@ class LogsAPI(ResourceAPI):
 
     def append_case_attributes_df(self, log_id,
                                   df_case: pd.DataFrame, **kwargs) -> Response:
-        """
-        Append case attributes to a log from a pandas data frame.
+        """Append case attributes to a log from a pandas data frame.
 
         For the passed case attributes we expect at last the case id
         column named "Case_ID" or "CaseID".
@@ -377,8 +367,7 @@ class LogsAPI(ResourceAPI):
                          files=files, data=semantics, **kwargs)
 
     def delete_log(self, log_id: str, **kwargs) -> Response:
-        """
-        Delete a log by its id.
+        """Delete a log by its id.
         
         Args:
             log_id:
@@ -393,8 +382,7 @@ class LogsAPI(ResourceAPI):
 
     def delete_logs(self, log_ids: List[str] = None, contains: str = None,
                     **kwargs) -> List[Response]:
-        """
-        Delete one or multiple logs.
+        """Delete one or multiple logs.
         
         Args:
             log_ids:
@@ -414,8 +402,7 @@ class LogsAPI(ResourceAPI):
     def request_event_csv(self, log_id: str,
                           mining_request: Optional[dict] = None,
                           **kwargs) -> Response:
-        """
-        Request the enriched event log.
+        """Request the enriched event log.
         
         Args:
             log_id:
@@ -443,8 +430,7 @@ class LogsAPI(ResourceAPI):
     def get_event_log(self, log_name: str = None, log_id: str = None,
                       mining_request: Optional[dict] = None,
                       **kwargs) -> pd.DataFrame:
-        """
-        Get the enriched event log as a pandas data frame
+        """Get the enriched event log as a pandas data frame
 
         Only columns with time stamps are type cast, the other columns
         remain objects. If type casting is not desired, use to the method
@@ -475,8 +461,7 @@ class LogsAPI(ResourceAPI):
 
     @handle_response
     def share_log(self, log_id: str) -> Response:
-        """
-        Share log with organisation.
+        """Share log with organisation.
 
         Args:
             log_id:
@@ -489,8 +474,7 @@ class LogsAPI(ResourceAPI):
 
     @handle_response
     def unshare_log(self, log_id: str) -> Response:
-        """
-        Un-share log with organisation.
+        """Un-share log with organisation.
 
         Args:
             log_id:

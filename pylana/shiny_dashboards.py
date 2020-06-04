@@ -2,7 +2,6 @@
 shiny dashboard management api requests
 """
 
-import io
 import json
 import os
 import re
