@@ -8,7 +8,7 @@ from typing import List, Union
 from requests import Response
 
 from pylana.api import API
-from pylana.decorators import expect_json, extract_id, extract_ids
+from pylana.decorators import expect_json
 
 
 class ResourceAPI(API):
@@ -26,7 +26,6 @@ class ResourceAPI(API):
         """
         return self.get(f'/api/{kind}', **kwargs)
 
-    # @extract_ids
     def get_resource_ids(self, kind: str, contains: str, **kwargs) -> List[str]:
         """
         Get ids of resource with names are matched by regular expression
@@ -48,7 +47,6 @@ class ResourceAPI(API):
         return [resource['id'] for resource in resources
                 if rc.search(resource['name'])]
 
-    # @extract_id
     def get_resource_id(self, kind: str, contains: str, **kwargs) -> str:
         """
         Get id of a resource by its name
