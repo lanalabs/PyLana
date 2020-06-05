@@ -49,7 +49,11 @@ response_list = api.get('/api/v2/dashboards')
 
 will return a response with a list of dashboard metadata.
 
-## License
+# How to contribute
+
+See the details in [CONTRIBUTING.md](CONTRIBUTING.md).
+
+# License
+
 [Apache License 2.0](http://www.apache.org/licenses/)
 
-## PyPI

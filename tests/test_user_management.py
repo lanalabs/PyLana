@@ -19,7 +19,6 @@ class TestGetUserInformation(unittest.TestCase):
             + str(self.credentials['port'])
         actual = get_user_information(url, self.credentials['token'])
 
-        # TODO: reduced to required
         expected_keys = [
             'acceptedTerms', 'apiKey', 'apiKeyStatus', 'backendInstanceId',
             'email', 'id', 'organizationId', 'preferences', 'role']
@@ -28,5 +27,5 @@ class TestGetUserInformation(unittest.TestCase):
 
     def test_failure(self):
         with self.assertRaises(requests.exceptions.HTTPError):
-            r = get_user_information('https://cloud-backend.lanalabs.com',
+            _ = get_user_information('https://cloud-backend.lanalabs.com',
                                      token='not-a-valid-token ')

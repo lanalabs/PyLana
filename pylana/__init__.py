@@ -67,7 +67,8 @@ def create_api(scheme, host, token, port=None, compatibility=False,
             (optional) If compatibility is True, you can pass the base url
             as "<scheme>://<host>:<port>/".
         **kwargs:
-
+            Keyword arguments to pass to requests for the initial
+            request retrieving user information.
     """
 
     if compatibility:
