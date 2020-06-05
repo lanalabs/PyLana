@@ -4,7 +4,6 @@ decorators for handling api request responses
 
 import functools
 import json
-import re
 from typing import List
 
 import requests
@@ -33,26 +32,4 @@ def handle_response(method):
         except requests.exceptions.HTTPError as e:
             print(e)
         return resp
-    return wrapper
-
-
-def extract_ids(method):
-    @functools.wraps(method)
-    def wrapper(self, kind, contains, **kwargs):
-        resources = method(self, kind, contains, **kwargs)
-        rc = re.compile(contains)
-        return [log['id'] for log in resources if rc.search(log['name'])]
-    return wrapper
-
-
-def extract_id(method):
-    @functools.wraps(method)
-    def wrapper(self, kind, contains, **kwargs):
-        ids = method(self, kind, contains, **kwargs)
-        try:
-            [id_] = ids
-        except ValueError as e:
-            raise Exception(f'Found {len(ids)} resources with the pattern {contains}')
-
-        return id_
     return wrapper

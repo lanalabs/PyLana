@@ -13,7 +13,7 @@ class TestLogsAPI(unittest.TestCase):
     def setUpClass(cls) -> None:
         with open('./tests/config.json') as f:
             cls.credentials = json.load(f)
-        cls.api = create_api(**cls.credentials, verify=True)
+        cls.api = create_api(verify=True, **cls.credentials)
 
     def test_list(self):
         _ = self.api.list_logs()
@@ -32,7 +32,14 @@ class TestLogsAPI(unittest.TestCase):
         self.assertIsInstance(log_id, str)
 
         with self.assertRaises(Exception):
-            self.api.get_log_id('1212')
+            self.api.get_log_id('not-an-existing-log')
+
+    def test_get_log_ids(self):
+        log_ids = self.api.get_log_ids()
+        self.assertGreater(len(log_ids), 0)
+
+        log_ids = self.api.get_log_ids(contains='not-an-existing-name-pattern')
+        self.assertEqual(len(log_ids), 0)
 
     def test_request_event_csv(self):
         log_id = self.api.get_log_id('Incident_Management.csv')
@@ -124,16 +131,17 @@ class TestLogsAPI(unittest.TestCase):
             .loc[:, ['Action', 'Case_ID', 'Start', 'Event_Numeric', 'Event_Category']]
 
         records = [
-            {'CaseID': 1, 'Case_Numeric': 1000, 'Case_Category': 'A2'},
-            {'CaseID': 2, 'Case_Numeric': 3000, 'Case_Category': 'C2'},
-            {'CaseID': 3, 'Case_Numeric': 2000, 'Case_Category': 'D2'}
+            {'Case_ID': 1, 'Case_Numeric': 1000, 'Case_Category': 'A2'},
+            {'Case_ID': 2, 'Case_Numeric': 3000, 'Case_Category': 'C2'},
+            {'Case_ID': 3, 'Case_Numeric': 2000, 'Case_Category': 'D2'}
         ]
         df_case = pd.DataFrame(records)\
-            .astype({'CaseID': str, 'Case_Numeric': int, 'Case_Category': str})
+            .astype({'Case_ID': str, 'Case_Numeric': int, 'Case_Category':
+            str})
 
         msg = 'failed to upload event log from data frame'
         resp = self.api.upload_event_log_df(
-            'pylana-test-log-from-df', df_log, df_case, time_format='yyyy-MM-dd HH:mm:ss')
+            'pylana-test-log-from-df', df_log, 'yyyy-MM-dd HH:mm:ss', df_case)
         self.assertEqual(resp.status_code, 200, msg)
 
         log_id = resp.json()['logId']
@@ -155,20 +163,13 @@ class TestLogsAPI(unittest.TestCase):
         event_semantics = "./tests/data/pylana_event_semantics.json"
         case_semantics = "./tests/data/pylana_case_semantics.json"
 
-        log_name = "Test_Log"
-        time_format = "yyyy-MM-dd"
+        log_name = "pylana-log-from-file"
 
         resp = self.api.upload_event_log_file(log_name, event_file_path=event_path,
                                   case_file_path=case_path,
                                   event_semantics_path=event_semantics,
                                   case_semantics_path=case_semantics)
         self.assertEqual(resp.status_code, 200)
-
-
-
-
-
-
 
     def test_log_sharing(self):
         log_id = self.api.get_log_id('Incident.*')
@@ -180,9 +181,8 @@ class TestLogsAPI(unittest.TestCase):
         resp_unshare.raise_for_status()
         # self.assertEqual(resp_unshare.status_code, 200)
 
-
     # the z character ensures that this is the last test to be executed
     def test_z_delete_logs(self):
-        resps = self.api.delete_logs('pylana.*')
+        resps = self.api.delete_logs(contains='pylana.*')
         for status_code in [r.status_code for r in resps]:
             self.assertEqual(status_code, 200)

@@ -3,7 +3,7 @@ functions to prepare requests for consumption
 """
 
 from collections import defaultdict
-from typing import Iterable, Dict, List, Tuple
+from typing import Iterable, Dict, List
 
 import pandas as pd
 
@@ -101,7 +101,7 @@ def create_event_semantics_from_df(df: pd.DataFrame, time_format: str = "yyyy-MM
     return semantics
 
 
-def create_case_semantics_from_df(df: pd.DataFrame) -> Tuple[pd.DataFrame, List[dict]]:
+def create_case_semantics_from_df(df: pd.DataFrame) -> List[dict]:
     """
     create case semantics from a pandas data frame
 
@@ -114,23 +114,30 @@ def create_case_semantics_from_df(df: pd.DataFrame) -> Tuple[pd.DataFrame, List[
 
     semantics = []
     id_mappings = {"Case_ID": "Case ID", "CaseID": "Case ID"}
-    for i, col in enumerate(df.columns):
-        if pd.api.types.is_object_dtype(df[col]) and col not in id_mappings:
+    for i, col_name in enumerate(df.columns):
+        is_lana_categorial = \
+            pd.api.types.is_object_dtype(df[col_name]) or \
+            pd.api.types.is_bool_dtype(df[col_name])
+        is_lana_numeric = \
+            pd.api.types.is_numeric_dtype(df[col_name]) and not \
+            pd.api.types.is_bool_dtype(df[col_name])
+
+        if col_name in id_mappings:
             semantics += [{
-                'name': col,
+                'name': id_mappings[col_name],
+                'semantic': id_mappings[col_name],
+                'format': None,
+                'idx': i}]
+        elif is_lana_categorial:
+            semantics += [{
+                'name': col_name,
                 'semantic': 'CategorialAttribute',
                 'format': None,
                 'idx': i}]
-        elif pd.api.types.is_numeric_dtype(df[col]) and col not in id_mappings:
+        elif is_lana_numeric:
             semantics += [{
-                'name': col,
+                'name': col_name,
                 'semantic': 'NumericAttribute',
-                'format': None,
-                'idx': i}]
-        elif col in id_mappings:
-            semantics += [{
-                'name': id_mappings[col],
-                'semantic': id_mappings[col],
                 'format': None,
                 'idx': i}]
 

@@ -6,13 +6,13 @@
 Welcome to PyLana's documentation!
 ==================================
 
+Entrypoint
+----------
+
 .. automodule:: pylana
     :members:
 
 .. automodule:: pylana.v2
-    :members:
-
-.. automodule:: pylana.v1
     :members:
 
 

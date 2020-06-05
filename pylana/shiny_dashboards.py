@@ -2,7 +2,6 @@
 shiny dashboard management api requests
 """
 
-import io
 import json
 import os
 import re
@@ -11,114 +10,208 @@ from typing import List
 
 from requests import Response
 
-from .resources import ResourceAPI
+from pylana.resources import ResourceAPI
 
 
 class ShinyDashboardAPI(ResourceAPI):
 
     def list_shiny_dashboards(self, **kwargs) -> List[dict]:
         """
-        list all shiny dashboards available to the user
+        List all shiny dashboards available to the user.
+        
+        Args:
+            **kwargs:
+                Keyword arguments passed to requests functions.
+            
+        Returns: 
+            A list of strings denoting shiny dashboard names.
         """
         return self.list_resources('shiny-dashboards', **kwargs)
 
-    def get_shiny_dashboard_ids(self, contains: str, **kwargs) -> List[str]:
+    def get_shiny_dashboard_ids(self, contains: str = '.*', **kwargs) \
+            -> List[str]:
         """
-        list of shiny dashboard ids with matching names
+        List shiny dashboard ids with matching names.
 
         Args:
-            contains: a python re module regular expression
+           contains:  
+                A string denoting a regular expression
+                matched against the shiny dashboard names.
+            **kwargs: 
+                Keyword arguments passed to requests functions.
+            
+        Returns:
+            A list of strings denoting shiny dashboard ids.
         """
         return self.get_resource_ids('shiny-dashboards', contains, **kwargs)
 
     def get_shiny_dashboard_id(self, contains: str, **kwargs) -> str:
         """
-        return shiny dashboard id with matching name
-
-        raises exception if none ore more than one shiny dashboard matches
+        Get shiny dashboard id with matching name.
 
         Args:
-            contains: a python re module regular expression
+            contains:  
+                A string denoting a regular expression
+                matched against the shiny dashboard name.
+            **kwargs: 
+                Keyword arguments passed to requests functions.
+            
+        Returns: 
+            A string denoting the shiny dashboard id.
+
+        Raises:
+            Exception:
+                None ore more than one shiny dashboard name matches the
+                regular expression.
         """
         return self.get_resource_id('shiny-dashboards', contains, **kwargs)
 
-    def describe_shiny_dashboard(self, contains: str = None, shiny_dashboard_id: str = None, **kwargs) -> dict:
+    def describe_shiny_dashboard(self, contains: str = None,
+                                 shiny_dashboard_id: str = None, **kwargs) \
+            -> dict:
         """
-        get shiny dashboard metadata
+        Get shiny dashboard metadata.
 
         Args:
-            shiny_dashboard_id: The id of the log, takes precedence over contains
-            contains: a regex matching the log's name, matching several names raises an exception
+            contains: 
+                A string denoting a regular expression
+                matched against the log name. 
+                Matching several names raises an exception.
+            shiny_dashboard_id: 
+                A string denoting the id of the log.
+            **kwargs: 
+                Keyword arguments passed to requests functions.
+            
+        Returns:
+            A dictionary denoting the shiny dashboard description.
         """
         return self.describe_resource('shiny-dashboards', contains, shiny_dashboard_id, **kwargs)
 
     # TODO json lacks sharing options
     def create_shiny_dashboard(self, name: str, **kwargs) -> dict:
         """
-        create a named shiny dashboard
+        Create a named shiny dashboard.
+
         Args:
-            name: a string denoting the dashboards name
+            name: 
+                A string denoting the dashboards name.
+            **kwargs: 
+                Keyword arguments passed to requests functions.
 
         Returns:
-            a dictionary representing the shiny dashboard metadata
+            A dictionary denoting the shiny dashboard metadata.
         """
         return self.create_resource('shiny-dashboards', json={'name': name}, **kwargs)
 
-    def upload_shiny_dashboard(self, dashboard_id: str, file_path: str, **kwargs) -> Response:
+    def upload_shiny_dashboard(self, dashboard_id: str, file_path: str,
+                               **kwargs) -> Response:
         """
-        upload and replace shiny dashboard source code
+        Upload and replace shiny dashboard source code.
 
-        example usage:
+        Typical usage example:
 
-            with open('./path_to_dashboard/dashboard.zip', r) as f:
-                instance.upload_shiny_dashboard(<dashboard_id>, f)
+        with open('./path_to_dashboard/dashboard.zip', r) as f:
+            instance.upload_shiny_dashboard(<dashboard_id>, f)
 
         Args:
-            dashboard_id: a string denoting the shiny dashboard
-            file_path: a path pointing to the zipped dashboard file
+            dashboard_id:
+                A string denoting the shiny dashboard.
+            file_path:
+                A string denoting the ath to the zipped dashboard code.
+            **kwargs:
+                Keyword arguments passed to requests functions.
 
         Returns:
-            the response of the api call
+            The requests response of the lana api call.
         """
         with open(file_path, "rb") as file:
             resp = self.post(f"/api/shiny-dashboards/{dashboard_id}/source",
                              files={'file': file}, **kwargs)
         return resp
 
-    def delete_shiny_dashboard(self, shiny_dashboard_id: str, **kwargs):
+    def delete_shiny_dashboard(self, shiny_dashboard_id: str, **kwargs) \
+            -> Response:
         """
-        delete a shiny dashboard by its id
-        """
-        return self.delete_resource('shiny-dashboards', shiny_dashboard_id, **kwargs)
+        Delete a shiny dashboard by its id.
+        
+        Args:
+            shiny_dashboard_id: 
+                A string denoting the shiny dashboard.
+            **kwargs: 
+                Keyword arguments passed to requests functions.
 
-    def delete_shiny_dashboards(self, contains: str = None, ids: List[str] = None, **kwargs):
+        Returns:
+            The requests response of the lana api call.
         """
-        delete shiny dashboards by id list of name matching
+        return self.delete_resource('shiny-dashboards', shiny_dashboard_id,
+                                    **kwargs)
+
+    def delete_shiny_dashboards(self, contains: str = None,
+                                ids: List[str] = None, **kwargs) -> \
+            List[Response]:
+        """
+        Delete shiny dashboards by id list of name matching
 
         Args:
-            contains: a python re module regular expression, ignored when ids are passed
-            ids: a list of strings representing shiny dashboard ids, takes precedence over contains
+            contains: 
+                A string denoting a regular expression. 
+                It is ignored when ids are passed.
+            ids: 
+                A list of strings denoting shiny dashboard ids.
+        Returns:
+            A list of request responses of the calls to the lana api.
         """
-        return self.delete_resources('shiny-dashboards', contains, ids, **kwargs)
+        return self.delete_resources('shiny-dashboards', contains, ids,
+                                     **kwargs)
 
     # TODO consider sharing by names
     def share_shiny_dashboard(self, shiny_dashboard_id: str,
-                              user_ids: List[str], project_ids: List[str], organization_ids: str, **kwargs) -> Response:
+                              user_ids: List[str], project_ids: List[str],
+                              organization_ids: str, **kwargs) -> Response:
         """
-        share a shiny dashboard with users by ids
+        Share a shiny dashboard with users by ids.
 
         Args:
-            shiny_dashboard_id: a string representing the id of the shiny dashboard
-            user_ids: a list of strings representing ids of users to share with
-            project_ids: a list of strings representing ids of projects to share with
-            organization_ids: a list of strings representing ids of organizations share with
+            shiny_dashboard_id:
+                A string denoting the id of the shiny dashboard.
+            user_ids:
+                A list of strings denoting ids of users to share with.
+            project_ids: 
+                A list of strings denoting ids of projects to share with.
+            organization_ids: 
+                A list of strings denoting ids of organizations to share with.
+
+        Returns:
+            The requests response of the lana api call.
         """
-        body = {"sharedInformation": {
-            "userIds": user_ids,
-            "projectIds": project_ids,
-            "organizationIds": organization_ids
-        }}
-        return self.patch(f"/api/shiny-dashboards/{shiny_dashboard_id}", data=body, **kwargs)
+        body = {
+            "sharedInformation": {
+                "userIds": user_ids,
+                "projectIds": project_ids,
+                "organizationIds": organization_ids
+            }
+        }
+        return self.patch(f"/api/shiny-dashboards/{shiny_dashboard_id}",
+                          data=body, **kwargs)
+
+    def connect_shiny_dashboard(self, log_id, shiny_dashboard_id, **kwargs) \
+            -> Response:
+        """
+        Connect a shiny dashboard with a log by their ids.
+        
+        Args:
+            log_id: 
+                A string denoting the id of the log in LANA.
+            shiny_dashboard_id:
+                A string denoting the id of the shiny dashboard.
+            **kwargs: 
+                Keyword arguments passed to requests functions.
+
+        Returns:
+            The requests response of the lana api call.
+        """
+        dct = {'log_id': log_id, 'shiny_dashboard_id': shiny_dashboard_id}
+        return self.connect_resources(dct, **kwargs)
 
     # legacy
     # ------

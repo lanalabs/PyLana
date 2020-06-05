@@ -2,12 +2,13 @@
 resource management api requests
 """
 
+import re
 from typing import List, Union
 
 from requests import Response
 
-from .api import API
-from .decorators import expect_json, extract_id, extract_ids
+from pylana.api import API
+from pylana.decorators import expect_json
 
 
 class ResourceAPI(API):
@@ -15,36 +16,53 @@ class ResourceAPI(API):
     @expect_json
     def list_resources(self, kind: str, **kwargs) -> list:
         """
-        lists all resources of a kind
+        Lists all resources of a kind.
 
         Args:
-            kind: resource type name
-            **kwargs: arguments passed to requests functions
+            kind:
+                A string denoting the resource type.
+            **kwargs:
+                Keyword arguments passed to requests functions.
         """
         return self.get(f'/api/{kind}', **kwargs)
 
-    @extract_ids
     def get_resource_ids(self, kind: str, contains: str, **kwargs) -> List[str]:
         """
-        get all resource ids which names are matched by the passed regular expression
+        Get ids of resource with names are matched by regular expression
 
         Args:
-            kind: resource type name
-            contains: a regular expression matched against the log names
+            kind:
+                A string denoting the resource type.
+            contains:
+                A string denoting a regular expression matched against the log
+                names.
+            **kwargs:
+                Keyword arguments passed to requests functions.
 
         Returns:
             a list of strings representing log ids
         """
-        return self.list_resources(kind, **kwargs)
+        resources = self.list_resources(kind, **kwargs)
+        rc = re.compile(contains)
+        return [resource['id'] for resource in resources
+                if rc.search(resource['name'])]
 
-    @extract_id
     def get_resource_id(self, kind: str, contains: str, **kwargs) -> str:
         """
-        get id of a resource by its name
+        Get id of a resource by its name
 
         name needs to be unique or an exception is raised
         """
-        return self.get_resource_ids(kind, contains, **kwargs)
+        log_ids = self.get_resource_ids(kind, contains, **kwargs)
+
+        try:
+            [log_id] = log_ids
+        except ValueError as e:
+            raise Exception(
+                f'Found {len(log_ids)} resources with the pattern {contains}')
+
+        return log_id
+
 
     @expect_json
     def describe_resource(self, kind: str, contains: str = None, resource_id: str = None, **kwargs) -> dict:
