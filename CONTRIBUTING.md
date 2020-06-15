@@ -24,7 +24,7 @@ For testing please see the [test documentation](tests/README.md).
 For testing our packages, we have a test-pypi project. When installing from test pypi, don't forget to reference the normal pypi as an extra index url
 
 ```bash
-pip install - i https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/pylana-test
+pip install -i https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ pylana
 ``` 
  
  Otherwise the installation of dependencies will likely fail.  
