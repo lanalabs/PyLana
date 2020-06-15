@@ -3,7 +3,10 @@ tests/config.json
 
 # Byte-compiled / optimized / DLL files
 **/__pycache__
-++/.ptest_cache
+**/.ptest_cache
+build/
+dist/
+*.egg-info/
 
 # IDE
 .idea/
