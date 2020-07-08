@@ -47,15 +47,11 @@ def create_semantics(columns: Iterable[str],
     ]
 
 
-def create_event_semantics_from_df(df: pd.DataFrame, time_format: str = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS") -> List[dict]:
+def create_event_semantics_from_df(df: pd.DataFrame, case_id: str = "CaseID", action: str = "Action",
+                                   start: str = "Start", complete: str = "Complete",
+                                   time_format: str = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS") -> List[dict]:
     """
     create event semantics from a pandas data frame
-
-    We expect specific names for columns
-        * case id column: Case_ID or CaseID
-        * activity column: Action
-        * first timestamp of activity: Start
-        * last timestamp of activity: Complete
 
     The columns semantic for lana will be derived from the data frame's dtypes. All types
     will be converted to categorical attributes, besides numbers. The Start and Complete
@@ -64,8 +60,11 @@ def create_event_semantics_from_df(df: pd.DataFrame, time_format: str = "yyyy-MM
     """
     semantics = []
     id_mappings = {
-        "Case_ID": "Case ID", "CaseID": "Case ID", "Action": "Action"}
-    timestamps = ["Start", "Complete"]
+        case_id: "Case ID", action: "Action"
+    }
+    timestamps_mappings = {
+        start: "Start", complete: "Complete"
+    }
 
     for i, col in enumerate(df.columns):
 
@@ -76,11 +75,11 @@ def create_event_semantics_from_df(df: pd.DataFrame, time_format: str = "yyyy-MM
                 'semantic': id_mappings[col],
                 'format': None,
                 'idx': i}]
-        elif col in timestamps:
+        elif col in timestamps_mappings:
             # the second most general branch, Start exists always, Complete sometimes
             semantics += [{
-                'name': col,
-                'semantic': col,
+                'name': timestamps_mappings[col],
+                'semantic': timestamps_mappings[col],
                 'format': time_format,
                 'idx': i}]
         else:
@@ -101,19 +100,16 @@ def create_event_semantics_from_df(df: pd.DataFrame, time_format: str = "yyyy-MM
     return semantics
 
 
-def create_case_semantics_from_df(df: pd.DataFrame) -> List[dict]:
+def create_case_semantics_from_df(df: pd.DataFrame, case_id: str = "CaseID") -> List[dict]:
     """
     create case semantics from a pandas data frame
-
-    We expect specific names for columns
-        * case id column: Case_ID or CaseID
 
     The columns semantic for lana will be derived from the data frame's dtypes. All types
     will be converted to categorical attributes, besides numbers.
     """
 
     semantics = []
-    id_mappings = {"Case_ID": "Case ID", "CaseID": "Case ID"}
+    id_mappings = {case_id: "Case ID"}
     for i, col_name in enumerate(df.columns):
         is_lana_categorial = \
             pd.api.types.is_object_dtype(df[col_name]) or \
