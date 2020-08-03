@@ -47,7 +47,7 @@ def create_semantics(columns: Iterable[str],
     ]
 
 
-def create_event_semantics_from_df(df: pd.DataFrame, case_id: str = "CaseID", action: str = "Action",
+def create_event_semantics_from_df(df: pd.DataFrame, case_id: str = "Case_ID", action: str = "Action",
                                    start: str = "Start", complete: str = "Complete",
                                    time_format: str = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS") -> List[dict]:
     """
@@ -67,30 +67,36 @@ def create_event_semantics_from_df(df: pd.DataFrame, case_id: str = "CaseID", ac
     }
 
     for i, col in enumerate(df.columns):
+        is_lana_categorial = \
+            pd.api.types.is_object_dtype(df[col]) or \
+            pd.api.types.is_bool_dtype(df[col])
+        is_lana_numeric = \
+            pd.api.types.is_numeric_dtype(df[col]) and not \
+            pd.api.types.is_bool_dtype(df[col])
 
         if col in id_mappings:
             # the most general branch, that exists in all logs
             semantics += [{
-                'name': id_mappings[col],
+                'name': col,
                 'semantic': id_mappings[col],
                 'format': None,
                 'idx': i}]
         elif col in timestamps_mappings:
             # the second most general branch, Start exists always, Complete sometimes
             semantics += [{
-                'name': timestamps_mappings[col],
+                'name': col,
                 'semantic': timestamps_mappings[col],
                 'format': time_format,
                 'idx': i}]
         else:
             # an optional branch, defined by not being (partially) required and thus inferred
-            if pd.api.types.is_object_dtype(df[col]):
+            if is_lana_categorial:
                 semantics += [{
                     'name': col,
                     'semantic': 'CategorialAttribute',
                     'format': None,
                     'idx': i}]
-            elif pd.api.types.is_numeric_dtype(df[col]):
+            elif is_lana_numeric:
                 semantics += [{
                     'name': col,
                     'semantic': 'NumericAttribute',
@@ -100,7 +106,7 @@ def create_event_semantics_from_df(df: pd.DataFrame, case_id: str = "CaseID", ac
     return semantics
 
 
-def create_case_semantics_from_df(df: pd.DataFrame, case_id: str = "CaseID") -> List[dict]:
+def create_case_semantics_from_df(df: pd.DataFrame, case_id: str = "Case_ID") -> List[dict]:
     """
     create case semantics from a pandas data frame
 
@@ -110,29 +116,29 @@ def create_case_semantics_from_df(df: pd.DataFrame, case_id: str = "CaseID") -> 
 
     semantics = []
     id_mappings = {case_id: "Case ID"}
-    for i, col_name in enumerate(df.columns):
+    for i, col in enumerate(df.columns):
         is_lana_categorial = \
-            pd.api.types.is_object_dtype(df[col_name]) or \
-            pd.api.types.is_bool_dtype(df[col_name])
+            pd.api.types.is_object_dtype(df[col]) or \
+            pd.api.types.is_bool_dtype(df[col])
         is_lana_numeric = \
-            pd.api.types.is_numeric_dtype(df[col_name]) and not \
-            pd.api.types.is_bool_dtype(df[col_name])
+            pd.api.types.is_numeric_dtype(df[col]) and not \
+            pd.api.types.is_bool_dtype(df[col])
 
-        if col_name in id_mappings:
+        if col in id_mappings:
             semantics += [{
-                'name': id_mappings[col_name],
-                'semantic': id_mappings[col_name],
+                'name': col,
+                'semantic': id_mappings[col],
                 'format': None,
                 'idx': i}]
         elif is_lana_categorial:
             semantics += [{
-                'name': col_name,
+                'name': col,
                 'semantic': 'CategorialAttribute',
                 'format': None,
                 'idx': i}]
         elif is_lana_numeric:
             semantics += [{
-                'name': col_name,
+                'name': col,
                 'semantic': 'NumericAttribute',
                 'format': None,
                 'idx': i}]
