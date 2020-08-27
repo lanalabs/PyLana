@@ -7,6 +7,27 @@ from typing import Iterable, Dict, List
 
 import pandas as pd
 
+def create_metric(metric_value: str, aggregation_function: str = 'sum'):
+    if metric_value == 'frequency':
+        return({'type': 'frequency'})
+    elif metric_value == 'duration':
+        return({'type': 'duration',
+                'aggregationFunction': aggregation_function})
+    else:
+        return({'type': 'attribute',
+                'attribute': metric_value,
+                'aggregationFunction': aggregation_function})
+
+def create_grouping(grouping_value: str, date_type: str = 'startDate'):
+    if grouping_value == 'byDuration':
+        return({'type': 'byDuration'})
+    elif grouping_value in ['byYear', 'byMonth', 'byQuarter', 'byDayOfWeek', 'byDayOfYear', 'byHourOfDay']:
+        return({'type': grouping_value,
+                'dateType': date_type,
+                'timeZone': 'Europe/Berlin'})
+    else:
+        return({'type': 'byAttribute',
+                'attribute': grouping_value})
 
 # TODO: check whether this function is actually required
 def create_semantics(columns: Iterable[str],

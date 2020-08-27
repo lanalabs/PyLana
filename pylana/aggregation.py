@@ -1,41 +1,22 @@
-from pylana.api import API
 import pandas as pd
 from pandas.io.json import json_normalize
 
+from pylana.api import API
+from pylana.utils import create_metric, create_grouping
+
 class AggregationAPI(API):
     
-    def create_metric(metric_value, aggregation_function = 'sum'):
-        if metric_value == 'frequency':
-            return({'type': 'frequency'})
-        elif metric_value == 'duration':
-            return({'type': 'duration',
-                    'aggregationFunction': aggregation_function})
-        else:
-            return({'type': 'attribute',
-                    'attribute': metric_value,
-                    'aggregationFunction': aggregation_function})
-
-    def create_grouping(grouping_value, date_type = 'startDate'):
-        if grouping_value == 'byDuration':
-            return({'type': 'byDuration'})
-        elif grouping_value in ['byYear', 'byMonth', 'byQuarter', 'byDayOfWeek', 'byDayOfYear', 'byHourOfDay']:
-            return({'type': grouping_value,
-                    'dateType': date_type,
-                    'timeZone': 'Europe/Berlin'})
-        else:
-            return({'type': 'byAttribute',
-                    'attribute': grouping_value})
-    
-    def aggregate(self, metric: str, grouping: str = None, 
+    def aggregate(self, log_id: str, metric: str,
+                  grouping: str = None,
                   secondary_grouping: str = None,
-                  log_id: str, max_amount_attributes: int = 10, 
-                  trace_filter_sequence: list = [], 
-                  activity_exclusion_filter: list = [], 
+                  max_amount_attributes: int = 10,
+                  trace_filter_sequence: list = [],
+                  activity_exclusion_filter: list = [],
                   value_sorting: str = 'caseCount',
-                  sorting_order: str = 'descending', 
+                  sorting_order: str = 'descending',
                   values_from: str = 'allCases',
-                  aggregation_function: str = 'sum', 
-                  date_type: str = 'startDate', 
+                  aggregation_function: str = 'sum',
+                  date_type: str = 'startDate',
                   secondary_date_type: str = 'startDate',
                   **kwargs) -> pd.DataFrame:
         """
@@ -44,14 +25,14 @@ class AggregationAPI(API):
         visualizations.
         
         Args:
+            log_id:
+                A string denoting the id of the log to aggregate.
             metric: 
                 A string denoting the metric.
             grouping:
                 A string denoting the time or attribute grouping.
             secondary_grouping:
                 A string denoting an additional time or attribute grouping.
-            log_id:
-                A string denoting the id of the log to aggregate.
             max_amount_attributes:
                 An integer denoting the maximum amount of attributes to return.
             trace_filter_sequence:
@@ -91,9 +72,10 @@ class AggregationAPI(API):
         if secondary_grouping is not None:
             request_data['secondaryGrouping'] = create_grouping(secondary_grouping, secondary_date_type)
         
-        print(request_data)
-        
         aggregate_response = self.post('/api/v2/aggregate-data', json = request_data, **kwargs)
+        
+        if aggregate_response.status_code >= 400:
+            return pd.DataFrame()
         
         response_df = pd.DataFrame(aggregate_response.json()['chartValues'])
             
