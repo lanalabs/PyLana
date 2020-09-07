@@ -57,6 +57,7 @@ class AggregationAPI(API):
         Returns:
             A pandas DataFrame containing the aggregated data.
         """
+            
         request_data = {'metric': create_metric(metric, aggregation_function),
                         'valuesFrom': {'type': values_from},
                         'miningRequest': {'logId': log_id,
@@ -94,3 +95,53 @@ class AggregationAPI(API):
                                                     'yAxis': metric,
                                                     'zAxis': secondary_grouping})
         return(response_df)
+        
+        
+    def boxplot_stats(self, log_id: str, metric: str, grouping: str = None,
+                      values_from: str = "allCases", **kwargs):
+        """
+        An aggregation function for the computation the metrics necessary for
+        building a boxplot graph.
+        
+        Args:
+            log_id:
+                A string denoting the id of the log to aggregate.
+            metric: 
+                A string denoting the metric.
+            grouping:
+                A string denoting the time or attribute grouping.
+            values_from:
+                A string denoting which values to consider for the aggregation.
+            **kwargs: 
+                Keyword arguments passed to aggregate and request function.
+                
+        Returns:
+            A pandas DataFrame containing the metrics needed for building a boxplot.
+        """
+    
+        min_agg = self.aggregate(log_id = log_id, metric = metric, grouping = grouping,
+                                 values_from = values_from, aggregation_function = "min", 
+                                 **kwargs)
+        max_agg = self.aggregate(log_id = log_id, metric = metric, grouping = grouping, 
+                                 values_from = values_from, aggregation_function = "max",
+                                 **kwargs)
+        median_agg = self.aggregate(log_id = log_id, metric = metric, grouping = grouping,
+                                    values_from = values_from, aggregation_function = "median",
+                                    **kwargs)
+        p25_agg = self.aggregate(log_id = log_id, metric = metric, grouping = grouping,
+                                 values_from = values_from, aggregation_function = "p25",
+                                 **kwargs)
+        p75_agg = self.aggregate(log_id = log_id, metric = metric, grouping = grouping,
+                                 values_from = values_from, aggregation_function = "p75",
+                                 **kwargs)
+        
+        boxplot_stats_df = pd.DataFrame({"min": min_agg[metric],
+                                         "max": max_agg[metric],
+                                         "median": median_agg[metric],
+                                         "p25": p25_agg[metric],
+                                         "p75": p75_agg[metric]})
+                                
+        if grouping is not None:
+            boxplot_stats_df.index = median_agg[grouping]
+        
+        return(boxplot_stats_df)

@@ -5,18 +5,28 @@ functions to prepare requests for consumption
 from collections import defaultdict
 from typing import Iterable, Dict, List
 
+import re
 import pandas as pd
-
+        
+def create_aggregation_function(aggregation_function: str):
+    if re.match("^p[0-9]{1,3}", aggregation_function):
+        return({"aggregationFunction": {"type": "percentile",
+                                        "percentile": int(aggregation_function[1:])}})
+    else:
+        return({'aggregationFunction': aggregation_function})
+        
 def create_metric(metric_value: str, aggregation_function: str = 'sum'):
     if metric_value == 'frequency':
         return({'type': 'frequency'})
     elif metric_value == 'duration':
-        return({'type': 'duration',
-                'aggregationFunction': aggregation_function})
+        metric = {'type': 'duration'}
+        metric.update(create_aggregation_function(aggregation_function))
+        return(metric)
     else:
-        return({'type': 'attribute',
-                'attribute': metric_value,
-                'aggregationFunction': aggregation_function})
+        metric = {'type': 'attribute',
+                  'attribute': metric_value}
+        metric.update(create_aggregation_function(aggregation_function))
+        return(metric)
 
 def create_grouping(grouping_value: str, date_type: str = 'startDate'):
     if grouping_value == 'byDuration':
