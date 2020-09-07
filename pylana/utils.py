@@ -9,12 +9,13 @@ import re
 import pandas as pd
         
 def create_aggregation_function(aggregation_function: str):
-    if re.match("^p[0-9]{1,3}", aggregation_function):
-        return({"aggregationFunction": {"type": "percentile",
-                                        "percentile": int(aggregation_function[1:])}})
+    if re.match('^p[0-9]{1,3}', aggregation_function):
+        return({'aggregationFunction': {'type': 'percentile',
+                                        'percentile': int(aggregation_function[1:])}})
     else:
         return({'aggregationFunction': aggregation_function})
-        
+
+
 def create_metric(metric_value: str, aggregation_function: str = 'sum'):
     if metric_value == 'frequency':
         return({'type': 'frequency'})
@@ -28,6 +29,7 @@ def create_metric(metric_value: str, aggregation_function: str = 'sum'):
         metric.update(create_aggregation_function(aggregation_function))
         return(metric)
 
+
 def create_grouping(grouping_value: str, date_type: str = 'startDate'):
     if grouping_value == 'byDuration':
         return({'type': 'byDuration'})
@@ -39,10 +41,11 @@ def create_grouping(grouping_value: str, date_type: str = 'startDate'):
         return({'type': 'byAttribute',
                 'attribute': grouping_value})
 
+
 # TODO: check whether this function is actually required
 def create_semantics(columns: Iterable[str],
-                     case_id: str = "id", action: str = "action", start: str = "start", complete: str = "complete",
-                     numerical_attributes: Iterable[str] = tuple(), time_format: str = "yyyy-MM-dd HH:mm:ss") \
+                     case_id: str = 'id', action: str = 'action', start: str = 'start', complete: str = 'complete',
+                     numerical_attributes: Iterable[str] = tuple(), time_format: str = 'yyyy-MM-dd HH:mm:ss') \
         -> List[Dict[str, str]]:
     """
     create semantics including numeric and categorical attributes
@@ -60,27 +63,27 @@ def create_semantics(columns: Iterable[str],
         a list of dicts representing the semantics file
     """
 
-    semantics = defaultdict(lambda: "CategorialAttribute")
+    semantics = defaultdict(lambda: 'CategorialAttribute')
 
-    semantics_fixed = {case_id: "Case ID", action: "Action", start: "Start", complete: "Complete"}
-    semantics_numeric = {numeric: "NumericAttribute" for numeric in numerical_attributes}
+    semantics_fixed = {case_id: 'Case ID', action: 'Action', start: 'Start', complete: 'Complete'}
+    semantics_numeric = {numeric: 'NumericAttribute' for numeric in numerical_attributes}
 
     semantics.update(semantics_fixed)
     semantics.update(semantics_numeric)
 
     return [
         {
-            "idx": idx,
-            "name": col,
-            "semantic": semantics[col],
-            "format": time_format if semantics[col] in ["Start", "Complete"] else None
+            'idx': idx,
+            'name': col,
+            'semantic': semantics[col],
+            'format': time_format if semantics[col] in ['Start', 'Complete'] else None
         } for idx, col in enumerate(columns)
     ]
 
 
-def create_event_semantics_from_df(df: pd.DataFrame, case_id: str = "Case_ID", action: str = "Action",
-                                   start: str = "Start", complete: str = "Complete",
-                                   time_format: str = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS") -> List[dict]:
+def create_event_semantics_from_df(df: pd.DataFrame, case_id: str = 'Case_ID', action: str = 'Action',
+                                   start: str = 'Start', complete: str = 'Complete',
+                                   time_format: str = 'yyyy-MM-dd"T"HH:mm:ss.SSSSSS') -> List[dict]:
     """
     create event semantics from a pandas data frame
 
@@ -91,10 +94,10 @@ def create_event_semantics_from_df(df: pd.DataFrame, case_id: str = "Case_ID", a
     """
     semantics = []
     id_mappings = {
-        case_id: "Case ID", action: "Action"
+        case_id: 'Case ID', action: 'Action'
     }
     timestamps_mappings = {
-        start: "Start", complete: "Complete"
+        start: 'Start', complete: 'Complete'
     }
 
     for i, col in enumerate(df.columns):
@@ -137,7 +140,7 @@ def create_event_semantics_from_df(df: pd.DataFrame, case_id: str = "Case_ID", a
     return semantics
 
 
-def create_case_semantics_from_df(df: pd.DataFrame, case_id: str = "Case_ID") -> List[dict]:
+def create_case_semantics_from_df(df: pd.DataFrame, case_id: str = 'Case_ID') -> List[dict]:
     """
     create case semantics from a pandas data frame
 
@@ -146,7 +149,7 @@ def create_case_semantics_from_df(df: pd.DataFrame, case_id: str = "Case_ID") ->
     """
 
     semantics = []
-    id_mappings = {case_id: "Case ID"}
+    id_mappings = {case_id: 'Case ID'}
     for i, col in enumerate(df.columns):
         is_lana_categorial = \
             pd.api.types.is_object_dtype(df[col]) or \

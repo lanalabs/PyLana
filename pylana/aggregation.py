@@ -98,7 +98,7 @@ class AggregationAPI(API):
         
         
     def boxplot_stats(self, log_id: str, metric: str, grouping: str = None,
-                      values_from: str = "allCases", **kwargs):
+                      values_from: str = 'allCases', **kwargs):
         """
         An aggregation function for the computation the metrics necessary for
         building a boxplot graph.
@@ -120,26 +120,26 @@ class AggregationAPI(API):
         """
     
         min_agg = self.aggregate(log_id = log_id, metric = metric, grouping = grouping,
-                                 values_from = values_from, aggregation_function = "min", 
+                                 values_from = values_from, aggregation_function = 'min', 
                                  **kwargs)
         max_agg = self.aggregate(log_id = log_id, metric = metric, grouping = grouping, 
-                                 values_from = values_from, aggregation_function = "max",
+                                 values_from = values_from, aggregation_function = 'max',
                                  **kwargs)
         median_agg = self.aggregate(log_id = log_id, metric = metric, grouping = grouping,
-                                    values_from = values_from, aggregation_function = "median",
+                                    values_from = values_from, aggregation_function = 'median',
                                     **kwargs)
         p25_agg = self.aggregate(log_id = log_id, metric = metric, grouping = grouping,
-                                 values_from = values_from, aggregation_function = "p25",
+                                 values_from = values_from, aggregation_function = 'p25',
                                  **kwargs)
         p75_agg = self.aggregate(log_id = log_id, metric = metric, grouping = grouping,
-                                 values_from = values_from, aggregation_function = "p75",
+                                 values_from = values_from, aggregation_function = 'p75',
                                  **kwargs)
         
-        boxplot_stats_df = pd.DataFrame({"min": min_agg[metric],
-                                         "max": max_agg[metric],
-                                         "median": median_agg[metric],
-                                         "p25": p25_agg[metric],
-                                         "p75": p75_agg[metric]})
+        boxplot_stats_df = pd.DataFrame({'min': min_agg[metric],
+                                         'max': max_agg[metric],
+                                         'median': median_agg[metric],
+                                         'p25': p25_agg[metric],
+                                         'p75': p75_agg[metric]})
                                 
         if grouping is not None:
             boxplot_stats_df.index = median_agg[grouping]

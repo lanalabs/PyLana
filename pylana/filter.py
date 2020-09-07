@@ -80,11 +80,11 @@ def create_activity_filters(include: list, exclude: list = []):
     
 def create_follower_filter(pre: str, succ: str, direct_follower = False, include = True):
     
-    if pre == "Start":
-        pre = "__LANA_START__"
+    if pre == 'Start':
+        pre = '__LANA_START__'
     
-    if succ == "End":
-        succ = "__LANA_END__"
+    if succ == 'End':
+        succ = '__LANA_END__'
     
     follower_filter = {
         'type': 'followerFilter',
