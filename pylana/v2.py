@@ -11,7 +11,7 @@ from pylana.shiny_dashboards import ShinyDashboardAPI
 from pylana.aggregation import AggregationAPI
 
 
-class LanaAPI2(LogsAPI, ShinyDashboardAPI, ResourceAPI, AggregationAPI):
+class LanaAPI2(LogsAPI, ShinyDashboardAPI, AggregationAPI, ResourceAPI):
     """The Python API for Lana process Mining.
 
     It allows programmatic management of all lana resources.
