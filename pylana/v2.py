@@ -8,9 +8,10 @@ eponymous legacy API.
 from pylana.logs import LogsAPI
 from pylana.resources import ResourceAPI
 from pylana.shiny_dashboards import ShinyDashboardAPI
+from pylana.dashboards import DashboardAPI
 
 
-class LanaAPI2(LogsAPI, ShinyDashboardAPI, ResourceAPI):
+class LanaAPI2(LogsAPI, ShinyDashboardAPI, DashboardAPI, ResourceAPI):
     """The Python API for Lana process Mining.
 
     It allows programmatic management of all lana resources.

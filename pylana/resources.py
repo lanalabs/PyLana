@@ -34,18 +34,23 @@ class ResourceAPI(API):
             kind:
                 A string denoting the resource type.
             contains:
-                A string denoting a regular expression matched against the log
+                A string denoting a regular expression matched against the resource
                 names.
             **kwargs:
                 Keyword arguments passed to requests functions.
 
         Returns:
-            a list of strings representing log ids
+            a list of strings representing resource ids
         """
         resources = self.list_resources(kind, **kwargs)
         rc = re.compile(contains)
-        return [resource['id'] for resource in resources
-                if rc.search(resource['name'])]
+        
+        if kind == "v2/dashboards":
+            return [resource['pageId'] for resource in resources
+                    if rc.search(resource['title'])]
+        else:
+            return [resource['id'] for resource in resources
+                    if rc.search(resource['name'])]
 
     def get_resource_id(self, kind: str, contains: str, **kwargs) -> str:
         """
@@ -53,15 +58,15 @@ class ResourceAPI(API):
 
         name needs to be unique or an exception is raised
         """
-        log_ids = self.get_resource_ids(kind, contains, **kwargs)
+        resource_ids = self.get_resource_ids(kind, contains, **kwargs)
 
         try:
-            [log_id] = log_ids
+            [resource_id] = resource_ids
         except ValueError as e:
             raise Exception(
-                f'Found {len(log_ids)} resources with the pattern {contains}')
+                f'Found {len(resource_ids)} resources with the pattern {contains}')
 
-        return log_id
+        return resource_id
 
 
     @expect_json
