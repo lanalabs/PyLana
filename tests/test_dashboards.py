@@ -29,7 +29,7 @@ class TestDashboardAPI(unittest.TestCase):
                   'y': 0}]
         resp_create = self.api.create_dashboard('pylana-dashboard', items)
         resp_get = self.api.get_dashboard('pylana-dashboard')
-        self.assertDictEqual(resp_create, resp_get)
+        self.assertDictEqual(resp_create.json(), resp_get)
 
         id_ = self.api.get_dashboard_id('pylana-dashboard')
         resp_delete = self.api.delete_dashboard(id_)
