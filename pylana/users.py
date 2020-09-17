@@ -4,15 +4,15 @@ user management api requests functions and methods
 
 from requests import Response
 
-from pylana import API
+from pylana.api import API
 
 class UsersAPI(API):
 
-    def create_user(self, email: str, role: str, organization_id: str, 
-                    backend_instance_id: str, language: str = 'en-US', 
+    def create_user(self, email: str, role: str, organization_id: str,
+                    backend_instance_id: str, language: str = 'en-US',
                     **kwargs) -> Response:
         """Create a new user in an organization. Admin priviliges necessary.
-        
+
         This function only works for cloud deployments as on-premise
         deployments expect an encrypted password in the request body.
 
@@ -32,15 +32,15 @@ class UsersAPI(API):
                 user, defaulting to 'en-US'.
             **kwargs:
                 Keyword arguments passed to requests functions.
-            
+
         Returns:
             The requests response of the lana api call.
         """
-        if role not in ['Viewer', 'Analyst', 'RAnalyst', 'UserAdmin', 
+        if role not in ['Viewer', 'Analyst', 'RAnalyst', 'UserAdmin',
                         'SuperAdmin']:
             raise Exception('The role has to be one of "Viewer", "Analyst", '
                             + '"RAnalyst", "UserAdmin" or "SuperAdmin".')
-            
+
         request_data = {'email': email,
                         'role': role,
                         'organizationId': organization_id,
@@ -51,7 +51,7 @@ class UsersAPI(API):
                                 'language': language
                                 }
                         }
-                        
+
         return self.post('/api/users', json = request_data, **kwargs)
 
     def list_organizations(self, **kwargs) -> list:
@@ -60,11 +60,11 @@ class UsersAPI(API):
         Args:
             **kwargs:
                 Keyword arguments passed to requests functions.
-            
-        Returns: 
+
+        Returns:
             A list of organizations.
         """
-    
+
         return self.get('/api/organizations').json()
 
     def update_user_role(self, user_id: str, role: str,
@@ -83,13 +83,13 @@ class UsersAPI(API):
         Returns:
             The requests response of the lana api call.
         """
-        if role not in ['Viewer', 'Analyst', 'RAnalyst', 'UserAdmin', 
+        if role not in ['Viewer', 'Analyst', 'RAnalyst', 'UserAdmin',
                         'SuperAdmin']:
             raise Exception('The role has to be one of "Viewer", "Analyst", '
                             + '"RAnalyst", "UserAdmin" or "SuperAdmin".')
-            
+
         request_data = {'role': role}
-            
+
         return self.patch('/api/users/' + user_id, json = request_data,
                           **kwargs)
 
@@ -139,7 +139,7 @@ class UsersAPI(API):
             A list containing the information about all the users.
         """
         return self.get('/api/users/', **kwargs).json()
-    
+
     def delete_user(self, user_id: str, **kwargs) -> Response:
         """Deletes a given user from the system.
 

@@ -12,7 +12,7 @@ from pylana.shiny_dashboards import ShinyDashboardAPI
 from pylana.dashboards import DashboardAPI
 
 
-class LanaAPI2(LogsAPI, UsersAPI, ShinyDashboardAPI, DashboardAPI, ResourceAPI):
+class LanaAPI2(LogsAPI, ShinyDashboardAPI, DashboardAPI, ResourceAPI, UsersAPI):
     """The Python API for Lana process Mining.
 
     It allows programmatic management of all lana resources.
