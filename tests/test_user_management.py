@@ -1,6 +1,5 @@
 import json
 import unittest
-import pytest
 
 from pylana import create_api
 
@@ -11,6 +10,23 @@ class TestUsersAPI(unittest.TestCase):
         with open('./tests/admin_config.json') as f:
             cls.credentials = json.load(f)
         cls.api = create_api(verify=True, **cls.credentials)
+
+    def test_user_by_token_success(self):
+        url = self.credentials['scheme'] + '://' \
+            + self.credentials['host'] + ':' \
+            + str(self.credentials['port'])
+        actual = get_user_information(url, self.credentials['token'])
+
+        expected_keys = [
+            'acceptedTerms', 'apiKey', 'apiKeyStatus', 'backendInstanceId',
+            'email', 'id', 'organizationId', 'preferences', 'role']
+
+        self.assertCountEqual(actual.keys(), expected_keys)
+
+    def test_user_by_token_failure(self):
+        with self.assertRaises(requests.exceptions.HTTPError):
+            _ = get_user_information('https://cloud-backend.lanalabs.com',
+                                     token='not-a-valid-token ')
 
     def test_list_users(self):
         users = self.api.get_all_users()
