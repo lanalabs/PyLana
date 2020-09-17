@@ -4,9 +4,9 @@ user management api requests functions and methods
 
 from requests import Response
 
-from pylana.api import API
+from pylana.resources import ResourceAPI
 
-class UsersAPI(API):
+class UsersAPI(ResourceAPI):
 
     def create_user(self, email: str, role: str, organization_id: str,
                     backend_instance_id: str, language: str = 'en-US',
