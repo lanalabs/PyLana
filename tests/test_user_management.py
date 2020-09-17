@@ -1,11 +1,16 @@
 import json
 import unittest
+import pytest
 
 import requests
+
+from os import path
 
 from pylana.api import get_user_information
 from pylana import create_api
 
+@pytest.mark.skipif(not path.exists('./tests/admin_config.json'), 
+                    reason="admin privileges necessary")
 class TestUsersAPI(unittest.TestCase):
 
     @classmethod
