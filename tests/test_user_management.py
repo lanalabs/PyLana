@@ -1,6 +1,9 @@
 import json
 import unittest
 
+import requests
+
+from pylana.api import get_user_information
 from pylana import create_api
 
 class TestUsersAPI(unittest.TestCase):
