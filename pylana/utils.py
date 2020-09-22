@@ -7,8 +7,18 @@ from typing import Iterable, Dict, List
 
 import re
 import pandas as pd
-        
-def create_aggregation_function(aggregation_function: str):
+
+def create_aggregation_function(aggregation_function: str) -> dict:
+    """
+    Create a dictionary containing the aggregation function in a format necessary
+    for the aggregation API request.
+
+    Args:
+        aggregation_function: A string denoting the aggregation function to use.
+
+    Returns:
+        A dictionary containing the aggregation function string.
+    """
     if re.match('^p[0-9]{1,3}', aggregation_function):
         return({'aggregationFunction': {'type': 'percentile',
                                         'percentile': int(aggregation_function[1:])}})
@@ -16,7 +26,21 @@ def create_aggregation_function(aggregation_function: str):
         return({'aggregationFunction': aggregation_function})
 
 
-def create_metric(metric_value: str, aggregation_function: str = 'sum'):
+def create_metric(metric_value: str, aggregation_function: str = 'sum') -> dict:
+    """
+    Create a dictionary containing the metric in a format necessary
+    for the aggregation API request.
+
+    Args:
+        metric_value: A string denoting the metric to use. For the value
+        "frequency", a frequency metric is returned and for "duration" a
+        duration metric is returned. Otherwise the value is interpreted
+        as a numeric attribute metric.
+        aggregation_function: A string denoting the aggregation function to use.
+
+    Returns:
+        A dictionary containing the metric in the right format for the request.
+    """
     if metric_value == 'frequency':
         return({'type': 'frequency'})
     elif metric_value == 'duration':
@@ -30,7 +54,22 @@ def create_metric(metric_value: str, aggregation_function: str = 'sum'):
         return(metric)
 
 
-def create_grouping(grouping_value: str, date_type: str = 'startDate'):
+def create_grouping(grouping_value: str, date_type: str = 'startDate') -> dict:
+    """
+    Create a dictionary containing the grouping in a format necessary
+    for the aggregation API request.
+
+    Args:
+        grouping_value: A string denoting the grouping to use. For the value
+        "byDuration", a duration grouping is returned and for one of
+        ["byYear", "byMonth", "byQuarter", "byDayOfWeek", "byDayOfYear",
+        "byHourOfDay"] a time grouping is returned. Otherwise the value is
+        interpreted as a categorical attribute grouping.
+        date_type: A string denoting the aggregation function to use.
+
+    Returns:
+        A dictionary containing the metric in the right format for the request.
+    """
     if grouping_value == 'byDuration':
         return({'type': 'byDuration'})
     elif grouping_value in ['byYear', 'byMonth', 'byQuarter', 'byDayOfWeek', 'byDayOfYear', 'byHourOfDay']:
