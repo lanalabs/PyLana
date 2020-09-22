@@ -14,7 +14,11 @@ def create_aggregation_function(aggregation_function: str) -> dict:
     for the aggregation API request.
 
     Args:
-        aggregation_function: A string denoting the aggregation function to use.
+        aggregation_function:
+            A string denoting the aggregation function to use.
+            Can be one of ["min", "max", "sum", "mean", "median", "variance",
+            "standardDeviation"] or a percentile as a string starting with "p"
+            followed by the percentile value.
 
     Returns:
         A dictionary containing the aggregation function string.
@@ -32,11 +36,16 @@ def create_metric(metric_value: str, aggregation_function: str = 'sum') -> dict:
     for the aggregation API request.
 
     Args:
-        metric_value: A string denoting the metric to use. For the value
-        "frequency", a frequency metric is returned and for "duration" a
-        duration metric is returned. Otherwise the value is interpreted
-        as a numeric attribute metric.
-        aggregation_function: A string denoting the aggregation function to use.
+        metric_value:
+            A string denoting the metric to use. For the value
+            "frequency", a frequency metric is returned and for "duration" a
+            duration metric is returned. Otherwise the value is interpreted
+            as a numeric attribute metric.
+        aggregation_function:
+            A string denoting the aggregation function to use.
+            Can be one of ["min", "max", "sum", "mean", "median", "variance",
+            "standardDeviation"] or a percentile as a string starting with "p"
+            followed by the percentile value.
 
     Returns:
         A dictionary containing the metric in the right format for the request.
@@ -60,12 +69,14 @@ def create_grouping(grouping_value: str, date_type: str = 'startDate') -> dict:
     for the aggregation API request.
 
     Args:
-        grouping_value: A string denoting the grouping to use. For the value
-        "byDuration", a duration grouping is returned and for one of
-        ["byYear", "byMonth", "byQuarter", "byDayOfWeek", "byDayOfYear",
-        "byHourOfDay"] a time grouping is returned. Otherwise the value is
-        interpreted as a categorical attribute grouping.
-        date_type: A string denoting the aggregation function to use.
+        grouping_value:
+            A string denoting the grouping to use. For the value
+            "byDuration", a duration grouping is returned and for one of
+            ["byYear", "byMonth", "byQuarter", "byDayOfWeek", "byDayOfYear",
+            "byHourOfDay"] a time grouping is returned. Otherwise the value is
+            interpreted as a categorical attribute grouping.
+        date_type:
+            A string denoting the aggregation function to use.
 
     Returns:
         A dictionary containing the metric in the right format for the request.
