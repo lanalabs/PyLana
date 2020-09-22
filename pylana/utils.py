@@ -122,7 +122,7 @@ def create_semantics(columns: Iterable[str],
 
 def create_event_semantics_from_df(df: pd.DataFrame, case_id: str = 'Case_ID', action: str = 'Action',
                                    start: str = 'Start', complete: str = 'Complete',
-                                   time_format: str = 'yyyy-MM-dd"T"HH:mm:ss.SSSSSS') -> List[dict]:
+                                   time_format: str = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS") -> List[dict]:
     """
     create event semantics from a pandas data frame
 
