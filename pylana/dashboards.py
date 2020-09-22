@@ -57,7 +57,7 @@ class DashboardAPI(ResourceAPI):
 
         Raises:
             Exception:
-                None ore more than one dashboard name matches the
+                None or more than one dashboard name matches the
                 regular expression.
         """
         return self.get_resource_id('v2/dashboards', contains, **kwargs)
@@ -72,7 +72,8 @@ class DashboardAPI(ResourceAPI):
             name:  
                 A string denoting the dashboard name.
             items:
-                A list of dicts denoting the dashboard items.
+                A list of dicts denoting the dashboard items (referenced as
+                charts in LANA Process Mining)
             is_active:
                 A boolean denoting if the dashboard should be set
                 as the last one selected by the user.
@@ -85,13 +86,13 @@ class DashboardAPI(ResourceAPI):
         request_data = {'title': name,
                         'items': items,
                         'isActive': is_active}
-        
-        return self.post(f'/api/v2/dashboards/', json = request_data, **kwargs)
 
-    def get_dashboard(self, contains: str = None,
-                      dashboard_id: str = None, **kwargs) -> dict:
+        return self.create_resource('v2/dashboards/', json=request_data, **kwargs)
+
+    def describe_dashboard(self, contains: str = None,
+                           dashboard_id: str = None, **kwargs) -> dict:
         """
-        Get dashboard data.
+        Get dashboard metadata.
 
         Args:
             contains: 
@@ -109,10 +110,11 @@ class DashboardAPI(ResourceAPI):
         return self.describe_resource('v2/dashboards', contains, dashboard_id, 
                                       **kwargs)
     
-    def get_dashboard_items(self, contains: str = None,
-                            dashboard_id: str = None, **kwargs) -> List[dict]:
+    def describe_dashboard_items(self, contains: str = None,
+                                 dashboard_id: str = None, **kwargs) \
+            -> List[dict]:
         """
-        Get dashboard items.
+        Get dashboard item metadata.
 
         Args:
             contains: 
@@ -125,7 +127,8 @@ class DashboardAPI(ResourceAPI):
                 Keyword arguments passed to requests functions.
             
         Returns:
-            A list with the dashboard items as dicts.
+            A list with the dashboard items as dicts (items are referenced as
+            charts in LANA Process Mining)
         """
         dashboard = self.get_dashboard(contains, dashboard_id, **kwargs)
         
@@ -150,17 +153,18 @@ class DashboardAPI(ResourceAPI):
                                     **kwargs)
 
     def delete_dashboards(self, contains: str = None,
-                                ids: List[str] = None, **kwargs) -> \
+                          ids: List[str] = None, **kwargs) -> \
             List[Response]:
         """
-        Delete dashboards by id list of name matching
+        Delete dashboards with matching names.
 
         Args:
             contains: 
                 A string denoting a regular expression. 
                 It is ignored when ids are passed.
             ids: 
-                A list of strings denoting shiny dashboard ids.
+                A list of strings denoting dashboard ids.
+                
         Returns:
             A list of request responses of the calls to the lana api.
         """
@@ -169,8 +173,8 @@ class DashboardAPI(ResourceAPI):
 
     # TODO consider sharing by names
     def share_dashboard(self, dashboard_id: str,
-                              user_ids: List[str], project_ids: List[str],
-                              organization_ids: List[str], **kwargs) -> Response:
+                        user_ids: List[str], organization_ids: List[str],
+                        **kwargs) -> Response:
         """
         Share a dashboard with users by ids.
 
@@ -179,8 +183,6 @@ class DashboardAPI(ResourceAPI):
                 A string denoting the id of the dashboard.
             user_ids:
                 A list of strings denoting ids of users to share with.
-            project_ids: 
-                A list of strings denoting ids of projects to share with.
             organization_ids: 
                 A list of strings denoting ids of organizations to share with.
 
@@ -190,11 +192,10 @@ class DashboardAPI(ResourceAPI):
         body = {
             "sharedInformation": {
                 "userIds": user_ids,
-                "projectIds": project_ids,
                 "organizationIds": organization_ids
             }
         }
-        return self.patch(f"/api/v2/dashboards/{dashboard_id}", data=body, 
+        return self.patch(f"/api/v2/dashboards/{dashboard_id}", json=body, 
                           **kwargs)
 
     def connect_dashboard(self, log_id, dashboard_id, **kwargs) \
@@ -215,3 +216,4 @@ class DashboardAPI(ResourceAPI):
         """
         dct = {'log_id': log_id, 'dashboard_id': dashboard_id}
         return self.connect_resources(dct, **kwargs)
+    
