@@ -1,12 +1,9 @@
 import json
 import unittest
-import pytest
-
-import requests
-
 from os import path
 
-from pylana.api import get_user_information
+import pytest
+
 from pylana import create_api
 
 

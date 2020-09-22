@@ -6,6 +6,7 @@ from requests import Response
 
 from pylana.resources import ResourceAPI
 
+
 class UsersAPI(ResourceAPI):
 
     def create_user(self, email: str, role: str, organization_id: str,

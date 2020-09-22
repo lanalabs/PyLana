@@ -134,7 +134,6 @@ class DashboardAPI(ResourceAPI):
         
         return dashboard["items"]
 
-
     def delete_dashboard(self, dashboard_id: str, **kwargs) \
             -> Response:
         """
@@ -216,4 +215,3 @@ class DashboardAPI(ResourceAPI):
         """
         dct = {'log_id': log_id, 'dashboard_id': dashboard_id}
         return self.connect_resources(dct, **kwargs)
-    
