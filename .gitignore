@@ -1,6 +1,6 @@
 # credentiols
 tests/config.json
-tests/admin_config.json
+tests/config_useradmin.json
 
 # Byte-compiled / optimized / DLL files
 **/__pycache__

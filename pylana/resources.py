@@ -45,12 +45,11 @@ class ResourceAPI(API):
         resources = self.list_resources(kind, **kwargs)
         rc = re.compile(contains)
         
-        if kind == "v2/dashboards":
-            return [resource['pageId'] for resource in resources
-                    if rc.search(resource['title'])]
-        else:
-            return [resource['id'] for resource in resources
-                    if rc.search(resource['name'])]
+        return [
+            resource.get('id') or resource.get('pageId')
+            for resource in resources if rc.search(resource.get('name') 
+            or resource.get('title'))
+        ]
 
     def get_resource_id(self, kind: str, contains: str, **kwargs) -> str:
         """

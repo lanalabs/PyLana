@@ -11,7 +11,12 @@ class TestDashboardAPI(unittest.TestCase):
         with open('./tests/config.json') as f:
             cls.credentials = json.load(f)
         cls.api = create_api(verify=True, **cls.credentials)
-
+       
+    @classmethod
+    def tearDownClass(cls) -> None:
+        id_ = cls.api.get_dashboard_id('pylana-dashboard')
+        cls.api.delete_dashboard(id_)
+        
     def test_list_dashboards(self):
         dashboards = self.api.list_dashboards()
         self.assertGreaterEqual(len(dashboards), 1)
@@ -31,10 +36,6 @@ class TestDashboardAPI(unittest.TestCase):
         resp_get = self.api.describe_dashboard('pylana-dashboard')
         self.assertDictEqual(resp_create, resp_get)
 
-        id_ = self.api.get_dashboard_id('pylana-dashboard')
-        resp_delete = self.api.delete_dashboard(id_)
-        self.assertEqual(resp_delete.status_code, 200)
-
     def test_get_dashboard(self):
         dashboard = self.api.describe_dashboard('pylana-test-log-.*')
         self.assertEqual(dashboard.get('title'), 'pylana-test-log-from-df')
@@ -44,7 +45,7 @@ class TestDashboardAPI(unittest.TestCase):
 
     def test_get_dashboard_id(self):
         dashboard_id = self.api.get_dashboard_id('pylana-test-log-from-df')
-        self.assertEqual(dashboard_id, '529de59d-6f3d-4e3f-988a-86cd9afe6bb8')
+        self.assertIsInstance(dashboard_id, str)
 
         with self.assertRaises(Exception):
-            _ = self.api.get_dashboard_id('1212')
+            _ = self.api.get_dashboard_id('never-ever-matches-a-dashboard')

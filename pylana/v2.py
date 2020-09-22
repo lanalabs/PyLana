@@ -5,11 +5,11 @@ The name will be changed to LanaAPI as soon as we phase out the
 eponymous legacy API.
 """
 
+from pylana.dashboards import DashboardAPI
 from pylana.logs import LogsAPI
-from pylana.users import UsersAPI
 from pylana.resources import ResourceAPI
 from pylana.shiny_dashboards import ShinyDashboardAPI
-from pylana.dashboards import DashboardAPI
+from pylana.users import UsersAPI
 
 
 class LanaAPI2(LogsAPI, ShinyDashboardAPI, DashboardAPI, UsersAPI, ResourceAPI):
