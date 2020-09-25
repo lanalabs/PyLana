@@ -108,14 +108,14 @@ class AggregationAPI(API):
         response_df = response_df.rename(columns = {'xAxis': grouping,
                                                     'yAxis': metric,
                                                     'zAxis': secondary_grouping})
-        return(response_df)
+        return response_df
 
 
     def boxplot_stats(self, log_id: str, metric: str, grouping: str = None,
                       values_from: str = 'allCases', **kwargs):
         """
         An aggregation function for the computation the metrics necessary for
-        building a boxplot graph.
+        building a standard boxplot graph by using the 25th, 50th and 75th percentile of the data.
 
         Args:
             log_id:
@@ -158,4 +158,4 @@ class AggregationAPI(API):
         if grouping is not None:
             boxplot_stats_df.index = median_agg[grouping]
 
-        return(boxplot_stats_df)
+        return boxplot_stats_df

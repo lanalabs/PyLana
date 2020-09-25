@@ -27,7 +27,7 @@ def create_aggregation_function(aggregation_function: str) -> dict:
         return({'aggregationFunction': {'type': 'percentile',
                                         'percentile': int(aggregation_function[1:])}})
     else:
-        return({'aggregationFunction': aggregation_function})
+        return {'aggregationFunction': aggregation_function}
 
 
 def create_metric(metric_value: str, aggregation_function: str = 'sum') -> dict:
@@ -55,12 +55,12 @@ def create_metric(metric_value: str, aggregation_function: str = 'sum') -> dict:
     elif metric_value == 'duration':
         metric = {'type': 'duration'}
         metric.update(create_aggregation_function(aggregation_function))
-        return(metric)
+        return metric
     else:
         metric = {'type': 'attribute',
                   'attribute': metric_value}
         metric.update(create_aggregation_function(aggregation_function))
-        return(metric)
+        return metric
 
 
 def create_grouping(grouping_value: str, date_type: str = 'startDate') -> dict:
@@ -88,8 +88,8 @@ def create_grouping(grouping_value: str, date_type: str = 'startDate') -> dict:
                 'dateType': date_type,
                 'timeZone': 'Europe/Berlin'})
     else:
-        return({'type': 'byAttribute',
-                'attribute': grouping_value})
+        return {'type': 'byAttribute',
+                'attribute': grouping_value}
 
 
 # TODO: check whether this function is actually required
