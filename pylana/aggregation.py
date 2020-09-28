@@ -1,8 +1,8 @@
 import pandas as pd
-from pandas.io.json import json_normalize
 
 from pylana.api import API
 from pylana.utils import create_metric, create_grouping
+
 
 class AggregationAPI(API):
 
@@ -87,7 +87,7 @@ class AggregationAPI(API):
         if secondary_grouping is not None:
             request_data['secondaryGrouping'] = create_grouping(secondary_grouping, secondary_date_type)
 
-        aggregate_response = self.post('/api/v2/aggregate-data', json = request_data, **kwargs)
+        aggregate_response = self.post('/api/v2/aggregate-data', json=request_data, **kwargs)
 
         if aggregate_response.status_code >= 400:
             return pd.DataFrame()
@@ -95,21 +95,20 @@ class AggregationAPI(API):
         response_df = pd.DataFrame(aggregate_response.json()['chartValues'])
 
         if secondary_grouping is not None:
-            response_df = response_df.explode('values').reset_index(drop = True)
+            response_df = response_df.explode('values').reset_index(drop=True)
 
             z_axis = response_df['zAxis']
 
-            response_df = json_normalize(response_df['values'])
+            response_df = pd.json_normalize(response_df['values'])
 
             response_df['zAxis'] = z_axis
 
-        response_df.drop('$type', axis = 1, inplace = True)
+        response_df.drop('$type', axis=1, inplace=True)
 
-        response_df = response_df.rename(columns = {'xAxis': grouping,
-                                                    'yAxis': metric,
-                                                    'zAxis': secondary_grouping})
+        response_df = response_df.rename(columns={'xAxis': grouping,
+                                                  'yAxis': metric,
+                                                  'zAxis': secondary_grouping})
         return response_df
-
 
     def boxplot_stats(self, log_id: str, metric: str, grouping: str = None,
                       values_from: str = 'allCases', **kwargs):
@@ -133,20 +132,20 @@ class AggregationAPI(API):
             A pandas DataFrame containing the metrics needed for building a boxplot.
         """
 
-        min_agg = self.aggregate(log_id = log_id, metric = metric, grouping = grouping,
-                                 values_from = values_from, aggregation_function = 'min',
+        min_agg = self.aggregate(log_id=log_id, metric=metric, grouping=grouping,
+                                 values_from=values_from, aggregation_function='min',
                                  **kwargs)
-        max_agg = self.aggregate(log_id = log_id, metric = metric, grouping = grouping,
-                                 values_from = values_from, aggregation_function = 'max',
+        max_agg = self.aggregate(log_id=log_id, metric=metric, grouping=grouping,
+                                 values_from=values_from, aggregation_function='max',
                                  **kwargs)
-        median_agg = self.aggregate(log_id = log_id, metric = metric, grouping = grouping,
-                                    values_from = values_from, aggregation_function = 'median',
+        median_agg = self.aggregate(log_id=log_id, metric=metric, grouping=grouping,
+                                    values_from=values_from, aggregation_function='median',
                                     **kwargs)
-        p25_agg = self.aggregate(log_id = log_id, metric = metric, grouping = grouping,
-                                 values_from = values_from, aggregation_function = 'p25',
+        p25_agg = self.aggregate(log_id=log_id, metric=metric, grouping=grouping,
+                                 values_from=values_from, aggregation_function='p25',
                                  **kwargs)
-        p75_agg = self.aggregate(log_id = log_id, metric = metric, grouping = grouping,
-                                 values_from = values_from, aggregation_function = 'p75',
+        p75_agg = self.aggregate(log_id=log_id, metric=metric, grouping=grouping,
+                                 values_from=values_from, aggregation_function='p75',
                                  **kwargs)
 
         boxplot_stats_df = pd.DataFrame({'min': min_agg[metric],

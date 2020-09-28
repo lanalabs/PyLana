@@ -8,6 +8,7 @@ from typing import Iterable, Dict, List
 import re
 import pandas as pd
 
+
 def create_aggregation_function(aggregation_function: str) -> dict:
     """
     Create a dictionary containing the aggregation function in a format necessary
@@ -24,8 +25,8 @@ def create_aggregation_function(aggregation_function: str) -> dict:
         A dictionary containing the aggregation function string.
     """
     if re.match('^p[0-9]{1,3}', aggregation_function):
-        return({'aggregationFunction': {'type': 'percentile',
-                                        'percentile': int(aggregation_function[1:])}})
+        return ({'aggregationFunction': {'type': 'percentile',
+                                         'percentile': int(aggregation_function[1:])}})
     else:
         return {'aggregationFunction': aggregation_function}
 
@@ -51,7 +52,7 @@ def create_metric(metric_value: str, aggregation_function: str = 'sum') -> dict:
         A dictionary containing the metric in the right format for the request.
     """
     if metric_value == 'frequency':
-        return({'type': 'frequency'})
+        return {'type': 'frequency'}
     elif metric_value == 'duration':
         metric = {'type': 'duration'}
         metric.update(create_aggregation_function(aggregation_function))
@@ -81,12 +82,13 @@ def create_grouping(grouping_value: str, date_type: str = 'startDate') -> dict:
     Returns:
         A dictionary containing the metric in the right format for the request.
     """
+    intervals = ['byYear', 'byMonth', 'byQuarter', 'byDayOfWeek', 'byDayOfYear', 'byHourOfDay']
     if grouping_value == 'byDuration':
-        return({'type': 'byDuration'})
-    elif grouping_value in ['byYear', 'byMonth', 'byQuarter', 'byDayOfWeek', 'byDayOfYear', 'byHourOfDay']:
-        return({'type': grouping_value,
+        return {'type': 'byDuration'}
+    elif grouping_value in intervals:
+        return {'type': grouping_value,
                 'dateType': date_type,
-                'timeZone': 'Europe/Berlin'})
+                'timeZone': 'Europe/Berlin'}
     else:
         return {'type': 'byAttribute',
                 'attribute': grouping_value}
@@ -156,7 +158,7 @@ def create_event_semantics_from_df(df: pd.DataFrame, case_id: str = 'Case_ID', a
             pd.api.types.is_bool_dtype(df[col])
         is_lana_numeric = \
             pd.api.types.is_numeric_dtype(df[col]) and not \
-            pd.api.types.is_bool_dtype(df[col])
+                pd.api.types.is_bool_dtype(df[col])
 
         if col in id_mappings:
             # the most general branch, that exists in all logs
@@ -206,7 +208,7 @@ def create_case_semantics_from_df(df: pd.DataFrame, case_id: str = 'Case_ID') ->
             pd.api.types.is_bool_dtype(df[col])
         is_lana_numeric = \
             pd.api.types.is_numeric_dtype(df[col]) and not \
-            pd.api.types.is_bool_dtype(df[col])
+                pd.api.types.is_bool_dtype(df[col])
 
         if col in id_mappings:
             semantics += [{

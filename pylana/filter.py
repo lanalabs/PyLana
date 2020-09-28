@@ -1,5 +1,7 @@
 import time
 from dateutil.parser import parse
+from collections.abc import Iterable
+
 
 def combine_filters(*filters) -> list:
     """
@@ -17,10 +19,10 @@ def combine_filters(*filters) -> list:
     combined_filter = []
 
     for trace_filter in filters:
-        if type(trace_filter) is list:
+        if isinstance(trace_filter, Iterable):
             combined_filter += trace_filter
         else:
-            combined_filter.append(trace_filter)
+            combined_filter += [trace_filter]
 
     return combined_filter
 
@@ -38,13 +40,13 @@ def create_timespan_filter(start: str, end: str) -> dict:
     Returns:
         A dictionary containing the filter.
     """
-    timespan_filter = {'startInRange': False,
-                       'endInRange': False,
-                       'type': 'timeRangeFilter',
-                       'from': time.mktime(parse(start).timetuple()) * 1000,
-                       'to': time.mktime(parse(end).timetuple()) * 1000}
-
-    return timespan_filter
+    return {
+        'startInRange': False,
+        'endInRange': False,
+        'type': 'timeRangeFilter',
+        'from': time.mktime(parse(start).timetuple()) * 1000,
+        'to': time.mktime(parse(end).timetuple()) * 1000
+    }
 
 
 def create_attribute_filter(attribute_name: str, values: list) -> dict:
@@ -60,13 +62,11 @@ def create_attribute_filter(attribute_name: str, values: list) -> dict:
     Returns:
         A dictionary containing the filter.
     """
-    attribute_filter = {
+    return {
         'type': 'attributeFilter',
         'attributeName': attribute_name,
         'values': values
-        }
-
-    return attribute_filter
+    }
 
 
 def create_numeric_attribute_filter(attribute_name: str, value_min: float, value_max: float) -> dict:
@@ -84,14 +84,12 @@ def create_numeric_attribute_filter(attribute_name: str, value_min: float, value
     Returns:
         A dictionary containing the filter.
     """
-    numeric_attribute_filter = {
+    return {
         'type': 'numericAttributeFilter',
         'attributeName': attribute_name,
         'min': value_min,
         'max': value_max
-        }
-
-    return numeric_attribute_filter
+    }
 
 
 def create_variant_slider_filter(min_variant_group: int, max_variant_group: int) -> dict:
@@ -107,13 +105,11 @@ def create_variant_slider_filter(min_variant_group: int, max_variant_group: int)
     Returns:
         A dictionary containing the filter.
     """
-    variant_slider_filter = {
+    return {
         'type': 'variantSliderFilter',
         'min': min_variant_group,
         'max': max_variant_group
-        }
-
-    return variant_slider_filter
+    }
 
 
 def create_activity_filter(activity: str, include: bool = True) -> dict:
@@ -129,13 +125,11 @@ def create_activity_filter(activity: str, include: bool = True) -> dict:
     Returns:
         A dictionary containing the filter.
     """
-    activity_filter = {
+    return {
         'type': 'activityFilter',
         'activity': activity,
         'inverted': not include
-        }
-
-    return activity_filter
+    }
 
 
 def create_activity_filters(include: list, exclude: list = []) -> list:
@@ -151,13 +145,11 @@ def create_activity_filters(include: list, exclude: list = []) -> list:
     Returns:
         A list containing the activity filters.
     """
-    activity_filters = [create_activity_filter(activity) for activity in include] +\
-        [create_activity_filter(activity, include = False) for activity in exclude]
-
-    return activity_filters
+    return [create_activity_filter(activity) for activity in include] + \
+           [create_activity_filter(activity, include=False) for activity in exclude]
 
 
-def create_follower_filter(pre: str, succ: str, direct_follower = False, include = True) -> dict:
+def create_follower_filter(pre: str, succ: str, direct_follower=False, include=True) -> dict:
     """
     Create a follower filter to be used in a trace filter sequence.
 
@@ -178,12 +170,10 @@ def create_follower_filter(pre: str, succ: str, direct_follower = False, include
     """
     mapping = {'Start': '__LANA_START__', 'End': '__LANA_END__'}
 
-    follower_filter = {
+    return {
         'type': 'followerFilter',
         'pre': mapping.get(pre, pre),
         'succ': mapping.get(succ, succ),
         'direct': direct_follower,
         'inverted': not include
     }
-
-    return follower_filter
