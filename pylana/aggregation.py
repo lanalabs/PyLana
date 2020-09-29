@@ -1,11 +1,36 @@
+"""
+aggregation api requests
+"""
+
 import pandas as pd
 
 from typing import Union
 from pylana.api import API
-from pylana.utils import create_metric, create_grouping
+from pylana.utils_aggregation import create_metric, create_grouping
 
 
 class AggregationAPI(API):
+
+    def extract_chart_values(self, jsn):
+        """Cast json into data frame and remove artifacts columns.
+
+        No error is raised in case we don't find artifact columns.
+        """
+        return pd.DataFrame(jsn['chartValues']) \
+            .drop(columns=['$type'], errors='ignore')
+
+    def normalise_chart_values(self, df, json_col):
+        df_aux = df \
+            .explode(json_col) \
+            .drop(columns=['$type'], errors='ignore') \
+            .reset_index(drop=True)
+        return pd.concat(
+            [
+                pd.json_normalize(df_aux.loc[:, json_col]).drop(columns=[
+                    '$type'], errors='ignore'),
+                df_aux.drop(columns=[json_col])
+            ], axis=1
+        )
 
     def aggregate(self, log_id: str, metric: str,
                   grouping: Union[str, list] = None,
@@ -16,9 +41,14 @@ class AggregationAPI(API):
                   value_sorting: str = 'caseCount',
                   sorting_order: str = 'descending',
                   values_from: str = 'allCases',
-                  aggregation_function: str = 'sum',
-                  date_type: str = 'startDate',
-                  secondary_date_type: str = 'startDate',
+                  aggregation_function: str = None,
+                  percentile: str = None,
+                  attribute: str = None,
+                  secondary_attribute: str = None,
+                  activities: list = [],
+                  secondary_activities: list = [],
+                  date_type: str = None,
+                  secondary_date_type: str = None,
                   **kwargs) -> pd.DataFrame:
         """
         An aggregation function for the computation of KPIs and grouping by
@@ -35,20 +65,23 @@ class AggregationAPI(API):
                 as a numeric attribute metric.
             grouping:
                 A string or list denoting the grouping to use. For the value
-                "byDuration", a duration grouping is returned and for one of
-                ["byYear", "byMonth", "byQuarter", "byDayOfWeek", "byDayOfYear",
-                "byHourOfDay"] a time grouping is returned. If a list is passed,
-                the elements will be interpreted as selected activities for a grouping
-                by activity. Otherwise the value is interpreted as a categorical attribute
-                grouping.
+                "byDuration", a duration grouping is returned. For "byAttribute"
+                a grouping by a categorical attribute (the variable attribute
+                needs to be passed) is returned. For one of ["byYear", "byMonth",
+                "byQuarter", "byDayOfWeek", "byDayOfYear","byHourOfDay"] a time
+                grouping is returned (date_type also needs to be set). If the
+                activity aggregation "byActivity" is used, the activities to
+                aggregate over need to be passed as list.
             secondary_grouping:
-                A string or list denoting an optional second grouping. For the value
-                "byDuration", a duration grouping is returned and for one of
+                A string or list denoting the optional secondary grouping to use.
+                For the value "byDuration", a duration grouping is returned. For
+                "byAttribute" a grouping by a categorical attribute (the variable
+                secondary_attribute needs to be passed) is returned. For one of
                 ["byYear", "byMonth", "byQuarter", "byDayOfWeek", "byDayOfYear",
-                "byHourOfDay"] a time grouping is returned. If a list is passed,
-                the elements will be interpreted as selected activities for a grouping
-                by activity. Otherwise the value is interpreted as a categorical attribute
-                grouping.
+                "byHourOfDay"] a time grouping is returned (secpmdary_date_type
+                also needs to be set). If the activity aggregation "byActivity"
+                is used, the secondary_activities to aggregate over need to be
+                passed as list.
             max_amount_attributes:
                 An integer denoting the maximum amount of attributes to return.
             trace_filter_sequence:
@@ -62,22 +95,39 @@ class AggregationAPI(API):
             values_from:
                 A string denoting which values to consider for the aggregation.
             aggregation_function:
-                A string denoting the aggregation function to use.
+                An optional string denoting the aggregation function to use for
+                numeric attribute metrics.
                 Can be one of ["min", "max", "sum", "mean", "median", "variance",
-                "standardDeviation"] or a percentile as a string starting with "p"
-                followed by the percentile value.
+                "standardDeviation"].
+            percentile:
+                An optional float denoting the percentile to use if instead of
+                the available aggregation types listed for aggregation_function
+                a percentile aggregation should be used.
+            attribute:
+                An optional string denoting the attribute to use when grouping
+                is set to 'byAttribute'.
+            activities:
+                An optional list denoting the activities to use when grouping
+                is set to 'byActivity'.
             date_type:
-                A string denoting the date type of the grouping.
+                An optional string denoting the date type to use when a time
+                grouping is used. It has to be 'startDate' or 'endDate'.
+            secondary_attribute:
+                An optional string denoting the attribute to use when secondary
+                grouping is set to 'byAttribute'.
+            secondary_activities:
+                An optional list denoting the activities to use when secondary
+                grouping is set to 'byActivity'.
             secondary_date_type:
-                A string denoting the date type of the secondary grouping.
+                An optional string denoting the date type to use when a secondary
+                time grouping is used. It has to be 'startDate' or 'endDate'.
             **kwargs:
                 Keyword arguments passed to requests functions.
 
         Returns:
             A pandas DataFrame containing the aggregated data.
         """
-
-        request_data = {'metric': create_metric(metric, aggregation_function),
+        request_data = {'metric': create_metric(metric, aggregation_function, percentile),
                         'valuesFrom': {'type': values_from},
                         'miningRequest': {'logId': log_id,
                                           'activityExclusionFilter': activity_exclusion_filter,
@@ -87,36 +137,34 @@ class AggregationAPI(API):
                                     'sortingOrder': sorting_order}}
 
         if grouping is not None:
-            request_data['grouping'] = create_grouping(grouping, date_type)
+            request_data['grouping'] = create_grouping(grouping, date_type, activities,
+                                                       attribute)
 
         if secondary_grouping is not None:
-            request_data['secondaryGrouping'] = create_grouping(secondary_grouping, secondary_date_type)
+            request_data['secondaryGrouping'] = create_grouping(secondary_grouping,
+                                                                secondary_date_type,
+                                                                secondary_activities,
+                                                                secondary_attribute
+                                                                )
 
         aggregate_response = self.post('/api/v2/aggregate-data', json=request_data, **kwargs)
 
         if aggregate_response.status_code >= 400:
             return pd.DataFrame()
 
-        response_df = pd.DataFrame(aggregate_response.json()['chartValues'])
-
+        response_df = self.extract_chart_values(aggregate_response.json())
         if secondary_grouping is not None:
-            response_df = response_df.explode('values').reset_index(drop=True)
+            response_df = self.normalise_chart_values(response_df, 'values')
 
-            z_axis = response_df['zAxis']
-
-            response_df = pd.json_normalize(response_df['values'])
-
-            response_df['zAxis'] = z_axis
-
-        response_df.drop('$type', axis=1, inplace=True)
-
-        response_df = response_df.rename(columns={'xAxis': grouping,
+        response_df = response_df.rename(columns={'xAxis': attribute if attribute is not None else grouping,
                                                   'yAxis': metric,
-                                                  'zAxis': secondary_grouping})
+                                                  'zAxis': secondary_attribute if secondary_attribute is not None else secondary_grouping})
         return response_df
 
     def boxplot_stats(self, log_id: str, metric: str, grouping: str = None,
-                      values_from: str = 'allCases', **kwargs) -> pd.DataFrame:
+                      attribute: str = None, activities: list = [],
+                      date_type: str = None, values_from: str = 'allCases',
+                      **kwargs) -> pd.DataFrame:
         """
         An aggregation function for the computation the metrics necessary for
         building a standard boxplot graph by using the 25th, 50th and 75th percentile of the data.
@@ -128,6 +176,15 @@ class AggregationAPI(API):
                 A string denoting the metric.
             grouping:
                 A string denoting the time or attribute grouping.
+            attribute:
+                An optional string denoting the attribute to use when grouping
+                is set to 'byAttribute'.
+            activities:
+                An optional list denoting the activities to use when grouping
+                is set to 'byActivity'.
+            date_type:
+                An optional string denoting the date type to use when a time
+                grouping is used. It has to be 'startDate' or 'endDate'.
             values_from:
                 A string denoting which values to consider for the aggregation.
             **kwargs:
@@ -136,19 +193,23 @@ class AggregationAPI(API):
         Returns:
             A pandas DataFrame containing the metrics needed for building a boxplot.
         """
-
         aggregations = [self.aggregate(log_id=log_id, metric=metric, grouping=grouping,
-                                       values_from=values_from, aggregation_function=function,
-                                       **kwargs) for function in ['min', 'max',
-                                                                  'median', 'p25', 'p75']]
+                                       values_from=values_from,
+                                       aggregation_function=function, attribute=attribute,
+                                       activities=activities, date_type=date_type,
+                                       **kwargs) for function in ['min', 'max', 'median']]
+        percentiles = [self.aggregate(log_id=log_id, metric=metric, grouping=grouping,
+                                      values_from=values_from, percentile=percentile,
+                                      attribute=attribute, activities=activities,
+                                      **kwargs) for percentile in [25, 75]]
 
         boxplot_stats = pd.DataFrame({'min': aggregations[0][metric],
                                       'max': aggregations[1][metric],
                                       'median': aggregations[2][metric],
-                                      'p25': aggregations[3][metric],
-                                      'p75': aggregations[4][metric]})
+                                      'p25': percentiles[0][metric],
+                                      'p75': percentiles[1][metric]})
 
         if grouping is not None:
-            boxplot_stats.index = aggregations[0][grouping]
+            boxplot_stats.index = aggregations[0][attribute]
 
         return boxplot_stats

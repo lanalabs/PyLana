@@ -13,9 +13,9 @@ class TestAggregationAPI(unittest.TestCase):
             cls.credentials = json.load(f)
         cls.api = create_api(verify=True, **cls.credentials)
 
-    def assertDataframeEqual(self, a, b, msg):
+    def assertDataframeEqual(self, a, b, msg, *args, **kwargs):
         try:
-            pd.testing.assert_frame_equal(a, b)
+            pd.testing.assert_frame_equal(a, b, *args, **kwargs)
         except AssertionError as e:
             raise self.failureException(msg) from e
 
@@ -32,8 +32,10 @@ class TestAggregationAPI(unittest.TestCase):
 
         resp_aggregate_df = self.api.aggregate(log_id=log_id,
                                                metric='frequency',
-                                               grouping='Country',
-                                               secondary_grouping='byMonth')
+                                               grouping='byAttribute',
+                                               attribute='Country',
+                                               secondary_grouping='byMonth',
+                                               secondary_date_type='startDate')
 
         self.assertEqual(expected_df, resp_aggregate_df)
 
@@ -60,7 +62,8 @@ class TestAggregationAPI(unittest.TestCase):
 
         resp_aggregate_df = self.api.aggregate(log_id=log_id,
                                                metric='duration',
-                                               grouping='Classification',
+                                               grouping='byAttribute',
+                                               attribute='Classification',
                                                aggregation_function='mean',
                                                value_sorting='alphabetic',
                                                sorting_order='ascending')
@@ -84,7 +87,9 @@ class TestAggregationAPI(unittest.TestCase):
 
         resp_aggregate_df = self.api.aggregate(log_id=log_id,
                                                metric='Cost',
+                                               aggregation_function='sum',
                                                grouping='byHourOfDay',
+                                               date_type='startDate',
                                                max_amount_attributes=9,
                                                trace_filter_sequence=trace_filter_sequence,
                                                values_from='allEvents')
@@ -104,6 +109,7 @@ class TestAggregationAPI(unittest.TestCase):
 
         resp_boxplot_df = self.api.boxplot_stats(log_id=log_id,
                                                  metric='Cost',
-                                                 grouping='Classification')
+                                                 grouping='byAttribute',
+                                                 attribute='Classification')
 
         self.assertEqual(expected_df, resp_boxplot_df)

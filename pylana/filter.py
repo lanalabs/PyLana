@@ -1,4 +1,7 @@
-import time
+"""
+functions to create and combine trace filters
+"""
+
 from dateutil.parser import parse
 from collections.abc import Iterable
 
@@ -33,9 +36,15 @@ def create_timespan_filter(start: str, end: str) -> dict:
 
     Args:
         start:
-            A string denoting the start timestamp.
+            A string denoting the start timestamp. The local time is used,
+            it is recommended to use ISO-8601 date time formats (e.g.
+            'YYYY-MM-DDThh:mm:ss'), but every format that dateutil can parse
+            works.
         end:
-            A string denoting the end timestamp.
+            A string denoting the end timestamp. The local time is used,
+            it is recommended to use ISO-8601 date time formats (e.g.
+            'YYYY-MM-DDThh:mm:ss'), but every format that dateutil can parse
+            works.
 
     Returns:
         A dictionary containing the filter.
@@ -44,8 +53,8 @@ def create_timespan_filter(start: str, end: str) -> dict:
         'startInRange': False,
         'endInRange': False,
         'type': 'timeRangeFilter',
-        'from': time.mktime(parse(start).timetuple()) * 1000,
-        'to': time.mktime(parse(end).timetuple()) * 1000
+        'from': parse(start).timestamp() * 1000,
+        'to': parse(end).timestamp() * 1000
     }
 
 
