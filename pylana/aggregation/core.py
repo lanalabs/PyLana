@@ -1,36 +1,40 @@
 """
-aggregation api requests
+api  for aggregation requests
 """
+
+from typing import Union
 
 import pandas as pd
 
-from typing import Union
+from pylana.aggregation.groupings import create_grouping
+from pylana.aggregation.metrics import create_metric
 from pylana.api import API
-from pylana.utils_aggregation import create_metric, create_grouping
+
+
+def extract_chart_values(jsn):
+    """Cast json into data frame and remove artifacts columns.
+
+    No error is raised in case we don't find artifact columns.
+    """
+    return pd.DataFrame(jsn['chartValues']) \
+        .drop(columns=['$type'], errors='ignore')
+
+
+def normalise_chart_values(df, json_col):
+    df_aux = df \
+        .explode(json_col) \
+        .drop(columns=['$type'], errors='ignore') \
+        .reset_index(drop=True)
+    return pd.concat(
+        [
+            pd.json_normalize(df_aux.loc[:, json_col]).drop(columns=[
+                '$type'], errors='ignore'),
+            df_aux.drop(columns=[json_col])
+        ], axis=1
+    )
 
 
 class AggregationAPI(API):
-
-    def extract_chart_values(self, jsn):
-        """Cast json into data frame and remove artifacts columns.
-
-        No error is raised in case we don't find artifact columns.
-        """
-        return pd.DataFrame(jsn['chartValues']) \
-            .drop(columns=['$type'], errors='ignore')
-
-    def normalise_chart_values(self, df, json_col):
-        df_aux = df \
-            .explode(json_col) \
-            .drop(columns=['$type'], errors='ignore') \
-            .reset_index(drop=True)
-        return pd.concat(
-            [
-                pd.json_normalize(df_aux.loc[:, json_col]).drop(columns=[
-                    '$type'], errors='ignore'),
-                df_aux.drop(columns=[json_col])
-            ], axis=1
-        )
 
     def aggregate(self, log_id: str, metric: str,
                   grouping: Union[str, list] = None,
@@ -152,9 +156,9 @@ class AggregationAPI(API):
         if aggregate_response.status_code >= 400:
             return pd.DataFrame()
 
-        response_df = self.extract_chart_values(aggregate_response.json())
+        response_df = extract_chart_values(aggregate_response.json())
         if secondary_grouping is not None:
-            response_df = self.normalise_chart_values(response_df, 'values')
+            response_df = normalise_chart_values(response_df, 'values')
 
         response_df = response_df.rename(columns={'xAxis': attribute if attribute is not None else grouping,
                                                   'yAxis': metric,
@@ -167,7 +171,8 @@ class AggregationAPI(API):
                       **kwargs) -> pd.DataFrame:
         """
         An aggregation function for the computation the metrics necessary for
-        building a standard boxplot graph by using the 25th, 50th and 75th percentile of the data.
+        building a standard boxplot graph by using the 25th, 50th and 75th
+        percentile of the data.
 
         Args:
             log_id:

@@ -12,3 +12,6 @@ dist/
 # IDE
 .idea/
 docs/build
+
+# MACOS
+**/.DS_Store
