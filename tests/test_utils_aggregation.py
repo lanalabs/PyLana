@@ -29,9 +29,8 @@ class TestAggregationFunctions(unittest.TestCase):
         self.assertDictEqual(actual, expected)
 
     def test_create_metric_duration(self):
-        exception = Exception('Impossible to create metric for duration without aggregator or percentile.')
-
-        self.assertRaises(exception, create_metric('duration'))
+        with self.assertRaises(Exception):
+            _ = create_metric('duration')
 
     def test_create_metric_duration_with_agg_function(self):
         actual = create_metric('duration', 'sum')
@@ -49,9 +48,8 @@ class TestAggregationFunctions(unittest.TestCase):
         self.assertDictEqual(actual, expected)
 
     def test_create_metric_attribute(self):
-        exception = Exception('Impossible to create metric for Cost without aggregator or percentile.')
-
-        self.assertRaises(exception, create_metric('Cost'))
+        with self.assertRaises(Exception):
+            _ = create_metric('Cost')
 
     def test_create_metric_attribute_with_agg_function(self):
         actual = create_metric('Cost', 'sum')
@@ -68,3 +66,43 @@ class TestAggregationFunctions(unittest.TestCase):
                     'aggregationFunction': {'type': 'percentile', 'percentile': 12}}
 
         self.assertDictEqual(actual, expected)
+
+    def test_create_grouping_by_duration(self):
+        actual = create_grouping('byDuration')
+
+        expected = {'type': 'byDuration'}
+
+        self.assertDictEqual(actual, expected)
+
+    def test_create_grouping_by_time(self):
+        actual = create_grouping('byMonth', date_type="startDate")
+
+        expected = {'type': 'byMonth', 'dateType': 'startDate', 'timeZone': 'Europe/Berlin'}
+
+        self.assertDictEqual(actual, expected)
+
+    def test_create_grouping_by_time_no_date_type(self):
+        with self.assertRaises(Exception):
+            _ = create_grouping('byMonth')
+
+    def test_create_grouping_by_activity(self):
+        actual = create_grouping('byActivity', activities=['activity1', 'activity2'])
+
+        expected = {'type': 'byActivity', 'selectedActivities': ['activity1', 'activity2']}
+
+        self.assertDictEqual(actual, expected)
+
+    def test_create_grouping_by_attribute(self):
+        actual = create_grouping('byAttribute', attribute='Country')
+
+        expected = {'type': 'byAttribute', 'attribute': 'Country'}
+
+        self.assertDictEqual(actual, expected)
+
+    def test_create_grouping_by_attribute_no_attribute(self):
+        with self.assertRaises(Exception):
+            _ = create_grouping('byAttribute')
+
+    def test_create_grouping_invalid_grouping(self):
+        with self.assertRaises(Exception):
+            _ = create_grouping('invalid_grouping')
