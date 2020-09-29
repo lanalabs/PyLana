@@ -1,6 +1,6 @@
 import pandas as pd
 
-from typing import Iterable, Union
+from typing import Union
 from pylana.api import API
 from pylana.utils import create_metric, create_grouping
 
@@ -8,8 +8,8 @@ from pylana.utils import create_metric, create_grouping
 class AggregationAPI(API):
 
     def aggregate(self, log_id: str, metric: str,
-                  grouping: Union[str, Iterable] = None,
-                  secondary_grouping: Union[str, Iterable] = None,
+                  grouping: Union[str, list] = None,
+                  secondary_grouping: Union[str, list] = None,
                   max_amount_attributes: int = 10,
                   trace_filter_sequence: list = [],
                   activity_exclusion_filter: list = [],
@@ -34,18 +34,18 @@ class AggregationAPI(API):
                 duration metric is returned. Otherwise the value is interpreted
                 as a numeric attribute metric.
             grouping:
-                A string or iterable denoting the grouping to use. For the value
+                A string or list denoting the grouping to use. For the value
                 "byDuration", a duration grouping is returned and for one of
                 ["byYear", "byMonth", "byQuarter", "byDayOfWeek", "byDayOfYear",
-                "byHourOfDay"] a time grouping is returned. If an iterable is passed,
+                "byHourOfDay"] a time grouping is returned. If a list is passed,
                 the elements will be interpreted as selected activities for a grouping
                 by activity. Otherwise the value is interpreted as a categorical attribute
                 grouping.
             secondary_grouping:
-                A string denoting an optional second grouping. For the value
+                A string or list denoting an optional second grouping. For the value
                 "byDuration", a duration grouping is returned and for one of
                 ["byYear", "byMonth", "byQuarter", "byDayOfWeek", "byDayOfYear",
-                "byHourOfDay"] a time grouping is returned. If an iterable is passed,
+                "byHourOfDay"] a time grouping is returned. If a list is passed,
                 the elements will be interpreted as selected activities for a grouping
                 by activity. Otherwise the value is interpreted as a categorical attribute
                 grouping.
@@ -116,7 +116,7 @@ class AggregationAPI(API):
         return response_df
 
     def boxplot_stats(self, log_id: str, metric: str, grouping: str = None,
-                      values_from: str = 'allCases', **kwargs):
+                      values_from: str = 'allCases', **kwargs) -> pd.DataFrame:
         """
         An aggregation function for the computation the metrics necessary for
         building a standard boxplot graph by using the 25th, 50th and 75th percentile of the data.
@@ -137,29 +137,18 @@ class AggregationAPI(API):
             A pandas DataFrame containing the metrics needed for building a boxplot.
         """
 
-        min_agg = self.aggregate(log_id=log_id, metric=metric, grouping=grouping,
-                                 values_from=values_from, aggregation_function='min',
-                                 **kwargs)
-        max_agg = self.aggregate(log_id=log_id, metric=metric, grouping=grouping,
-                                 values_from=values_from, aggregation_function='max',
-                                 **kwargs)
-        median_agg = self.aggregate(log_id=log_id, metric=metric, grouping=grouping,
-                                    values_from=values_from, aggregation_function='median',
-                                    **kwargs)
-        p25_agg = self.aggregate(log_id=log_id, metric=metric, grouping=grouping,
-                                 values_from=values_from, aggregation_function='p25',
-                                 **kwargs)
-        p75_agg = self.aggregate(log_id=log_id, metric=metric, grouping=grouping,
-                                 values_from=values_from, aggregation_function='p75',
-                                 **kwargs)
+        aggregations = [self.aggregate(log_id=log_id, metric=metric, grouping=grouping,
+                                       values_from=values_from, aggregation_function=function,
+                                       **kwargs) for function in ['min', 'max',
+                                                                  'median', 'p25', 'p75']]
 
-        boxplot_stats_df = pd.DataFrame({'min': min_agg[metric],
-                                         'max': max_agg[metric],
-                                         'median': median_agg[metric],
-                                         'p25': p25_agg[metric],
-                                         'p75': p75_agg[metric]})
+        boxplot_stats = pd.DataFrame({'min': aggregations[0][metric],
+                                      'max': aggregations[1][metric],
+                                      'median': aggregations[2][metric],
+                                      'p25': aggregations[3][metric],
+                                      'p75': aggregations[4][metric]})
 
         if grouping is not None:
-            boxplot_stats_df.index = median_agg[grouping]
+            boxplot_stats.index = aggregations[0][grouping]
 
-        return boxplot_stats_df
+        return boxplot_stats

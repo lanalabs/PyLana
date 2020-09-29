@@ -64,17 +64,17 @@ def create_metric(metric_value: str, aggregation_function: str = 'sum') -> dict:
         return metric
 
 
-def create_grouping(grouping_value: Union[str, Iterable], date_type: str = 'startDate') -> dict:
+def create_grouping(grouping_value: Union[str, list], date_type: str = 'startDate') -> dict:
     """
     Create a dictionary containing the grouping in a format necessary
     for the aggregation API request.
 
     Args:
         grouping_value:
-            A string or iterable denoting the grouping to use. For the value
+            A string or list denoting the grouping to use. For the value
             "byDuration", a duration grouping is returned and for one of
             ["byYear", "byMonth", "byQuarter", "byDayOfWeek", "byDayOfYear",
-            "byHourOfDay"] a time grouping is returned. If an iterable is passed,
+            "byHourOfDay"] a time grouping is returned. If a list is passed,
             the elements will be interpreted as selected activities for a grouping
             by activity. Otherwise the value is interpreted as a categorical attribute
             grouping.
@@ -91,7 +91,7 @@ def create_grouping(grouping_value: Union[str, Iterable], date_type: str = 'star
         return {'type': grouping_value,
                 'dateType': date_type,
                 'timeZone': 'Europe/Berlin'}
-    elif isinstance(grouping_value, Iterable):
+    elif isinstance(grouping_value, list):
         return {'type': 'byActivity',
                 'selectedActivities': grouping_value}
     else:
