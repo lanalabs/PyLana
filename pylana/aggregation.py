@@ -1,5 +1,6 @@
 import pandas as pd
 
+from typing import Iterable, Union
 from pylana.api import API
 from pylana.utils import create_metric, create_grouping
 
@@ -7,8 +8,8 @@ from pylana.utils import create_metric, create_grouping
 class AggregationAPI(API):
 
     def aggregate(self, log_id: str, metric: str,
-                  grouping: str = None,
-                  secondary_grouping: str = None,
+                  grouping: Union[str, Iterable] = None,
+                  secondary_grouping: Union[str, Iterable] = None,
                   max_amount_attributes: int = 10,
                   trace_filter_sequence: list = [],
                   activity_exclusion_filter: list = [],
@@ -33,17 +34,21 @@ class AggregationAPI(API):
                 duration metric is returned. Otherwise the value is interpreted
                 as a numeric attribute metric.
             grouping:
-                A string denoting the grouping to use. For the value
+                A string or iterable denoting the grouping to use. For the value
                 "byDuration", a duration grouping is returned and for one of
                 ["byYear", "byMonth", "byQuarter", "byDayOfWeek", "byDayOfYear",
-                "byHourOfDay"] a time grouping is returned. Otherwise the value is
-                interpreted as a categorical attribute grouping.
+                "byHourOfDay"] a time grouping is returned. If an iterable is passed,
+                the elements will be interpreted as selected activities for a grouping
+                by activity. Otherwise the value is interpreted as a categorical attribute
+                grouping.
             secondary_grouping:
                 A string denoting an optional second grouping. For the value
                 "byDuration", a duration grouping is returned and for one of
                 ["byYear", "byMonth", "byQuarter", "byDayOfWeek", "byDayOfYear",
-                "byHourOfDay"] a time grouping is returned. Otherwise the value is
-                interpreted as a categorical attribute grouping.
+                "byHourOfDay"] a time grouping is returned. If an iterable is passed,
+                the elements will be interpreted as selected activities for a grouping
+                by activity. Otherwise the value is interpreted as a categorical attribute
+                grouping.
             max_amount_attributes:
                 An integer denoting the maximum amount of attributes to return.
             trace_filter_sequence:

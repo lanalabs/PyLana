@@ -3,7 +3,7 @@ functions to prepare requests for consumption
 """
 
 from collections import defaultdict
-from typing import Iterable, Dict, List
+from typing import Iterable, Dict, List, Union
 
 import re
 import pandas as pd
@@ -64,18 +64,20 @@ def create_metric(metric_value: str, aggregation_function: str = 'sum') -> dict:
         return metric
 
 
-def create_grouping(grouping_value: str, date_type: str = 'startDate') -> dict:
+def create_grouping(grouping_value: Union[str, Iterable], date_type: str = 'startDate') -> dict:
     """
     Create a dictionary containing the grouping in a format necessary
     for the aggregation API request.
 
     Args:
         grouping_value:
-            A string denoting the grouping to use. For the value
+            A string or iterable denoting the grouping to use. For the value
             "byDuration", a duration grouping is returned and for one of
             ["byYear", "byMonth", "byQuarter", "byDayOfWeek", "byDayOfYear",
-            "byHourOfDay"] a time grouping is returned. Otherwise the value is
-            interpreted as a categorical attribute grouping.
+            "byHourOfDay"] a time grouping is returned. If an iterable is passed,
+            the elements will be interpreted as selected activities for a grouping
+            by activity. Otherwise the value is interpreted as a categorical attribute
+            grouping.
         date_type:
             A string denoting the aggregation function to use.
 
@@ -89,6 +91,9 @@ def create_grouping(grouping_value: str, date_type: str = 'startDate') -> dict:
         return {'type': grouping_value,
                 'dateType': date_type,
                 'timeZone': 'Europe/Berlin'}
+    elif isinstance(grouping_value, Iterable):
+        return {'type': 'byActivity',
+                'selectedActivities': grouping_value}
     else:
         return {'type': 'byAttribute',
                 'attribute': grouping_value}
