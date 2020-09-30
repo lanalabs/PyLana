@@ -2,7 +2,6 @@
 Methods for creating the python API for LANA Process Mining.
 """
 
-import functools
 import warnings
 
 from pylana.v1 import LanaAPI
@@ -10,7 +9,7 @@ from pylana.v2 import LanaAPI2
 
 
 def create_api(scheme, host, token, port=None, compatibility=False,
-               url=None, verify=False, application_root=None, **kwargs):
+               url=None, application_root=None, **kwargs):
     """Create a configured Lana API.
 
     The returned api stores the url for a LANA Process Mining
@@ -52,10 +51,6 @@ def create_api(scheme, host, token, port=None, compatibility=False,
         port:
             (optional) An integer or string denoting the port for the lana
             api. If not set, default ports for the scheme are be used.
-        verify:
-            (optional) Either a boolean, in which case it controls whether we
-            verify the server’s TLS certificate, or a string, in which case it
-            must be a path to a CA bundle to use. Defaults to False.
         application_root:
             (optional) A string denoting the application root. Only required
             if your lana api is placed outside the URL root, e.g. "/lana-api"
@@ -80,7 +75,4 @@ def create_api(scheme, host, token, port=None, compatibility=False,
         url = url if url else f'{scheme}://{host}:{port}/'
         return LanaAPI(url, token=token)
 
-    api = LanaAPI2(scheme, host, token, port, application_root, **kwargs)
-    api._request = functools.partial(api._request, verify=verify)
-
-    return api
+    return LanaAPI2(scheme, host, token, port, application_root, **kwargs)
