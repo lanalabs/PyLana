@@ -38,7 +38,7 @@ def create_by_with_params(
         date_type: str,
         activities: list,
         attribute: str) -> dict:
-    if sum(map(bool, [date_type, activities, attribute])) > 1:
+    if [date_type, activities, attribute].count(None) < 2:
         raise Exception('Only one of date_type, activities and attribute can '
                         'be set, not more.')
     return \
@@ -76,6 +76,7 @@ def create_grouping(
         attribute:
             An optional string denoting the attribute to use when grouping
             kind is set to 'byAttribute'.
+
     Returns:
         A dictionary containing the grouping in the right format for the request.
     """

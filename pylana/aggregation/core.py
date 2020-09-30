@@ -2,7 +2,7 @@
 api  for aggregation requests
 """
 
-from typing import Union
+from typing import Optional
 
 import pandas as pd
 
@@ -37,22 +37,22 @@ def normalise_chart_values(df, json_col):
 class AggregationAPI(API):
 
     def aggregate(self, log_id: str, metric: str,
-                  grouping: Union[str, list] = None,
-                  secondary_grouping: Union[str, list] = None,
+                  grouping: str = None,
+                  secondary_grouping: str = None,
                   max_amount_attributes: int = 10,
                   trace_filter_sequence: list = [],
                   activity_exclusion_filter: list = [],
                   value_sorting: str = 'caseCount',
                   sorting_order: str = 'descending',
                   values_from: str = 'allCases',
-                  aggregation_function: str = None,
-                  percentile: str = None,
-                  attribute: str = None,
-                  secondary_attribute: str = None,
-                  activities: list = [],
-                  secondary_activities: list = [],
-                  date_type: str = None,
-                  secondary_date_type: str = None,
+                  aggregation_function: Optional[str] = None,
+                  percentile: Optional[float] = None,
+                  attribute: Optional[str] = None,
+                  secondary_attribute: Optional[str] = None,
+                  activities: Optional[list] = None,
+                  secondary_activities: Optional[list] = None,
+                  date_type: Optional[str] = None,
+                  secondary_date_type: Optional[str] = None,
                   **kwargs) -> pd.DataFrame:
         """
         An aggregation function for the computation of KPIs and grouping by
@@ -160,13 +160,16 @@ class AggregationAPI(API):
         if secondary_grouping is not None:
             response_df = normalise_chart_values(response_df, 'values')
 
-        response_df = response_df.rename(columns={'xAxis': attribute if attribute is not None else grouping,
+        response_df = response_df.rename(columns={'xAxis': attribute
+                                                  if attribute is not None else grouping,
                                                   'yAxis': metric,
-                                                  'zAxis': secondary_attribute if secondary_attribute is not None else secondary_grouping})
+                                                  'zAxis': secondary_attribute
+                                                  if secondary_attribute is not None
+                                                  else secondary_grouping})
         return response_df
 
     def boxplot_stats(self, log_id: str, metric: str, grouping: str = None,
-                      attribute: str = None, activities: list = [],
+                      attribute: str = None, activities: list = None,
                       date_type: str = None, values_from: str = 'allCases',
                       **kwargs) -> pd.DataFrame:
         """

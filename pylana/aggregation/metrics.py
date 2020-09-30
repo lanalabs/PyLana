@@ -1,3 +1,7 @@
+"""
+functions to create the aggregation request metric
+"""
+
 from typing import Optional, Any
 
 from pylana.aggregation.utils import _raise
@@ -59,6 +63,7 @@ def create_metric(
     """
     Create a dictionary containing the metric in a format necessary
     for the aggregation API request.
+
     Args:
         kind:
             A string denoting the metric to use. For the value
@@ -74,6 +79,7 @@ def create_metric(
             An optional float denoting the percentile to use if instead of
             the available aggregation types listed for aggregation_function
             a percentile aggregation should be used.
+
     Returns:
         A dictionary containing the metric in the right format for the request.
     """
