@@ -1,6 +1,6 @@
 import unittest
 
-from pylana.aggregation import create_grouping
+from pylana.aggregation.groupings import create_grouping
 
 
 class TestGroupings(unittest.TestCase):

@@ -1,6 +1,6 @@
 import unittest
 
-from pylana.aggregation import create_metric
+from pylana.aggregation.metrics import create_metric
 
 
 class TestMetrics(unittest.TestCase):
