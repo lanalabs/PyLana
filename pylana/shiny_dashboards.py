@@ -166,8 +166,8 @@ class ShinyDashboardAPI(ResourceAPI):
 
     # TODO consider sharing by names
     def share_shiny_dashboard(self, shiny_dashboard_id: str,
-                              user_ids: List[str], project_ids: List[str],
-                              organization_ids: str, **kwargs) -> Response:
+                              user_ids: List[str], organization_ids: List[str], 
+                              **kwargs) -> Response:
         """
         Share a shiny dashboard with users by ids.
 
@@ -176,8 +176,6 @@ class ShinyDashboardAPI(ResourceAPI):
                 A string denoting the id of the shiny dashboard.
             user_ids:
                 A list of strings denoting ids of users to share with.
-            project_ids: 
-                A list of strings denoting ids of projects to share with.
             organization_ids: 
                 A list of strings denoting ids of organizations to share with.
 
@@ -187,7 +185,6 @@ class ShinyDashboardAPI(ResourceAPI):
         body = {
             "sharedInformation": {
                 "userIds": user_ids,
-                "projectIds": project_ids,
                 "organizationIds": organization_ids
             }
         }

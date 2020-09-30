@@ -1,7 +1,7 @@
 import io
 import os
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 here = os.path.abspath(os.path.dirname(__file__))
 
@@ -15,7 +15,7 @@ except FileNotFoundError:
 
 
 setup(name='pylana',
-      version='0.1.0',
+      version='0.2.0',
       description="Python API for LANA Process Mining",
       long_description=long_description,
       long_description_content_type='text/markdown',
@@ -33,5 +33,5 @@ setup(name='pylana',
           'requests',
           'pandas',
       ],
-      packages=['pylana'],
+      packages=find_packages(),
 )

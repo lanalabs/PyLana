@@ -36,7 +36,7 @@ class TestCreateSemantics(unittest.TestCase):
             .loc[:, ['Action', 'Case_ID', 'Start', 'Count', 'Category']]
         expected = [{'format': None, 'idx': 0, 'name': 'Action',
                      'semantic': 'Action'},
-                    {'format': None, 'idx': 1, 'name': 'Case ID',
+                    {'format': None, 'idx': 1, 'name': 'Case_ID',
                      'semantic': 'Case ID'},
                     {'format': "yyyy-MM-dd'T'HH:mm:ss.SSSSSS",
                      'idx': 2,
@@ -64,7 +64,7 @@ class TestCreateSemantics(unittest.TestCase):
         df_case = pd.DataFrame(records)\
             .astype({'Case_ID': str, 'Numeric': int, 'Categorical': str})
         expected = [
-            {'format': None, 'idx': 0, 'name': 'Case ID',
+            {'format': None, 'idx': 0, 'name': 'Case_ID',
              'semantic': 'Case ID'},
             {'format': None, 'idx': 1, 'name': 'Numeric',
              'semantic': 'NumericAttribute'},

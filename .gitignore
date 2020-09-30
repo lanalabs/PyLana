@@ -1,5 +1,6 @@
 # credentiols
 tests/config.json
+tests/config_useradmin.json
 
 # Byte-compiled / optimized / DLL files
 **/__pycache__
@@ -11,3 +12,6 @@ dist/
 # IDE
 .idea/
 docs/build
+
+# MACOS
+**/.DS_Store

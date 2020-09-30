@@ -202,7 +202,7 @@ class LogsAPI(ResourceAPI):
 
         For the passed event log data frame we expect at least the following
         columns:
-        - "Case_ID" or "CaseID" for the case id, any dtype
+        - "Case_ID" for the case id, any dtype
         - "Action" of dtype object for activities
         - "Start" of dtype datetime64 or object for the first timestamp
         The "Complete" column of type datetime64 or object is optional.
@@ -300,7 +300,7 @@ class LogsAPI(ResourceAPI):
 
         For the passed event log data frame we expect at least the following
         columns:
-        * "Case_ID" or "CaseID" for the case id, any dtype
+        * "Case_ID" for the case id, any dtype
         * "Action" of dtype object for activities
         * "Start" of dtype datetime64 or object for the first timestamp
         The "Complete" column of type datetime64 or object is optional.
@@ -340,8 +340,8 @@ class LogsAPI(ResourceAPI):
                                   df_case: pd.DataFrame, **kwargs) -> Response:
         """Append case attributes to a log from a pandas data frame.
 
-        For the passed case attributes we expect at last the case id
-        column named "Case_ID" or "CaseID".
+        For the passed case attributes we expect at least the case id
+        column named "Case_ID".
 
         Args:
             log_id:
