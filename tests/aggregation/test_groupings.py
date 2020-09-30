@@ -47,3 +47,16 @@ class TestGroupings(unittest.TestCase):
     def test_create_grouping_invalid_grouping(self):
         with self.assertRaises(Exception):
             _ = create_grouping('invalid_grouping')
+
+    def test_create_grouping_two_optional_params(self):
+        with self.assertRaises(Exception):
+            _ = create_grouping('byAttribute',
+                                attribute='Country',
+                                date_type='startDate')
+
+    def test_create_grouping_three_optional_params(self):
+        with self.assertRaises(Exception):
+            _ = create_grouping('byAttribute',
+                                attribute='Country',
+                                date_type='startDate',
+                                activities=['activity1', 'activity2'])

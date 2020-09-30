@@ -56,6 +56,27 @@ def create_metric(
         kind: str,
         aggregator: Optional[str] = None,
         percentile: Optional[float] = None) -> dict:
+    """
+    Create a dictionary containing the metric in a format necessary
+    for the aggregation API request.
+    Args:
+        kind:
+            A string denoting the metric to use. For the value
+            "frequency", a frequency metric is returned and for "duration" a
+            duration metric is returned. Otherwise the value is interpreted
+            as a numeric attribute metric. For these metrics and duration
+            metrics an aggregator or percentile needs to be passed.
+        aggregator:
+            An optional string denoting the aggregation function to use.
+            Can be one of ["min", "max", "sum", "mean", "median", "variance",
+            "standardDeviation"].
+        percentile:
+            An optional float denoting the percentile to use if instead of
+            the available aggregation types listed for aggregation_function
+            a percentile aggregation should be used.
+    Returns:
+        A dictionary containing the metric in the right format for the request.
+    """
     return \
         aggregate_summable(create_summable(kind), aggregator, percentile) or \
         create_frequency(kind) or \

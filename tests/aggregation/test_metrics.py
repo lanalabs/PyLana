@@ -67,3 +67,7 @@ class TestMetrics(unittest.TestCase):
                                             'percentile': 12}}
 
         self.assertDictEqual(actual, expected)
+
+    def test_create_metric_attribute_with_agg_function_and_percentile(self):
+        with self.assertRaises(Exception):
+            _ = create_metric('Cost', aggregator='sum', percentile=12)

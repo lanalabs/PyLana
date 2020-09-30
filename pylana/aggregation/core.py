@@ -68,7 +68,7 @@ class AggregationAPI(API):
                 duration metric is returned. Otherwise the value is interpreted
                 as a numeric attribute metric.
             grouping:
-                A string or list denoting the grouping to use. For the value
+                A string denoting the grouping to use. For the value
                 "byDuration", a duration grouping is returned. For "byAttribute"
                 a grouping by a categorical attribute (the variable attribute
                 needs to be passed) is returned. For one of ["byYear", "byMonth",
@@ -180,7 +180,14 @@ class AggregationAPI(API):
             metric:
                 A string denoting the metric.
             grouping:
-                A string denoting the time or attribute grouping.
+                A string or list denoting the grouping to use. For the value
+                "byDuration", a duration grouping is returned. For "byAttribute"
+                a grouping by a categorical attribute (the variable attribute
+                needs to be passed) is returned. For one of ["byYear", "byMonth",
+                "byQuarter", "byDayOfWeek", "byDayOfYear","byHourOfDay"] a time
+                grouping is returned (date_type also needs to be set). If the
+                activity aggregation "byActivity" is used, the activities to
+                aggregate over need to be passed as list.
             attribute:
                 An optional string denoting the attribute to use when grouping
                 is set to 'byAttribute'.

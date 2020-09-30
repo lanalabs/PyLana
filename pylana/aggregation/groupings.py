@@ -33,17 +33,55 @@ def create_by_attribute(kind: str, attribute: str) -> dict:
                                        attribute is not None else dict()
 
 
+def create_by_with_params(
+        kind: str,
+        date_type: str,
+        activities: list,
+        attribute: str) -> dict:
+    if sum(map(bool, [date_type, activities, attribute])) > 1:
+        raise Exception('Only one of date_type, activities and attribute can '
+                        'be one, not more.')
+    return \
+        create_by_time(kind, date_type) or \
+        create_by_activity(kind, activities) or \
+        create_by_attribute(kind, attribute)
+
+
 def create_grouping(
         kind: str,
         date_type: Optional[str] = None,
         activities: Optional[list] = None,
         attribute: Optional[str] = None
 ) -> dict:
+    """
+    Create a dictionary containing the grouping in a format necessary
+    for the aggregation API request.
+
+    Args:
+        kind:
+            A string denoting the kind of grouping to use. For the value
+            "byDuration", a duration grouping is returned. For "byAttribute"
+            a grouping by a categorical attribute (the variable attribute
+            needs to be passed) is returned. For one of ["byYear", "byMonth",
+            "byQuarter", "byDayOfWeek", "byDayOfYear","byHourOfDay"] a time
+            grouping is returned (date_type also needs to be set). If the
+            activity aggregation "byActivity" is used, the activities to
+            aggregate over need to be passed as list.
+        date_type:
+            An optional string denoting the date type to use when a time
+            grouping is used. It has to be 'startDate' or 'endDate'.
+        activities:
+            An optional list denoting the activities to use when grouping
+            kind is set to 'byActivity'.
+        attribute:
+            An optional string denoting the attribute to use when grouping
+            kind is set to 'byAttribute'.
+    Returns:
+        A dictionary containing the metric in the right format for the request.
+    """
     return \
         create_by_duration(kind) or \
-        create_by_time(kind, date_type) or \
-        create_by_activity(kind, activities) or \
-        create_by_attribute(kind, attribute) or \
+        create_by_with_params(kind, date_type, activities, attribute) or \
         _raise(Exception(f'Impossible to create grouping for {kind}. Make '
                          f'sure that a valid aggregation type was used and '
                          f'that an attribute was supplied for attribute groupings, '
