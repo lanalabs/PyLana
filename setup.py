@@ -1,7 +1,7 @@
 import io
 import os
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 here = os.path.abspath(os.path.dirname(__file__))
 
@@ -33,5 +33,5 @@ setup(name='pylana',
           'requests',
           'pandas',
       ],
-      packages=['pylana'],
+      packages=find_packages(),
 )
