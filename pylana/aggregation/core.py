@@ -77,7 +77,7 @@ class AggregationAPI(API):
                 activity aggregation "byActivity" is used, the activities to
                 aggregate over need to be passed as list.
             secondary_grouping:
-                A string or list denoting the optional secondary grouping to use.
+                A string denoting the optional secondary grouping to use.
                 For the value "byDuration", a duration grouping is returned. For
                 "byAttribute" a grouping by a categorical attribute (the variable
                 secondary_attribute needs to be passed) is returned. For one of
@@ -180,7 +180,7 @@ class AggregationAPI(API):
             metric:
                 A string denoting the metric.
             grouping:
-                A string or list denoting the grouping to use. For the value
+                A string denoting the grouping to use. For the value
                 "byDuration", a duration grouping is returned. For "byAttribute"
                 a grouping by a categorical attribute (the variable attribute
                 needs to be passed) is returned. For one of ["byYear", "byMonth",

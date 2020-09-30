@@ -40,7 +40,7 @@ def create_by_with_params(
         attribute: str) -> dict:
     if sum(map(bool, [date_type, activities, attribute])) > 1:
         raise Exception('Only one of date_type, activities and attribute can '
-                        'be one, not more.')
+                        'be set, not more.')
     return \
         create_by_time(kind, date_type) or \
         create_by_activity(kind, activities) or \
@@ -77,7 +77,7 @@ def create_grouping(
             An optional string denoting the attribute to use when grouping
             kind is set to 'byAttribute'.
     Returns:
-        A dictionary containing the metric in the right format for the request.
+        A dictionary containing the grouping in the right format for the request.
     """
     return \
         create_by_duration(kind) or \
