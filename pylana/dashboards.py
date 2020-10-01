@@ -37,7 +37,7 @@ class DashboardAPI(ResourceAPI):
                 Keyword arguments passed to requests functions.
             
         Returns:
-            A list of strings denoting dashboard ids.
+            A list of strings denoting dashboard pageIds.
         """
         return self.get_resource_ids('v2/dashboards', contains, **kwargs)
 
@@ -53,7 +53,7 @@ class DashboardAPI(ResourceAPI):
                 Keyword arguments passed to requests functions.
             
         Returns: 
-            A string denoting the dashboard id.
+            A string denoting the dashboard pageId.
 
         Raises:
             Exception:
@@ -100,7 +100,7 @@ class DashboardAPI(ResourceAPI):
                 matched against the dashboard name. 
                 Matching several names raises an exception.
             dashboard_id: 
-                A string denoting the id of the dashboard.
+                A string denoting the pageId of the dashboard.
             **kwargs: 
                 Keyword arguments passed to requests functions.
             
@@ -122,7 +122,7 @@ class DashboardAPI(ResourceAPI):
                 matched against the dashboard name. 
                 Matching several names raises an exception.
             dashboard_id: 
-                A string denoting the id of the dashboard.
+                A string denoting the pageId of the dashboard.
             **kwargs: 
                 Keyword arguments passed to requests functions.
             
@@ -130,7 +130,7 @@ class DashboardAPI(ResourceAPI):
             A list with the dashboard items as dicts (items are referenced as
             charts in LANA Process Mining)
         """
-        dashboard = self.get_dashboard(contains, dashboard_id, **kwargs)
+        dashboard = self.describe_dashboard(contains, dashboard_id, **kwargs)
         
         return dashboard["items"]
 
@@ -171,30 +171,22 @@ class DashboardAPI(ResourceAPI):
                                      **kwargs)
 
     # TODO consider sharing by names
-    def share_dashboard(self, dashboard_id: str,
-                        user_ids: List[str], organization_ids: List[str],
+    def share_dashboard(self, dashboard_id: str, organization_ids: List[str],
                         **kwargs) -> Response:
         """
         Share a dashboard with users by ids.
-
         Args:
             dashboard_id:
-                A string denoting the id of the dashboard.
-            user_ids:
-                A list of strings denoting ids of users to share with.
-            organization_ids: 
+                A string denoting the pageId of the dashboard.
+            organization_ids:
                 A list of strings denoting ids of organizations to share with.
-
         Returns:
             The requests response of the lana api call.
         """
         body = {
-            "sharedInformation": {
-                "userIds": user_ids,
-                "organizationIds": organization_ids
-            }
+            "shareWithOrganizations": organization_ids
         }
-        return self.patch(f"/api/v2/dashboards/{dashboard_id}", json=body, 
+        return self.patch(f"/api/v2/dashboards/{dashboard_id}/sharing", json=body,
                           **kwargs)
 
     def connect_dashboard(self, log_id, dashboard_id, **kwargs) \
