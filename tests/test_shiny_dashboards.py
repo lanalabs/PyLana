@@ -17,9 +17,9 @@ class TestDashboardAPI(unittest.TestCase):
         id_ = cls.api.get_shiny_dashboard_id('pylana-shiny-dashboard')
         cls.api.delete_dashboard(id_)
 
-        shiny_dashboard_id = cls.api.get_shiny_dashboard_id('incident-test-shiny-dashboard')
-        cls.api.unshare_dashboard(shiny_dashboard_id,
-                                  [cls.api.user.organization_id]).json()
+        test_shiny_dashboard_id_ = cls.api.get_shiny_dashboard_id('incident-test-shiny-dashboard')
+        cls.api.unshare_dashboard(test_shiny_dashboard_id_,
+                                  [cls.api.user.organization_id])
 
     def test_list(self):
         shiny_dashboards = self.api.list_shiny_dashboards()

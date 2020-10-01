@@ -27,7 +27,7 @@ class DashboardAPI(ResourceAPI):
     def get_dashboard_ids(self, contains: str = '.*', **kwargs) \
             -> List[str]:
         """
-        List dashboard ids with matching names.
+        List ids of dashboard pages with matching names.
 
         Args:
            contains:  
@@ -37,7 +37,7 @@ class DashboardAPI(ResourceAPI):
                 Keyword arguments passed to requests functions.
             
         Returns:
-            A list of strings denoting dashboard pageIds.
+            A list of strings denoting the ids of the dashboard pages.
         """
         return self.get_resource_ids('v2/dashboards', contains, **kwargs)
 
@@ -53,7 +53,7 @@ class DashboardAPI(ResourceAPI):
                 Keyword arguments passed to requests functions.
             
         Returns: 
-            A string denoting the dashboard pageId.
+            A string denoting the id of the dashboard page.
 
         Raises:
             Exception:
@@ -100,7 +100,7 @@ class DashboardAPI(ResourceAPI):
                 matched against the dashboard name. 
                 Matching several names raises an exception.
             dashboard_id: 
-                A string denoting the pageId of the dashboard.
+                A string denoting the id of the dashboard page.
             **kwargs: 
                 Keyword arguments passed to requests functions.
             
@@ -122,7 +122,7 @@ class DashboardAPI(ResourceAPI):
                 matched against the dashboard name. 
                 Matching several names raises an exception.
             dashboard_id: 
-                A string denoting the pageId of the dashboard.
+                A string denoting the id of the dashboard page.
             **kwargs: 
                 Keyword arguments passed to requests functions.
             
@@ -141,7 +141,7 @@ class DashboardAPI(ResourceAPI):
         
         Args:
             dashboard_id: 
-                A string denoting the dashboard.
+                A string denoting the id of the dashboard page.
             **kwargs: 
                 Keyword arguments passed to requests functions.
 
@@ -162,7 +162,7 @@ class DashboardAPI(ResourceAPI):
                 A string denoting a regular expression. 
                 It is ignored when ids are passed.
             ids: 
-                A list of strings denoting dashboard ids.
+                A list of strings denoting ids of dashboard pages.
             **kwargs:
                 Keyword arguments passed to requests functions.
                 
@@ -179,7 +179,7 @@ class DashboardAPI(ResourceAPI):
         Share a dashboard with organizations by ids.
         Args:
             dashboard_id:
-                A string denoting the pageId of the dashboard.
+                A string denoting the id of the dashboard page.
             organization_ids:
                 A list of strings denoting ids of organizations to share with.
             **kwargs:
@@ -201,7 +201,7 @@ class DashboardAPI(ResourceAPI):
 
         Args:
             dashboard_id:
-                A string denoting the pageId of the dashboard.
+                A string denoting the id of the dashboard page.
             organization_ids:
                 A list of strings denoting ids of organizations to unshare the
                 dashboard with.
@@ -226,7 +226,7 @@ class DashboardAPI(ResourceAPI):
             log_id: 
                 A string denoting the id of the log in LANA.
             dashboard_id:
-                A string denoting the id of the dashboard.
+                A string denoting the id of the dashboard page.
             **kwargs: 
                 Keyword arguments passed to requests functions.
 
