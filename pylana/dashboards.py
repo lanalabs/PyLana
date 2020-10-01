@@ -192,7 +192,7 @@ class DashboardAPI(ResourceAPI):
     def connect_dashboard(self, log_id, dashboard_id, **kwargs) \
             -> Response:
         """
-        Connect a shiny dashboard with a log by their ids.
+        Connect a dashboard with a log by their ids.
         
         Args:
             log_id: 
