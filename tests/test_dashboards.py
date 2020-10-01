@@ -57,10 +57,10 @@ class TestDashboardAPI(unittest.TestCase):
     def test_share_dashboard(self):
         id_ = self.api.get_dashboard_id('incident-test-dashboard')
 
-        actual_sharing = self.api.share_dashboard(id_,
+        actual = self.api.share_dashboard(id_,
                                                   [self.api.user.organization_id]).json()
 
-        expected_sharing = {'sharing': {'numFailures': 0, 'numSuccesses': 1},
+        expected = {'sharing': {'numFailures': 0, 'numSuccesses': 1},
                             'unsharing': {'numFailures': 0, 'numSuccesses': 0}}
 
-        self.assertDictEqual(actual_sharing, expected_sharing)
+        self.assertDictEqual(actual, expected)

@@ -197,7 +197,7 @@ class DashboardAPI(ResourceAPI):
     def unshare_dashboard(self, dashboard_id: str, organization_ids: List[str],
                           **kwargs) -> Response:
         """
-        Unshare a dashboard with users by ids.
+        Unshare a dashboard with organizations by ids.
 
         Args:
             dashboard_id:
