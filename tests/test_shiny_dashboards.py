@@ -38,3 +38,14 @@ class TestDashboardAPI(unittest.TestCase):
 
         with self.assertRaises(Exception):
             _ = self.api.get_shiny_dashboard_id('1212')
+
+    def test_share_shiny_dashboard(self):
+        id_ = self.api.get_shiny_dashboard_id('incident-test-dashboard')
+
+        actual = self.api.share_shiny_dashboard(id_,
+                                                ['b7853d9b-8ca6-4a33-8892-0f172a9aeb09']).json()
+
+        expected = {'sharing': {'numFailures': 0, 'numSuccesses': 1},
+                    'unsharing': {'numFailures': 0, 'numSuccesses': 0}}
+
+        self.assertDictEqual(actual, expected)
