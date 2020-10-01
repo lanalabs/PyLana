@@ -163,6 +163,8 @@ class DashboardAPI(ResourceAPI):
                 It is ignored when ids are passed.
             ids: 
                 A list of strings denoting dashboard ids.
+            **kwargs:
+                Keyword arguments passed to requests functions.
                 
         Returns:
             A list of request responses of the calls to the lana api.
@@ -174,17 +176,43 @@ class DashboardAPI(ResourceAPI):
     def share_dashboard(self, dashboard_id: str, organization_ids: List[str],
                         **kwargs) -> Response:
         """
-        Share a dashboard with users by ids.
+        Share a dashboard with organizations by ids.
         Args:
             dashboard_id:
                 A string denoting the pageId of the dashboard.
             organization_ids:
                 A list of strings denoting ids of organizations to share with.
+            **kwargs:
+                Keyword arguments passed to requests functions.
+
         Returns:
             The requests response of the lana api call.
         """
         body = {
             "shareWithOrganizations": organization_ids
+        }
+        return self.patch(f"/api/v2/dashboards/{dashboard_id}/sharing", json=body,
+                          **kwargs)
+
+    def unshare_dashboard(self, dashboard_id: str, organization_ids: List[str],
+                          **kwargs) -> Response:
+        """
+        Unshare a dashboard with users by ids.
+
+        Args:
+            dashboard_id:
+                A string denoting the pageId of the dashboard.
+            organization_ids:
+                A list of strings denoting ids of organizations to unshare the
+                dashboard with.
+            **kwargs:
+                Keyword arguments passed to requests functions.
+
+        Returns:
+            The requests response of the lana api call.
+        """
+        body = {
+            "unshareWithOrganizations": organization_ids
         }
         return self.patch(f"/api/v2/dashboards/{dashboard_id}/sharing", json=body,
                           **kwargs)

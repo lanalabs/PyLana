@@ -16,6 +16,10 @@ class TestDashboardAPI(unittest.TestCase):
     def tearDownClass(cls) -> None:
         id_ = cls.api.get_dashboard_id('pylana-dashboard')
         cls.api.delete_dashboard(id_)
+
+        dashboard_id = cls.api.get_dashboard_id('incident-test-dashboard')
+        cls.api.unshare_dashboard(dashboard_id,
+                                  [cls.api.user.organization_id]).json()
         
     def test_list_dashboards(self):
         dashboards = self.api.list_dashboards()
@@ -37,26 +41,26 @@ class TestDashboardAPI(unittest.TestCase):
         self.assertDictEqual(resp_create, resp_get)
 
     def test_get_dashboard(self):
-        dashboard = self.api.describe_dashboard('pylana-test-log-.*')
-        self.assertEqual(dashboard.get('title'), 'pylana-test-log-from-df')
+        dashboard = self.api.describe_dashboard('incident.*')
+        self.assertEqual(dashboard.get('title'), 'incident-test-dashboard')
 
         with self.assertRaises(Exception):
             _ = self.api.get_dashboard('never-ever-matches-a-dashboard')
 
     def test_get_dashboard_id(self):
-        dashboard_id = self.api.get_dashboard_id('pylana-test-log-from-df')
+        dashboard_id = self.api.get_dashboard_id('incident-test-dashboard')
         self.assertIsInstance(dashboard_id, str)
 
         with self.assertRaises(Exception):
             _ = self.api.get_dashboard_id('never-ever-matches-a-dashboard')
 
     def test_share_dashboard(self):
-        id_ = self.api.get_dashboard_id('pylana-test-log-from-df')
+        id_ = self.api.get_dashboard_id('incident-test-dashboard')
 
-        actual = self.api.share_dashboard(id_,
-                                          ['b7853d9b-8ca6-4a33-8892-0f172a9aeb09']).json()
+        actual_sharing = self.api.share_dashboard(id_,
+                                                  [self.api.user.organization_id]).json()
 
-        expected = {'sharing': {'numFailures': 0, 'numSuccesses': 1},
-                    'unsharing': {'numFailures': 0, 'numSuccesses': 0}}
+        expected_sharing = {'sharing': {'numFailures': 0, 'numSuccesses': 1},
+                            'unsharing': {'numFailures': 0, 'numSuccesses': 0}}
 
-        self.assertDictEqual(actual, expected)
+        self.assertDictEqual(actual_sharing, expected_sharing)
