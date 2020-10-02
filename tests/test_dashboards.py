@@ -17,8 +17,8 @@ class TestDashboardAPI(unittest.TestCase):
         id_ = cls.api.get_dashboard_id('pylana-dashboard')
         _ = cls.api.delete_dashboard(id_)
 
-        test_dashboard_id_ = cls.api.get_dashboard_id('incident-test-dashboard')
-        _ = cls.api.unshare_dashboard(test_dashboard_id_,
+        test_dashboard_id = cls.api.get_dashboard_id('incident-test-dashboard')
+        _ = cls.api.unshare_dashboard(test_dashboard_id,
                                       [cls.api.user.organization_id])
         
     def test_list_dashboards(self):
