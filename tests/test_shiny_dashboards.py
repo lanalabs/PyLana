@@ -15,11 +15,11 @@ class TestDashboardAPI(unittest.TestCase):
     @classmethod
     def tearDownClass(cls) -> None:
         id_ = cls.api.get_shiny_dashboard_id('pylana-shiny-dashboard')
-        cls.api.delete_dashboard(id_)
+        cls.api.delete_shiny_dashboard(id_)
 
         test_shiny_dashboard_id_ = cls.api.get_shiny_dashboard_id('incident-test-shiny-dashboard')
-        cls.api.unshare_dashboard(test_shiny_dashboard_id_,
-                                  [cls.api.user.organization_id])
+        cls.api.unshare_shiny_dashboard(test_shiny_dashboard_id_,
+                                        [cls.api.user.organization_id])
 
     def test_list(self):
         shiny_dashboards = self.api.list_shiny_dashboards()
