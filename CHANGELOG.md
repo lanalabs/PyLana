@@ -5,6 +5,16 @@ The changelog is based on [this guide](https://keepachangelog.com/en/0.3.0/). Th
 # Unreleased
 
 
+# [0.2.1]
+
+## Added
+
+* function for unsharing dashboards and shiny dashboards
+
+## Changed
+
+* fixed sharing of dashboards and shiny dashboards
+
 # [0.2.0]
 
 ## Added

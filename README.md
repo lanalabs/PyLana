@@ -1,7 +1,7 @@
 # PyLana
 [![Python 3.7](https://img.shields.io/badge/python-3.7-blue.svg
 )](https://www.python.org/downloads/release/python-374/)
-[![Pylana](https://img.shields.io/badge/pylana-v0.2.0-blue)](https://pypi.org/project/pylana/)
+[![Pylana](https://img.shields.io/badge/pylana-v0.2.1-blue)](https://pypi.org/project/pylana/)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/lanalabs/pylana/graphs/commit-activity)
 
 PyLana is Python API for [LANA Process Mining](https://lanalabs.com/). It focuses on resource management, but provides methods that can be used to access the processed data as well.
