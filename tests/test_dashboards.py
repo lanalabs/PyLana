@@ -15,7 +15,11 @@ class TestDashboardAPI(unittest.TestCase):
     @classmethod
     def tearDownClass(cls) -> None:
         id_ = cls.api.get_dashboard_id('pylana-dashboard')
-        cls.api.delete_dashboard(id_)
+        _ = cls.api.delete_dashboard(id_)
+
+        test_dashboard_id = cls.api.get_dashboard_id('incident-test-dashboard')
+        _ = cls.api.unshare_dashboard(test_dashboard_id,
+                                      [cls.api.user.organization_id])
         
     def test_list_dashboards(self):
         dashboards = self.api.list_dashboards()
@@ -37,15 +41,26 @@ class TestDashboardAPI(unittest.TestCase):
         self.assertDictEqual(resp_create, resp_get)
 
     def test_get_dashboard(self):
-        dashboard = self.api.describe_dashboard('pylana-test-log-.*')
-        self.assertEqual(dashboard.get('title'), 'pylana-test-log-from-df')
+        dashboard = self.api.describe_dashboard('incident.*')
+        self.assertEqual(dashboard.get('title'), 'incident-test-dashboard')
 
         with self.assertRaises(Exception):
             _ = self.api.get_dashboard('never-ever-matches-a-dashboard')
 
     def test_get_dashboard_id(self):
-        dashboard_id = self.api.get_dashboard_id('pylana-test-log-from-df')
-        self.assertIsInstance(dashboard_id, str)
+        test_dashboard_id = self.api.get_dashboard_id('incident-test-dashboard')
+        self.assertIsInstance(test_dashboard_id, str)
 
         with self.assertRaises(Exception):
             _ = self.api.get_dashboard_id('never-ever-matches-a-dashboard')
+
+    def test_share_dashboard(self):
+        id_ = self.api.get_dashboard_id('incident-test-dashboard')
+
+        actual = self.api.share_dashboard(id_,
+                                          [self.api.user.organization_id]).json()
+
+        expected = {'sharing': {'numFailures': 0, 'numSuccesses': 1},
+                    'unsharing': {'numFailures': 0, 'numSuccesses': 0}}
+
+        self.assertDictEqual(actual, expected)

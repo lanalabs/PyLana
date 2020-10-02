@@ -15,7 +15,7 @@ except FileNotFoundError:
 
 
 setup(name='pylana',
-      version='0.2.0',
+      version='0.2.1',
       description="Python API for LANA Process Mining",
       long_description=long_description,
       long_description_content_type='text/markdown',

@@ -158,6 +158,9 @@ class ShinyDashboardAPI(ResourceAPI):
                 It is ignored when ids are passed.
             ids: 
                 A list of strings denoting shiny dashboard ids.
+            **kwargs:
+                Keyword arguments passed to requests functions.
+
         Returns:
             A list of request responses of the calls to the lana api.
         """
@@ -165,31 +168,50 @@ class ShinyDashboardAPI(ResourceAPI):
                                      **kwargs)
 
     # TODO consider sharing by names
-    def share_shiny_dashboard(self, shiny_dashboard_id: str,
-                              user_ids: List[str], organization_ids: List[str], 
+    def share_shiny_dashboard(self, shiny_dashboard_id: str, organization_ids: List[str],
                               **kwargs) -> Response:
         """
-        Share a shiny dashboard with users by ids.
+        Share a shiny dashboard with organizations by ids.
 
         Args:
             shiny_dashboard_id:
                 A string denoting the id of the shiny dashboard.
-            user_ids:
-                A list of strings denoting ids of users to share with.
-            organization_ids: 
+            organization_ids:
                 A list of strings denoting ids of organizations to share with.
+            **kwargs:
+                Keyword arguments passed to requests functions.
 
         Returns:
             The requests response of the lana api call.
         """
         body = {
-            "sharedInformation": {
-                "userIds": user_ids,
-                "organizationIds": organization_ids
-            }
+            "shareWithOrganizations": organization_ids
         }
-        return self.patch(f"/api/shiny-dashboards/{shiny_dashboard_id}",
-                          data=body, **kwargs)
+        return self.patch(f"/api/shiny-dashboards/{shiny_dashboard_id}/sharing",
+                          json=body, **kwargs)
+
+    def unshare_shiny_dashboard(self, shiny_dashboard_id: str, organization_ids: List[str],
+                                **kwargs) -> Response:
+        """
+        Unshare a shiny dashboard with organizations by ids.
+
+        Args:
+            shiny_dashboard_id:
+                A string denoting the id of the shiny dashboard.
+            organization_ids:
+                A list of strings denoting ids of organizations to unshare the
+                shiny dashboard with.
+            **kwargs:
+                Keyword arguments passed to requests functions.
+
+        Returns:
+            The requests response of the lana api call.
+        """
+        body = {
+            "unshareWithOrganizations": organization_ids
+        }
+        return self.patch(f"/api/shiny-dashboards/{shiny_dashboard_id}/sharing",
+                          json=body, **kwargs)
 
     def connect_shiny_dashboard(self, log_id, shiny_dashboard_id, **kwargs) \
             -> Response:

@@ -12,6 +12,15 @@ class TestDashboardAPI(unittest.TestCase):
             cls.credentials = json.load(f)
         cls.api = create_api(verify=True, **cls.credentials)
 
+    @classmethod
+    def tearDownClass(cls) -> None:
+        id_ = cls.api.get_shiny_dashboard_id('pylana-shiny-dashboard')
+        _ = cls.api.delete_shiny_dashboard(id_)
+
+        test_shiny_dashboard_id = cls.api.get_shiny_dashboard_id('incident-test-shiny-dashboard')
+        _ = cls.api.unshare_shiny_dashboard(test_shiny_dashboard_id,
+                                            [cls.api.user.organization_id])
+
     def test_list(self):
         shiny_dashboards = self.api.list_shiny_dashboards()
         self.assertGreaterEqual(len(shiny_dashboards), 1)
@@ -21,20 +30,27 @@ class TestDashboardAPI(unittest.TestCase):
         resp_describe = self.api.describe_shiny_dashboard('pylana-shiny-dashboard')
         self.assertDictEqual(resp_create, resp_describe)
 
-        id_ = self.api.get_shiny_dashboard_id('pylana-shiny-dashboard')
-        resp_delete = self.api.delete_shiny_dashboard(id_)
-        self.assertEqual(resp_delete.status_code, 200)
-
     def test_describe(self):
         shiny_dashboard = self.api.describe_shiny_dashboard('incident-test-.*')
-        self.assertEqual(shiny_dashboard.get('name'), 'incident-test-dashboard')
+        self.assertEqual(shiny_dashboard.get('name'), 'incident-test-shiny-dashboard')
 
         with self.assertRaises(Exception):
             _ = self.api.describe_shiny_dashboard('never-ever-matches-a-shiny_dashboard')
 
     def test_get_shiny_dashboard_id(self):
-        shiny_dashboard_id = self.api.get_shiny_dashboard_id('incident-test-dashboard')
-        self.assertEqual(shiny_dashboard_id, 'fc474eec-922c-4716-a71d-2fe60e53f9b9')
+        shiny_dashboard_id = self.api.get_shiny_dashboard_id('incident-test-shiny-dashboard')
+        self.assertIsInstance(shiny_dashboard_id, str)
 
         with self.assertRaises(Exception):
             _ = self.api.get_shiny_dashboard_id('1212')
+
+    def test_share_shiny_dashboard(self):
+        shiny_dashboard_id = self.api.get_shiny_dashboard_id('incident-test-shiny-dashboard')
+
+        actual = self.api.share_shiny_dashboard(shiny_dashboard_id,
+                                                [self.api.user.organization_id]).json()
+
+        expected = {'sharing': {'numFailures': 0, 'numSuccesses': 1},
+                    'unsharing': {'numFailures': 0, 'numSuccesses': 0}}
+
+        self.assertDictEqual(actual, expected)
