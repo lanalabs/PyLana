@@ -24,7 +24,7 @@ def create_semantics(columns: Iterable[str],
 
     Args:
         columns:
-            An list of strings representing the column names of the
+            A list of strings representing the column names of the
             table.
         case_id:
             A string representing the column name for the case id.
@@ -38,13 +38,13 @@ def create_semantics(columns: Iterable[str],
             A string representing the column name for the complete timestamp
             (optional).
         numerical_attributes:
-            An list of strings representing the column names for numerical
+            A list of strings representing the column names for numerical
             attributes (optional), defaults to empty tuple.
         impact_attributes:
-            An list of strings representing the column names for impact
+            A list of strings representing the column names for impact
             attributes (optional), defaults to empty tuple.
         descriptive_attributes:
-            An list of strings representing  the column names for
+            A list of strings representing  the column names for
             descriptive attributes (optional), defaults to empty tuple.
         time_format:
             A string representing the time format for start and complete
@@ -91,9 +91,10 @@ def create_event_semantics_from_df(
 
     The columns semantic for lana will be derived from the data frame's dtypes.
     All types will be converted to categorical attributes, besides numbers,
-    impact and descriptive attributes. Impact and and descriptive attributes
-    are special cases of categorial attributes with teh dtype 'object'.
-    columns with this semantics can not be inferred. They have to be passed
+    impact and descriptive attributes. Descriptive attributes are special
+    cases of categorial attributes with the dtype 'object', impact
+    attributes are special cases of numerical attributes. Columns with
+    either of these semantics can not be inferred. They have to be passed
     to this function.
 
     The Start and Complete time stamps need to have the same time format.
@@ -131,7 +132,8 @@ def create_event_semantics_from_df(
         start,
         complete,
         numerical_attributes=[col for col in df.columns
-                              if _is_lana_numeric(df.loc[:, col])],
+                              if _is_lana_numeric(df.loc[:, col]) and
+                              col not in [case_id, action, start, complete]],
         impact_attributes=impact_attributes,
         descriptive_attributes=descriptive_attributes,
         time_format=time_format
@@ -147,9 +149,10 @@ def create_case_semantics_from_df(
 
     The columns semantic for lana will be derived from the data frame's dtypes.
     All types will be converted to categorical attributes, besides numbers,
-    impact and descriptive attributes. Impact and and descriptive attributes
-    are special cases of categorial attributes with teh dtype 'object'.
-    columns with this semantics can not be inferred. They have to be passed
+    impact and descriptive attributes. Descriptive attributes are special
+    cases of categorial attributes with the dtype 'object', impact
+    attributes are special cases of numerical attributes. Columns with
+    either of these semantics can not be inferred. They have to be passed
     to this function.
 
     Args:
@@ -171,7 +174,8 @@ def create_case_semantics_from_df(
         df.columns,
         case_id,
         numerical_attributes=[col for col in df.columns
-                              if _is_lana_numeric(df.loc[:, col])],
+                              if _is_lana_numeric(df.loc[:, col]) and \
+                              col != case_id],
         impact_attributes=impact_attributes,
         descriptive_attributes=descriptive_attributes
     )

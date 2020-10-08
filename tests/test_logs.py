@@ -118,36 +118,43 @@ class TestLogsAPI(unittest.TestCase):
 
         self.assertEqual(resp.status_code, 200)
 
-    def test_upload_event_log_from_df(self):
-        
-        records = [
-            {'Case_ID': 1, 'Action': 'A', 'Start': '2020-02-02 12:00:00', 'Event_Numeric': 1.0, 'Event_Category': 'A1'},
-            {'Case_ID': 1, 'Action': 'B', 'Start': '2020-02-02 13:00:00', 'Event_Numeric': 1.1, 'Event_Category': 'B1'},
-            {'Case_ID': 2, 'Action': 'A', 'Start': '2020-02-02 12:30:00', 'Event_Numeric': 1.2, 'Event_Category': 'C1'},
-            {'Case_ID': 3, 'Action': 'C', 'Start': '2020-02-02 13:30:00', 'Event_Numeric': 1.3, 'Event_Category': 'D1'}
-        ]
-        df_log = pd.DataFrame(records)\
-            .astype({'Case_ID': str, 'Action': str, 'Start': 'datetime64[ns]', 'Event_Numeric': int, 'Event_Category': str})\
-            .loc[:, ['Action', 'Case_ID', 'Start', 'Event_Numeric', 'Event_Category']]
+    def test_upload_event_log_df(self):
 
-        records = [
-            {'Case_ID': 1, 'Case_Numeric': 1000, 'Case_Category': 'A2'},
-            {'Case_ID': 2, 'Case_Numeric': 3000, 'Case_Category': 'C2'},
-            {'Case_ID': 3, 'Case_Numeric': 2000, 'Case_Category': 'D2'}
-        ]
-        df_case = pd.DataFrame(records)\
-            .astype({'Case_ID': str, 'Case_Numeric': int, 'Case_Category':
-            str})
+        df_log = pd.DataFrame([
+            [1, 'A', pd.Timestamp('2020-02-02 12:00:00'), 1.0, 'A1', 10, '1A'],
+            [1, 'B', pd.Timestamp('2020-02-02 13:00:00'), 1.1, 'B1', 10, '1B'],
+            [2, 'A', pd.Timestamp('2020-02-02 12:30:00'), 1.2, 'C1', 10, '1C'],
+            [3, 'C', pd.Timestamp('2020-02-02 13:30:00'), 1.3, 'D1', 10, '1D']
+        ], columns=['Case_ID', 'Action', 'Start', 'Event_Numeric',
+                    'Event_Category', 'Event_Impact', 'Event_Descriptive']
+        )
+
+        df_case = pd.DataFrame([
+            [1, 1000, 'A2', 1.0, '2A'],
+            [2, 3000, 'C2', 1.1, '2C'],
+            [3, 2000, 'D2', 1.3, '2D']
+        ], columns=['Case_ID', 'Case_Numeric', 'Case_Category',
+                    'Case_Impact', 'Case_Descriptive']
+        )
 
         msg = 'failed to upload event log from data frame'
         resp = self.api.upload_event_log_df(
-            'pylana-test-log-from-df', df_log, 'yyyy-MM-dd HH:mm:ss', df_case)
+            'pylana-test-log-from-df', df_log, 'yyyy-MM-dd HH:mm:ss', df_case,
+            impact_attributes=['Event_Impact', 'Case_Impact'],
+            descriptive_attributes=['Event_Descriptive', 'Case_Descriptive']
+        )
         self.assertEqual(resp.status_code, 200, msg)
 
         log_id = resp.json()['logId']
 
         msg = 'failed to append events to existing event log from data frame'
-        resp_appended = self.api.append_events_df(log_id, df_log, time_format='yyyy-MM-dd HH:mm:ss')
+        resp_appended = self.api.append_events_df(
+            log_id,
+            df_log,
+            time_format='yyyy-MM-dd HH:mm:ss',
+            impact_attributes=['Event_Impact', 'Case_Impact'],
+            descriptive_attributes=['Event_Descriptive', 'Case_Descriptive']
+        )
         self.assertEqual(resp_appended.status_code, 200, msg)
 
         msg = 'failed to append case attributes  to existing event log from ' \
