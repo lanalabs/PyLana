@@ -12,8 +12,10 @@ import pandas as pd
 # TODO: check whether this function is actually required
 def create_semantics(columns: Iterable[str],
                      case_id: str = 'id', action: str = 'action', start: str = 'start', complete: str = 'complete',
-                     numerical_attributes: Iterable[str] = tuple(), time_format: str = 'yyyy-MM-dd HH:mm:ss') \
-        -> List[Dict[str, str]]:
+                     numerical_attributes: Iterable[str] = tuple(),
+                     impact_attributes : Iterable[str] = tuple(),
+                     descriptive_attributes: Iterable[str] = tuple(),
+                     time_format: str = 'yyyy-MM-dd HH:mm:ss') -> List[Dict[str, str]]:
     """
     create semantics including numeric and categorical attributes
 
@@ -23,27 +25,29 @@ def create_semantics(columns: Iterable[str],
         action: the column name for the activities
         start: the column name for the start timestamp
         complete: the column name for the complete timestamp
-        numerical_attributes: the column names for the numerical attributes
+        numerical_attributes: the column names for numerical attributes
+        impact_attributes: the column names for impact attributes
+        descriptive_attributes: the column names for descriptive attributes
         time_format: the time format for start and complete columns
 
     Returns:
         a list of dicts representing the semantics file
     """
 
-    semantics = defaultdict(lambda: 'CategorialAttribute')
-
-    semantics_fixed = {case_id: 'Case ID', action: 'Action', start: 'Start', complete: 'Complete'}
-    semantics_numeric = {numeric: 'NumericAttribute' for numeric in numerical_attributes}
-
-    semantics.update(semantics_fixed)
-    semantics.update(semantics_numeric)
+    semantics = {
+        **{case_id: 'Case ID', action: 'Action',
+           start: 'Start', complete: 'Complete'},
+        **{att: 'NumericAttribute' for att in numerical_attributes},
+        **{att: 'DescriptiveAttribute' for att in descriptive_attributes},
+        **{att: 'ImpactAttribute' for att in impact_attributes}
+    }
 
     return [
         {
             'idx': idx,
             'name': col,
-            'semantic': semantics[col],
-            'format': time_format if semantics[col] in ['Start', 'Complete'] else None
+            'semantic': semantics.get(col, 'CategorialAttribute'),
+            'format': time_format if col in [start, complete] else None
         } for idx, col in enumerate(columns)
     ]
 
