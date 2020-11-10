@@ -17,7 +17,8 @@ class TestGetUserInformation(unittest.TestCase):
         url = self.credentials['scheme'] + '://' \
             + self.credentials['host'] + ':' \
             + str(self.credentials['port'])
-        actual = get_user_information(url, self.credentials['token'])
+        actual = get_user_information(url, self.credentials['token'],
+                                      timeout=1)
 
         expected_keys = [
             'acceptedTerms', 'apiKey', 'apiKeyStatus', 'backendInstanceId',
