@@ -1,0 +1,13 @@
+# Documentation
+**/*.md
+
+# credentials
+tests/config.json
+tests/config_useradmin.json
+
+# Byte-compiled / optimized / DLL files
+**/__pycache__
+**/.ptest_cache
+
+# MACOS
+**/.DS_Store
