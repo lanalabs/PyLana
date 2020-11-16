@@ -11,6 +11,29 @@ from pylana.api import API
 from pylana.decorators import expect_json
 
 
+def extract_resource_id(resource):
+    """
+    Extract resource id.
+
+    We currently have two ways of naming resource ids, "id" and "pageId". We
+    only have "pageId" in case "id" is missing.
+    """
+    return resource.get('id') or resource.get('pageId')
+
+
+def filter_resource_ids(resources: List[dict], contains: str) -> List[str]:
+    """
+    Filter a list of resources by matching a regex against their names.
+    """
+    return [
+        extract_resource_id(resource)
+        for resource in resources
+        if re.compile(contains).search(
+            resource.get('name') or resource.get('title')
+        )
+    ]
+
+
 class ResourceAPI(API):
 
     @expect_json
@@ -42,14 +65,9 @@ class ResourceAPI(API):
         Returns:
             a list of strings representing resource ids
         """
-        resources = self.list_resources(kind, **kwargs)
-        rc = re.compile(contains)
-        
-        return [
-            resource.get('id') or resource.get('pageId')
-            for resource in resources if rc.search(resource.get('name') 
-            or resource.get('title'))
-        ]
+        return filter_resource_ids(
+            self.list_resources(kind, **kwargs),
+            contains)
 
     def get_resource_id(self, kind: str, contains: str, **kwargs) -> str:
         """
