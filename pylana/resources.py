@@ -124,3 +124,19 @@ class ResourceAPI(API):
     def connect_working_schedule(self, log_id, working_schedule_id, **kwargs):
         dct = {'log_id': log_id, 'working_schedule_id': working_schedule_id}
         return self.connect_resources(dct, **kwargs)
+
+    def share_resource(self, kind: str, resource_id: str, **kwargs):
+        return self.put(
+            f"/api/v2/{kind}/{resource_id}/sharing",
+            json={"shareWithOrganizations": [self.user.organization_id],
+                  "unshareWithOrganizations": []},
+            **kwargs
+            )
+
+    def unshare_resource(self, kind: str, resource_id: str, **kwargs):
+        return self.put(
+            f"/api/v2/{kind}/{resource_id}/sharing",
+            json={"shareWithOrganizations": [],
+                  "unshareWithOrganizations": [self.user.organization_id]},
+            **kwargs
+            )

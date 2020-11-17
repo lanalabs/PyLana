@@ -98,8 +98,12 @@ class ModelsAPI(ResourceAPI):
                 f"/sharing", **kwargs
                      )
 
-    def share_model(self):
-        pass
+    def share_model(self, contains: str = None, model_id: str = None,
+                    **kwargs) -> requests.Response:
+        return self.share_resource(
+            "model", model_id or self.get_model_id(contains), **kwargs)
 
-    def unshare_log(self):
-        pass
+    def unshare_model(self, contains: str = None, model_id: str = None,
+                    **kwargs) -> requests.Response:
+        return self.unshare_resource(
+            "model", model_id or self.get_model_id(contains), **kwargs)
