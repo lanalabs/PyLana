@@ -6,11 +6,12 @@ import io
 import json
 from pathlib import Path
 from typing import Union, List, TextIO, BinaryIO, Optional
+import warnings
 
 import pandas as pd
 from requests import Response
 
-from pylana.decorators import expect_json
+from pylana.decorators import expect_json, warn_for_interface_deprecation
 from pylana.decorators import handle_response
 from pylana.resources import ResourceAPI
 from pylana.utils import create_case_semantics_from_df, \
@@ -459,6 +460,7 @@ class LogsAPI(ResourceAPI):
         csv_stream = io.BytesIO(resp.content)
         return pd.read_csv(csv_stream, dtype='object')
 
+    @warn_for_interface_deprecation
     @handle_response
     def share_log(self, log_id: str, **kwargs) -> Response:
         """Share log with organisation.
@@ -472,6 +474,7 @@ class LogsAPI(ResourceAPI):
         """
         return self.share_resource("logs", log_id, **kwargs)
 
+    @warn_for_interface_deprecation
     @handle_response
     def unshare_log(self, log_id: str, **kwargs) -> Response:
         """Un-share log with organisation.
