@@ -460,7 +460,7 @@ class LogsAPI(ResourceAPI):
         return pd.read_csv(csv_stream, dtype='object')
 
     @handle_response
-    def share_log(self, log_id: str) -> Response:
+    def share_log(self, log_id: str, **kwargs) -> Response:
         """Share log with organisation.
 
         Args:
@@ -470,10 +470,10 @@ class LogsAPI(ResourceAPI):
         Returns:
             The requests response of the lana api call.
         """
-        return self.get(f'/api/shareLogWithOrg/{log_id}')
+        return self.share_resource("logs", log_id, **kwargs)
 
     @handle_response
-    def unshare_log(self, log_id: str) -> Response:
+    def unshare_log(self, log_id: str, **kwargs) -> Response:
         """Un-share log with organisation.
 
         Args:
@@ -483,12 +483,12 @@ class LogsAPI(ResourceAPI):
         Returns:
             The requests response of the lana api call.
         """
-        return self.get(f'/api/unshareLogWithOrg/{log_id}')
+        return self.unshare_resource("logs", log_id, **kwargs)
 
     def get_model_id_connected_to_log(
             self, contains: str = None, log_id: str = None, **kwargs) -> \
             Optional[str]:
-        return (self.describe_log(contains, log_id, **kwargs) \
+        return (self.describe_log(contains, log_id, **kwargs)
                 .get("connectedModel") or dict()) \
                 .get("id")
 

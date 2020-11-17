@@ -3,7 +3,7 @@ from typing import List, Union
 
 import requests
 
-from pylana.decorators import expect_json
+from pylana.decorators import expect_json, handle_response
 from pylana.resources import ResourceAPI, filter_resource_ids
 
 
@@ -98,11 +98,13 @@ class ModelsAPI(ResourceAPI):
                 f"/sharing", **kwargs
                      )
 
+    @handle_response
     def share_model(self, contains: str = None, model_id: str = None,
                     **kwargs) -> requests.Response:
         return self.share_resource(
             "model", model_id or self.get_model_id(contains), **kwargs)
 
+    @handle_response
     def unshare_model(self, contains: str = None, model_id: str = None,
                     **kwargs) -> requests.Response:
         return self.unshare_resource(
