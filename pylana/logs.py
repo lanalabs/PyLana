@@ -485,6 +485,12 @@ class LogsAPI(ResourceAPI):
         """
         return self.get(f'/api/unshareLogWithOrg/{log_id}')
 
+    def get_model_id_connected_to_log(
+            self, contains: str = None, log_id: str = None, **kwargs) -> \
+            Optional[str]:
+        return (self.describe_log(contains, log_id, **kwargs) \
+                .get("connectedModel") or dict()) \
+                .get("id")
 
     # legacy methods
     # --------------

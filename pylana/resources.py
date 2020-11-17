@@ -85,7 +85,6 @@ class ResourceAPI(API):
 
         return resource_id
 
-
     @expect_json
     def describe_resource(self, kind: str, contains: str = None, resource_id: str = None, **kwargs) -> dict:
         """
@@ -121,10 +120,6 @@ class ResourceAPI(API):
 
     def connect_resources(self, dct, **kwargs) -> Response:
         return self.post('/api/v2/resource-connections', json=dct, **kwargs)
-
-    def connect_model(self, log_id, model_id, **kwargs):
-        dct = {'log_id': log_id, 'model_id': model_id}
-        return self.connect_resources(dct, **kwargs)
 
     def connect_working_schedule(self, log_id, working_schedule_id, **kwargs):
         dct = {'log_id': log_id, 'working_schedule_id': working_schedule_id}
