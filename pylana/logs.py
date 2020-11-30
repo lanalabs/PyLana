@@ -358,7 +358,6 @@ class LogsAPI(ResourceAPI):
                 case_semantics,
                 **kwargs)
 
-    # TODO: Check whether impact and descriptive attributes are optional
     def append_events_df(self, log_id,
                          df_log: pd.DataFrame, time_format: str,
                          impact_attributes: Iterable[str] = tuple(),
