@@ -103,7 +103,7 @@ def create_event_semantics_from_df(
 
     Args:
         df:
-            A data frame representing amn event log.
+            A data frame representing an event log.
         case_id:
             A string representing the column name for the case id.
         action:

@@ -316,9 +316,8 @@ class LogsAPI(ResourceAPI):
             }
 
             return self.post('/api/logs/csv-case-attributes-event-semantics',
-                         files=files, data=semantics, **kwargs)
+                             files=files, data=semantics, **kwargs)
 
-    # TODO: Check whether impact and descriptive attributes are optional
     def append_events_df(self, log_id,
                          df_log: pd.DataFrame, time_format: str,
                          impact_attributes: Iterable[str] = tuple(),
