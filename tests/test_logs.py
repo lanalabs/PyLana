@@ -98,6 +98,13 @@ class TestLogsAPI(unittest.TestCase):
 
         self.assertEqual(resp.status_code, 200)
 
+        with open('./tests/data/pylana-event-log.csv') as event_stream:
+            resp = self.api.upload_event_log_stream(
+                log=event_stream,
+                log_semantics=log_semantics)
+
+        self.assertEqual(resp.status_code, 200)
+
     def test_upload_event_log(self):
         log_semantics = create_semantics(['id', 'action', 'start', 'complete', 'number'],
                                          numerical_attributes=['number'])
@@ -115,7 +122,12 @@ class TestLogsAPI(unittest.TestCase):
             case_attributes=case_attributes,
             log_semantics=log_semantics,
             case_attribute_semantics=case_semantics)
+        self.assertEqual(resp.status_code, 200)
 
+        resp = self.api.upload_event_log(
+            name='pylana-test-log-no-case-attributes',
+            log=log,
+            log_semantics=log_semantics)
         self.assertEqual(resp.status_code, 200)
 
     def test_upload_event_log_df(self):
@@ -162,6 +174,14 @@ class TestLogsAPI(unittest.TestCase):
         resp_appended = self.api.append_case_attributes_df(log_id, df_case)
         self.assertEqual(resp_appended.status_code, 200, msg)
 
+        msg = 'failed to upload event log w/o case attributes from data frame'
+        resp = self.api.upload_event_log_df(
+            'pylana-test-log-from-df', df_log, 'yyyy-MM-dd HH:mm:ss',
+            impact_attributes=['Event_Impact', 'Case_Impact'],
+            descriptive_attributes=['Event_Descriptive', 'Case_Descriptive']
+        )
+        self.assertEqual(resp.status_code, 200, msg)
+
     def test_upload_event_log_file(self):
 
         event_path = './tests/data/pylana-event-log.csv'
@@ -176,6 +196,16 @@ class TestLogsAPI(unittest.TestCase):
                                   case_file_path=case_path,
                                   event_semantics_path=event_semantics,
                                   case_semantics_path=case_semantics)
+        self.assertEqual(resp.status_code, 200)
+
+        resp = self.api.upload_event_log_file(
+            log_name,
+            event_file_path=event_path,
+            case_file_path=None,
+            event_semantics_path=event_semantics,
+            case_semantics_path=None
+        )
+
         self.assertEqual(resp.status_code, 200)
 
     def test_log_sharing(self):

@@ -6,6 +6,7 @@ import io
 import json
 from pathlib import Path
 from typing import Union, List, TextIO, BinaryIO, Optional, Iterable
+from warnings import warn
 
 import pandas as pd
 from requests import Response
@@ -17,9 +18,20 @@ from pylana.utils import create_case_semantics_from_df, \
     create_event_semantics_from_df
 
 
-def _serialise_semantics(semantics: Union[str, list]):
+def _serialise_semantics(semantics: Union[str, list]) -> str:
     return \
         json.dumps(semantics) if not isinstance(semantics, str) else semantics
+
+
+def _prepare_case_semantics(semantics: Union[str, list]) -> str:
+    return \
+        _serialise_semantics(semantics) if semantics else \
+        '[{"idx": 0, "name": "id", "semantic": "Case ID", "format": null}]'
+
+
+def _try_open(path, *args, **kwargs):
+    return open(path, *args, **kwargs) if path \
+        else io.StringIO()
 
 
 class LogsAPI(ResourceAPI):
@@ -143,60 +155,20 @@ class LogsAPI(ResourceAPI):
 
         files = {
             **files_required,
-            **{'caseAttributeFile': (name + '_case_attributes', case_attributes, 'text/csv')}
-        } if case_attributes else files_required
+            **{'caseAttributeFile': (name + '_case_attributes',
+                                     case_attributes or "",
+                                     'text/csv')}
+        }
         semantics = {
             **semantics_required,
-            **{'caseSemantics': _serialise_semantics(case_attribute_semantics)}
-        } if case_attribute_semantics else semantics_required
+            **{'caseSemantics': _prepare_case_semantics(case_attribute_semantics)}
+        }
 
         return self.post('/api/logs/csv-case-attributes-event-semantics',
                          files=files, data=semantics, **kwargs)
 
-    def upload_event_log_stream(self,
-                                log: Union[TextIO, BinaryIO],
-                                log_semantics: Union[list, str],
-                                case: Optional[Union[TextIO, BinaryIO]] = None,
-                                case_semantics: Optional[Union[list, str]] = None,
-                                prefix: str = 'pylana-', **kwargs) -> Response:
-        """Upload a log with prepared semantics by passing open streams.
-
-        The log name is generated from hash value of the passed event log
-        stream. We use the built-in hash function, so it can change when you
-        restart the interpreter.
-
-        WARNING: This method does not close the passed streams.
-
-        Args:
-            log:
-                A string or binary stream denoting the event log.
-            log_semantics:
-                The event log semantics either serialised as a
-                string or a list of dictionaries.
-            case:
-                (optional) A text or binary stream denoting the
-                case attributes as csv.
-            case_semantics:
-                (optional) The event case attributes semantics
-                either serialised as a string or a list of
-                dictionaries, required if case_attributes is
-                passed.
-            prefix:
-                (optional) A string denoting a prefix of the log name.
-                Defaults to "pylana-".
-            **kwargs:
-                Keyword arguments passed to requests functions.
-
-        Returns:
-            The requests response of the lana api call.
-        """
-
-        name = f'{prefix}{hash(log)}'
-        return self.upload_event_log(name, log.read(), log_semantics,
-                                     case.read(), case_semantics, **kwargs)
-
     def upload_event_log_df(self, name: str, df_log: pd.DataFrame,
-                            time_format: str, df_case: pd.DataFrame,
+                            time_format: str, df_case: pd.DataFrame = None,
                             impact_attributes: Iterable[str] = tuple(),
                             descriptive_attributes: Iterable[str] = tuple(),
                             **kwargs) -> Response:
@@ -255,17 +227,94 @@ class LogsAPI(ResourceAPI):
             impact_attributes=impact_attributes,
             descriptive_attributes=descriptive_attributes
         )
+
+        df_case_ = \
+            df_case if df_case is not None else \
+            pd.DataFrame(columns=['Case_ID'])
         case_semantics = create_case_semantics_from_df(
-            df_case,
+            df_case_,
             impact_attributes=impact_attributes,
             descriptive_attributes=descriptive_attributes
         )
 
-        return self.upload_event_log(name,
-                                     log=df_log.to_csv(index=False),
-                                     log_semantics=log_semantics,
-                                     case_attributes=df_case.to_csv(index=False),
-                                     case_attribute_semantics=case_semantics, **kwargs)
+        return self.upload_event_log(
+            name,
+            log=df_log.to_csv(index=False),
+            log_semantics=log_semantics,
+            case_attributes=df_case_.to_csv(index=False),
+            case_attribute_semantics=case_semantics, **kwargs)
+
+    def _upload_from_streams(
+            self,
+            name,
+            event_file,
+            event_semantics,
+            case_file,
+            case_semantics,
+            **kwargs):
+        files = {
+            'eventCSVFile': (name + "-event-log",
+                             event_file, 'text/csv'),
+            'caseAttributeFile': (name + "-case-attributes",
+                                  case_file, 'text/csv'),
+        }
+
+        semantics = {
+            'eventSemantics': event_semantics.read(),
+            'caseSemantics': _prepare_case_semantics(case_semantics.read()),
+            'logName': name,
+            'timeZone': "Europe/Berlin"
+        }
+
+        return self.post('/api/logs/csv-case-attributes-event-semantics',
+                         files=files, data=semantics, **kwargs)
+
+    def upload_event_log_stream(self,
+                                log: Union[TextIO, BinaryIO],
+                                log_semantics: Union[list, str],
+                                case: Optional[Union[TextIO, BinaryIO]] = None,
+                                case_semantics: Optional[
+                                    Union[list, str]] = None,
+                                prefix: str = 'pylana-', **kwargs) -> Response:
+        """Upload a log with prepared semantics by passing open streams.
+
+        The log name is generated from hash value of the passed event log
+        stream. We use the built-in hash function, so it can change when you
+        restart the interpreter.
+
+        WARNING: This method does not close the passed streams.
+
+        Args:
+            log:
+                A string or binary stream denoting the event log.
+            log_semantics:
+                The event log semantics either serialised as a
+                string or a list of dictionaries.
+            case:
+                (optional) A text or binary stream denoting the
+                case attributes as csv.
+            case_semantics:
+                (optional) The event case attributes semantics
+                either serialised as a string or a list of
+                dictionaries, required if case_attributes is
+                passed.
+            prefix:
+                (optional) A string denoting a prefix of the log name.
+                Defaults to "pylana-".
+            **kwargs:
+                Keyword arguments passed to requests functions.
+
+        Returns:
+            The requests response of the lana api call.
+        """
+        warn("This method will deprecate soon. For streaming upload you can "
+             "use the method `upload_event_log_file` of this api.",
+             DeprecationWarning)
+
+        name = f'{prefix}{hash(log)}'
+        return self.upload_event_log(name, log.read(), log_semantics,
+                                     (case or io.StringIO()).read(),
+                                     case_semantics, **kwargs)
 
     def upload_event_log_file(self, name: str,
                               event_file_path: str, case_file_path: str,
@@ -297,26 +346,17 @@ class LogsAPI(ResourceAPI):
             The requests response of the lana api call.
         """
         with open(event_file_path, "rb") as event_file, \
-                open(case_file_path, "rb") as case_file, \
+                _try_open(case_file_path, "rb") as case_file, \
                 open(event_semantics_path) as event_semantics,\
-                open(case_semantics_path) as case_semantics:
+                _try_open(case_semantics_path) as case_semantics:
 
-            files = {
-                'eventCSVFile': (Path(event_file_path).name,
-                                 event_file, 'text/csv'),
-                'caseAttributeFile': (Path(case_file_path).name,
-                                      case_file, 'text/csv'),
-            }
-
-            semantics = {
-                'eventSemantics': event_semantics.read(),
-                'caseSemantics': case_semantics.read(),
-                'logName': name,
-                'timeZone': "Europe/Berlin"
-            }
-
-            return self.post('/api/logs/csv-case-attributes-event-semantics',
-                             files=files, data=semantics, **kwargs)
+            return self._upload_from_streams(
+                name,
+                event_file,
+                event_semantics,
+                case_file,
+                case_semantics,
+                **kwargs)
 
     def append_events_df(self, log_id,
                          df_log: pd.DataFrame, time_format: str,
