@@ -5,7 +5,7 @@ log management api requests functions and methods
 import io
 import json
 from pathlib import Path
-from typing import Union, List, TextIO, BinaryIO, Optional
+from typing import Union, List, TextIO, BinaryIO, Optional, Iterable
 import warnings
 
 import pandas as pd
@@ -198,6 +198,8 @@ class LogsAPI(ResourceAPI):
 
     def upload_event_log_df(self, name: str, df_log: pd.DataFrame,
                             time_format: str, df_case: pd.DataFrame,
+                            impact_attributes: Iterable[str] = tuple(),
+                            descriptive_attributes: Iterable[str] = tuple(),
                             **kwargs) -> Response:
         """Upload an event log from pandas data frames with inferred semantics.
 
@@ -211,7 +213,14 @@ class LogsAPI(ResourceAPI):
         For the passed case attributes we expect at last the columns "Case_ID"
         of any dtype.
 
-        Types of other columns are inferred from their dtypes.
+        The columns semantic for lana will be derived from the data frame's dtypes.
+        All types will be converted to categorical attributes, besides numbers,
+        impact and descriptive attributes. Descriptive attributes are special
+        cases of categorial attributes with the dtype 'object', impact
+        attributes are special cases of numerical attributes. Columns with
+        either of these semantics can not be inferred. They have to be passed
+        to this function.
+
 
         Args:
             name:
@@ -228,6 +237,12 @@ class LogsAPI(ResourceAPI):
             df_case:
                 (Optional) A pandas data frame denoting the case
                 attributes.
+            impact_attributes:
+                (optional) A list of strings representing the column names
+                for impact attributes, defaults to empty tuple.
+            descriptive_attributes:
+                (optional) A list of strings representing  the column names for
+                descriptive attributes, defaults to empty tuple.
             **kwargs:
                 Keyword arguments passed to requests functions.
 
@@ -235,12 +250,21 @@ class LogsAPI(ResourceAPI):
                 The requests response of the lana api call.
         """
 
-        event_semantics = create_event_semantics_from_df(df_log, time_format=time_format)
-        case_semantics = create_case_semantics_from_df(df_case)
+        log_semantics = create_event_semantics_from_df(
+            df_log,
+            time_format=time_format,
+            impact_attributes=impact_attributes,
+            descriptive_attributes=descriptive_attributes
+        )
+        case_semantics = create_case_semantics_from_df(
+            df_case,
+            impact_attributes=impact_attributes,
+            descriptive_attributes=descriptive_attributes
+        )
 
         return self.upload_event_log(name,
                                      log=df_log.to_csv(index=False),
-                                     log_semantics=event_semantics,
+                                     log_semantics=log_semantics,
                                      case_attributes=df_case.to_csv(index=False),
                                      case_attribute_semantics=case_semantics, **kwargs)
 
@@ -293,10 +317,13 @@ class LogsAPI(ResourceAPI):
             }
 
             return self.post('/api/logs/csv-case-attributes-event-semantics',
-                         files=files, data=semantics, **kwargs)
+                             files=files, data=semantics, **kwargs)
 
     def append_events_df(self, log_id,
-                         df_log: pd.DataFrame, time_format: str, **kwargs) -> Response:
+                         df_log: pd.DataFrame, time_format: str,
+                         impact_attributes: Iterable[str] = tuple(),
+                         descriptive_attributes: Iterable[str] = tuple(),
+                         **kwargs) -> Response:
         """Append events to a log from a pandas data frame.
 
         For the passed event log data frame we expect at least the following
@@ -305,6 +332,14 @@ class LogsAPI(ResourceAPI):
         * "Action" of dtype object for activities
         * "Start" of dtype datetime64 or object for the first timestamp
         The "Complete" column of type datetime64 or object is optional.
+
+        The columns semantic for lana will be derived from the data frame's dtypes.
+        All types will be converted to categorical attributes, besides numbers,
+        impact and descriptive attributes. Descriptive attributes are special
+        cases of categorial attributes with the dtype 'object', impact
+        attributes are special cases of numerical attributes. Columns with
+        either of these semantics can not be inferred. They have to be passed
+        to this function.
 
         Args:
             log_id:
@@ -319,6 +354,12 @@ class LogsAPI(ResourceAPI):
                 the time format needs to match its string representation.
                 For a format definition, see
                 https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#patterns
+            impact_attributes:
+                (optional) A list of strings representing the column names
+                for impact attributes, defaults to empty tuple.
+            descriptive_attributes:
+                (optional) A list of strings representing  the column names for
+                descriptive attributes, defaults to empty tuple.
             **kwargs:
                 Keyword arguments passed to requests functions.
 
@@ -326,7 +367,12 @@ class LogsAPI(ResourceAPI):
                 The requests response of the lana api call.
         """
         event_semantics = \
-            create_event_semantics_from_df(df_log, time_format=time_format)
+            create_event_semantics_from_df(
+                df_log,
+                time_format=time_format,
+                impact_attributes=impact_attributes,
+                descriptive_attributes=descriptive_attributes
+            )
 
         files = {
             'eventCSVFile': ('event-file',

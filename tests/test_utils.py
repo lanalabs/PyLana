@@ -8,18 +8,23 @@ from pylana.utils import create_semantics, create_event_semantics_from_df, creat
 # TODO: Test column ordering and indexing
 class TestCreateSemantics(unittest.TestCase):
 
-    @classmethod
-    def setUpClass(cls) -> None:
-        cls.columns = ['id', 'action', 'start', 'complete', 'number']
-
     def test_create_semantics(self):
-        actual = create_semantics(self.columns, 'id', 'action', 'start', 'complete', ['number'])
+        actual = create_semantics(
+            ['id', 'action', 'start', 'complete', 'number', 'impact',
+             'descriptive', 'categorial'],
+            'id', 'action', 'start', 'complete',
+            numerical_attributes=['number'], impact_attributes=['impact'],
+            descriptive_attributes=['descriptive'])
 
         expected = [{"format": None, "idx": 0, "name": "id", "semantic": "Case ID"},
                     {"format": None, "idx": 1, "name": "action", "semantic": "Action"},
                     {"format": "yyyy-MM-dd HH:mm:ss", "idx": 2, "name": "start", "semantic": "Start"},
                     {"format": "yyyy-MM-dd HH:mm:ss", "idx": 3, "name": "complete", "semantic": "Complete"},
-                    {"format": None, "idx": 4, "name": "number", "semantic": "NumericAttribute"}]
+                    {"format": None, "idx": 4, "name": "number", "semantic": "NumericAttribute"},
+                    {"format": None, "idx": 5, "name": "impact", "semantic": "ImpactAttribute"},
+                    {"format": None, "idx": 6, "name": "descriptive", "semantic": "DescriptiveAttribute"},
+                    {"format": None, "idx": 7, "name": "categorial", "semantic": "CategorialAttribute"}
+                    ]
 
         msg = 'failed to extract semantics from columns'
         self.assertCountEqual(actual, expected, msg)
