@@ -192,7 +192,10 @@ class DashboardAPI(ResourceAPI):
         """
         return self.put(
             f"/api/v2/dashboards/{dashboard_id}/sharing",
-            json={"shareWithOrganizations": organization_ids},
+            json={
+                "shareWithOrganizations": organization_ids,
+                "shareWithIndividualUsers": []
+            },
             **kwargs)
 
     @warn_for_interface_deprecation
@@ -215,7 +218,9 @@ class DashboardAPI(ResourceAPI):
         """
         return self.put(
             f"/api/v2/dashboards/{dashboard_id}/sharing",
-            json={"unshareWithOrganizations": organization_ids},
+            json={
+                "unshareWithOrganizations": organization_ids
+            },
             **kwargs)
 
     def connect_dashboard(self, log_id, dashboard_id, **kwargs) \
