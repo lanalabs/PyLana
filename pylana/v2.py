@@ -35,3 +35,7 @@ class LanaAPI2(LogsAPI, ModelsAPI, ShinyDashboardAPI, DashboardAPI, UsersAPI,
             The authorization header used for every request by default.
     """
     pass
+
+
+class PyLanaAPI(LanaAPI2):
+    __doc__ = LanaAPI2.__doc__

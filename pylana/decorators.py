@@ -1,5 +1,5 @@
 """
-decorators for handling api request responses
+Decorators for handling api request responses.
 """
 
 import functools
@@ -11,6 +11,9 @@ import requests
 
 
 def expect_json(method):
+    """
+    A decorator function to extract json from http responses gracefully .
+    """
     @functools.wraps(method)
     def parse_json(*args, **kwargs) -> List[dict]:
         resp = method(*args, **kwargs)
@@ -25,6 +28,9 @@ def expect_json(method):
 
 # TODO: introduce proper logging
 def handle_response(method):
+    """
+    A decorator function to handle http errors gracefully.
+    """
     @functools.wraps(method)
     def wrapper(*args, **kwargs) -> requests.Response:
         resp = method(*args, **kwargs)
@@ -38,7 +44,11 @@ def handle_response(method):
 
 warnings.simplefilter("always", DeprecationWarning)
 
+
 def warn_for_interface_deprecation(method):
+    """
+    A decorator function for adding a DeprecationWarning.
+    """
     @functools.wraps(method)
     def wrapper(*args, **kwargs):
         msg = f"The interface of the method {method.__name__} will be " \

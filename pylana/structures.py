@@ -1,5 +1,7 @@
 """
-data classes
+Data classes to abstract Resources.
+
+Data classes are used sparingly due to potential http interface changes.
 """
 
 from dataclasses import dataclass, field

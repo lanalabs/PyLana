@@ -1,5 +1,5 @@
 """
-functions to prepare requests for consumption
+Functions to preparing requests for consumption.
 """
 
 from typing import Iterable, Dict, List, Optional

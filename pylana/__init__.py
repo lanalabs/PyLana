@@ -1,11 +1,11 @@
 """
-Methods for creating the python API for LANA Process Mining.
+Methods for creating PyLana API instances.
 """
 
 import warnings
 
 from pylana.v1 import LanaAPI
-from pylana.v2 import LanaAPI2
+from pylana.v2 import PyLanaAPI
 
 
 def create_api(scheme, host, token, port=None, compatibility=False,
@@ -17,6 +17,8 @@ def create_api(scheme, host, token, port=None, compatibility=False,
     manage the LANA process mining resources. Among other things you can
     upload data from python pandas data frames directly or connect logs
     and shiny dashboard resources referencing them by their names.
+
+    .. code-block:: python
 
         api = create_api('https', 'cloud-backend.lanalabs.com', '<a token>')
         upload_response = api.upload_event_log_df(
@@ -30,6 +32,8 @@ def create_api(scheme, host, token, port=None, compatibility=False,
 
     It also provides basic methods to make HTTP verb requests
     directly to the lana endpoints. For example
+
+    .. code-block:: python
 
         response_list = api.get('/api/v2/dashboards')
 
@@ -75,4 +79,4 @@ def create_api(scheme, host, token, port=None, compatibility=False,
         url = url if url else f'{scheme}://{host}:{port}/'
         return LanaAPI(url, token=token)
 
-    return LanaAPI2(scheme, host, token, port, application_root, **kwargs)
+    return PyLanaAPI(scheme, host, token, port, application_root, **kwargs)

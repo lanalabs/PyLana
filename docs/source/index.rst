@@ -3,66 +3,31 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to PyLana's documentation!
-==================================
-
-Entrypoint
-----------
-
-.. automodule:: pylana
-    :members:
-
-.. automodule:: pylana.v2
-    :members:
-
-
-LANA Resources
-==============
-
-Logs
-----
-
-.. automodule:: pylana.logs
-    :members:
-
-
-Shiny Dashboards
-----------------
-
-.. automodule:: pylana.shiny_dashboards
-    :members:
-
-
-API
-===
-
-.. automodule:: pylana.api
-    :members:
-
-.. automodule:: pylana.resources
-    :members:
-
-
-
-Data Classes
-============
-
-.. automodule:: pylana.structures
-    :members:
-
-
-Decorators and Utilities
-========================
-
-
-.. automodule:: pylana.decorators
-    :members:
-
-.. automodule:: pylana.utils
-    :members:
-
-
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
+   :hidden:
+
+   api
+   structures
+   auxiliaries
+
+
+******
+PyLana
+******
+
+PyLana is a Python API for `LANA Process Mining`_. It focuses on resource
+management, but provides methods that can be used to access the processed data
+as well.
+
+This package is still in initial development state. Anything may change at any
+time. The public API should not be considered stable.
+
+.. _`LANA Process Mining`: https://lanalabs.com/
+
+.. automodule:: pylana
+    :members:
+
+
