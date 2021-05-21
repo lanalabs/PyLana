@@ -48,9 +48,7 @@ class TestDashboardAPI(unittest.TestCase):
         shiny_dashboard_id = self.api.get_shiny_dashboard_id('incident-test-shiny-dashboard')
 
         actual = self.api.share_shiny_dashboard(shiny_dashboard_id,
-                                                [self.api.user.organization_id]).json()
+                                                [self.api.user.organization_id])
 
-        expected = {'sharing': {'numFailures': 0, 'numSuccesses': 1},
-                    'unsharing': {'numFailures': 0, 'numSuccesses': 0}}
-
-        self.assertDictEqual(actual, expected)
+        self.assertGreaterEqual(actual.status_code, 200)
+        self.assertLess(actual.status_code, 300)
