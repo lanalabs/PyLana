@@ -128,15 +128,19 @@ class ResourceAPI(API):
     def share_resource(self, kind: str, resource_id: str, **kwargs):
         return self.put(
             f"/api/v2/{kind}/{resource_id}/sharing",
-            json={"shareWithOrganizations": [self.user.organization_id],
-                  "unshareWithOrganizations": []},
+            json={
+                "shareWithOrganizations": [self.user.organization_id],
+                "shareWithIndividualUsers": []
+            },
             **kwargs
             )
 
     def unshare_resource(self, kind: str, resource_id: str, **kwargs):
         return self.put(
             f"/api/v2/{kind}/{resource_id}/sharing",
-            json={"shareWithOrganizations": [],
-                  "unshareWithOrganizations": [self.user.organization_id]},
+            json={
+                "unshareWithOrganizations": [self.user.organization_id],
+                "shareWithIndividualUsers": []
+            },
             **kwargs
             )
