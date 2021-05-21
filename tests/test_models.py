@@ -94,16 +94,10 @@ class TestModelsAPI(unittest.TestCase):
         r_share = self.api.share_model(contains="^Incident-Example$")
         msg = "failed to share model"
         self.assertEqual(r_share.status_code, 200, msg)
-        self.assertEqual(r_share.json()
-                         .get("sharing", dict())
-                         .get("numSuccesses"), 1, msg)
 
         r_unshare = self.api.unshare_model(contains="^Incident-Example$")
-        msg = "failed to share mdoel"
+        msg = "failed to share model"
         self.assertEqual(r_unshare.status_code, 200, msg)
-        self.assertEqual(r_unshare.json()
-                         .get("unsharing", dict())
-                         .get("numSuccesses"), 1, msg)
 
     # the z character ensures that this is the last test to be executed
     def test_z_delete_models(self):
