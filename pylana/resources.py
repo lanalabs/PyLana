@@ -111,3 +111,4 @@ class ResourceAPI(API):
     def connect_working_schedule(self, log_id, working_schedule_id, **kwargs):
         dct = {'log_id': log_id, 'working_schedule_id': working_schedule_id}
         return self.connect_resources(dct, **kwargs)
+

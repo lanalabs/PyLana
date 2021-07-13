@@ -470,7 +470,8 @@ class LogsAPI(ResourceAPI):
             'logId': log_id,
             'edgeThreshold': 1,
             'traceFilterSequence': [], 'runConformance': True,
-            'graphControl': {'sizeControl': 'Frequency', 'colorControl': 'AverageDuration'}})
+            'graphControl': {'sizeControl': 'Frequency', 'colorControl': 'AverageDuration'},
+            'onlyColumns': []})
         return self.get(f'/api/eventCsvWithFilter?request={request_field}', **kwargs)
 
     def get_event_log(self, log_name: str = None, log_id: str = None,
