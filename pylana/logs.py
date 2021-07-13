@@ -474,6 +474,35 @@ class LogsAPI(ResourceAPI):
             'onlyColumns': []})
         return self.get(f'/api/eventCsvWithFilter?request={request_field}', **kwargs)
 
+    def request_trace_csv(self, log_id: str,
+                          mining_request: Optional[dict] = None,
+                          **kwargs) -> Response:
+        """Request the enriched event log traces.
+
+        Args:
+            log_id:
+                A string denoting the id of the log.
+            mining_request:
+                (optional) A mining request data structure sent with
+                request to filter down the log.
+            **kwargs:
+                Keyword arguments passed to requests functions.
+
+        Returns:
+            The requests response of the lana api call. The event log can be
+            accessed under the text attribute of the response.
+        """
+        request_field = json.dumps(mining_request) if mining_request else json.dumps({
+            'activityExclusionFilter': [],
+            'includeHeader': True,
+            'includeLogId': False,
+            'logId': log_id,
+            'edgeThreshold': 1,
+            'traceFilterSequence': [], 'runConformance': True,
+            'graphControl': {'sizeControl': 'Frequency', 'colorControl': 'AverageDuration'},
+            'onlyColumns': []})
+        return self.post(f'/api/v2/fetch-trace-csv-with-filter?request={request_field}', **kwargs)
+
     def get_event_log(self, log_name: str = None, log_id: str = None,
                       mining_request: Optional[dict] = None,
                       **kwargs) -> pd.DataFrame:
