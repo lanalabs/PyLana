@@ -33,6 +33,13 @@ class TestGroupings(unittest.TestCase):
 
         self.assertDictEqual(actual, expected)
 
+    def test_create_grouping_by_activity_all_activities(self):
+            actual = create_grouping('byActivity')
+
+            expected = {'type': 'byActivity'}
+            self.assertDictEqual(actual, expected)
+
+
     def test_create_grouping_by_attribute(self):
         actual = create_grouping('byAttribute', attribute='Country')
 

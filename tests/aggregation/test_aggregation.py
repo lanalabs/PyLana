@@ -114,3 +114,18 @@ class TestAggregationAPI(unittest.TestCase):
                                                  attribute='Classification')
 
         self.assertEqual(expected_df, resp_boxplot_df)
+
+    def test_by_activity_grouping(self):
+        """The purpose of this test is to check if no acitvities are provided, the aggregation is based on all activities.
+           This was previously not possible with pylana."""
+           
+        log_id = self.api.get_log_id('Incident_Management.csv')
+
+        activities = ['Initial diagnosis', 'Incident closure', 'Incident classification',
+                      'Incident logging', 'Resolution and recovery',
+                      'Investigation and diagnosis', 'Functional escalation']
+
+        df_a = self.api.aggregate(log_id=log_id, metric="frequency",grouping= "byActivity", values_from= "allEvents")
+        df_b = self.api.aggregate(log_id=log_id, metric="frequency",grouping= "byActivity", values_from= "allEvents", activities=activities)
+
+        self.assertEqual(df_a, df_b)

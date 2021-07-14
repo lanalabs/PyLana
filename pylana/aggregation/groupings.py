@@ -22,9 +22,13 @@ def create_by_time(kind: str, date_type: str) -> dict:
 
 
 def create_by_activity(kind: str, activities: list) -> dict:
-    return {'type': 'byActivity',
-            'selectedActivities': activities} if kind == 'byActivity' and \
-                                                 activities else dict()
+    if kind != "byActivity":
+        return dict()
+    if activities:
+        return {'type': 'byActivity',
+            'selectedActivities': activities}
+    else:
+        return {'type': 'byActivity'}
 
 
 def create_by_attribute(kind: str, attribute: str) -> dict:
