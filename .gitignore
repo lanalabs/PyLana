@@ -1,4 +1,4 @@
-# credentiols
+# credentials
 tests/config.json
 tests/config_useradmin.json
 
@@ -12,6 +12,7 @@ dist/
 # IDE
 .idea/
 docs/build
+.vscode
 
 # MACOS
 **/.DS_Store
