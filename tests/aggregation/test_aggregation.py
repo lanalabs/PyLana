@@ -29,7 +29,8 @@ class TestAggregationAPI(unittest.TestCase):
         expected_df = pd.DataFrame({'caseCount': [891, 557, 363, 189],
                                     'Country': ['Germany', 'Austria', 'Netherlands', 'Switzerland'],
                                     'frequency': [891, 557, 363, 189],
-                                    'byMonth': ['Jan 2016', 'Jan 2016', 'Jan 2016', 'Jan 2016']})
+                                    'byMonth': ['Jan 2016', 'Jan 2016', 'Jan 2016', 'Jan 2016'],
+                                    'byMonth_dt': [pd.to_datetime("2016-01-01")] * 4})
 
         resp_aggregate_df = self.api.aggregate(log_id=log_id,
                                                metric='frequency',

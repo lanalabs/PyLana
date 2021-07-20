@@ -19,6 +19,22 @@ def extract_chart_values(jsn):
     return pd.DataFrame(jsn['chartValues']) \
         .drop(columns=['$type'], errors='ignore')
 
+def add_pd_datetime(df: pd.DataFrame) -> pd.DataFrame:
+    """Adds an additional column using a string column and turning it into a
+       pandas timestamp to allow for ordering and better plotting."""
+    
+    if "byQuarter" in df.columns:
+        df['byQuarter_dt'] = pd.to_datetime(
+            df['byQuarter'].str.replace(r'(Q\d) (\d+)', r'\2-\1'), errors='coerce')
+
+    elif "byYear" in df.columns:
+        df["byYear_dt"] = pd.to_datetime(df.byYear)
+
+    elif "byMonth" in df.columns:
+        df["byMonth_dt"] = pd.to_datetime(df.byMonth)
+
+    return df
+
 
 def normalise_chart_values(df, json_col):
     df_aux = df \
@@ -166,6 +182,10 @@ class AggregationAPI(API):
                                                   'zAxis': secondary_attribute
                                                   if secondary_attribute is not None
                                                   else secondary_grouping})
+        
+        if grouping in ["byYear", "byMonth","byQuarter"] or secondary_grouping in ["byYear", "byMonth","byQuarter"]:
+            response_df = add_pd_datetime(response_df)
+        
         return response_df
 
     def boxplot_stats(self, log_id: str, metric: str, grouping: str = None,
