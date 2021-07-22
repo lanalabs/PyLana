@@ -49,6 +49,22 @@ class LogsAPI(ResourceAPI):
         """
         return self.get('/api/users/' + self.user.user_id + '/logs', **kwargs)
 
+    def get_log_attributes(self,log_id: str, **kwargs) -> pd.DataFrame:
+        """Returns a Dataframe containing on log attributes (case and activity) and
+           their datatypes.
+        Args:
+            log_id:
+                A String denoting the log id for the request.
+            **kwargs:
+                Keyword arguments passed to requests functions.
+            
+        Returns: 
+            A pandas dataframe with columns: [level, name, type].
+        """
+
+        response = self.get('/api/v2/logs/' + log_id + '/attribute-types', **kwargs)
+        return pd.DataFrame(response.json())
+
     def get_log_ids(self, contains: str = '.*', **kwargs) -> List[str]:
         """Get all log ids which names are matched by the passed regular
         expression.

@@ -15,6 +15,12 @@ class TestLogsAPI(unittest.TestCase):
             cls.credentials = json.load(f)
         cls.api = create_api(verify=True, **cls.credentials)
 
+    def test_get_log_attributes(self):
+        log_id = self.api.get_log_id('Incident_Management.csv')
+        df = self.api.get_log_attributes(log_id)
+        assert type(df) == pd.DataFrame
+        assert all(df.columns.values == ["level", "name", "type"])
+
     def test_list(self):
         _ = self.api.list_logs()
         _ = self.api.list_user_logs()
