@@ -194,6 +194,47 @@ class TestLogsAPI(unittest.TestCase):
         resp_unshare.raise_for_status()
         # self.assertEqual(resp_unshare.status_code, 200)
 
+    def test_guess_log_semantics(self):
+        event_path = './tests/data/pylana-event-log.csv'
+        resp = self.api.guess_log_semantics(event_path)
+        self.assertIsInstance(resp, list)
+        self.assertGreater(len(resp), 0)
+
+    def test_replace_log(self):
+        log_id = self.api.get_log_id('Incident_Management.csv')
+        event_path = './tests/data/pylana-event-log.csv'
+        case_path = './tests/data/pylana-case-attributes.csv'
+        event_semantics = "./tests/data/pylana_event_semantics.json"
+        case_semantics = "./tests/data/pylana_case_semantics.json"
+
+        resp = self.api.replace_log(log_id, event_file_path = event_path)
+        self.assertEqual(resp.status_code, 200)
+
+        resp = self.api.replace_log(log_id, event_file_path = event_path,
+                                    event_semantics_path = event_semantics)
+        self.assertEqual(resp.status_code, 200)
+
+        resp = self.api.replace_log(log_id, event_file_path = event_path,
+                                    event_semantics_path = event_semantics,
+                                    case_file_path = case_path)
+        self.assertEqual(resp.status_code, 200)
+
+        resp = self.api.replace_log(log_id, event_file_path = event_path,
+                                    event_semantics_path = event_semantics,
+                                    case_file_path = case_path,
+                                    case_semantics_path = case_semantics)
+        self.assertEqual(resp.status_code, 200)
+
+        resp = self.api.replace_log(log_id, event_file_path = event_path,
+                                    case_file_path = case_path)
+        self.assertEqual(resp.status_code, 200)
+
+        resp = self.api.replace_log(log_id, event_file_path = event_path,
+                                    case_file_path = case_path,
+                                    case_semantics_path = case_semantics)
+        self.assertEqual(resp.status_code, 200)
+
+
     # the z character ensures that this is the last test to be executed
     def test_z_delete_logs(self):
         resps = self.api.delete_logs(contains='pylana.*')

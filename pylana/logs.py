@@ -5,6 +5,7 @@ log management api requests functions and methods
 import io
 import json
 from pathlib import Path
+from contextlib import ExitStack
 from typing import Union, List, TextIO, BinaryIO, Optional, Iterable
 
 import pandas as pd
@@ -577,6 +578,86 @@ class LogsAPI(ResourceAPI):
         """
         return self.get(f'/api/unshareLogWithOrg/{log_id}')
 
+    def guess_log_semantics(self, log_file_path: str,
+                          **kwargs) -> list:
+        """Guess the semantics of the columns in the uploaded CSV file.
+        This can be used for both event log CSV files and case attribute CSV files.
+        The name of the case id column is expected as Case_ID.
+
+        Args:
+            log_file_path:
+                A string denoting the path to the log csv file.
+   
+        Returns:
+            A list of dictionaries representing the semantics.
+        """
+        with open(log_file_path, "rb") as log_file:
+            files = {
+                "file": (Path(log_file_path).name,
+                         log_file, 'text/csv')
+            }
+            response = self.post("/api/event-csv-files", files=files, **kwargs)
+            return response.json()["csvHeader"]
+
+    def replace_log(self, log_id: str,
+                    event_file_path: str,
+                    event_semantics_path: Optional[str] = None,
+                    case_file_path: Optional[str] = None,
+                    case_semantics_path: Optional[str] = None,
+                    **kwargs) -> Response:
+
+        """Replace an existing event log. Adding an attribute log is optional,
+        and semantics for both logs can be provided or are inferred using guess_log_semantics.
+        
+        Args:
+            log_id:
+                A string denoting the id of the log to be replaced.
+            event_file_path:
+                A string denoting the path to the event log csv file.
+            event_semantics_path:
+                (optional) A string denoting the path to the event log semantics json file.
+            case_file_path:
+                (optional) A string denoting the path to the case attribute csv file.
+            case_semantics_path:
+                (optional) A string denoting the path to the case attributes semantics json file.
+            **kwargs:
+                Keyword arguments passed to requests functions.
+
+        Returns:
+            The requests response of the lana api call.
+        """
+
+        with ExitStack() as stack:
+            event_file = stack.enter_context(open(event_file_path, "rb"))
+
+            if event_semantics_path:
+                event_semantics = stack.enter_context(open(event_semantics_path)).read()
+            else:
+                event_semantics = self.guess_log_semantics(event_file_path)
+            if case_file_path:
+                case_file = stack.enter_context(open(case_file_path, "rb"))
+                if case_semantics_path:
+                    case_semantics = stack.enter_context(open(case_semantics_path)).read()
+                else:
+                    case_semantics = self.guess_log_semantics(case_file_path)
+            
+            files_required = {
+                'eventCSVFile': (Path(event_file_path).name, event_file, 'text/csv')
+            }
+            semantics_required = {
+                'eventSemantics': _serialise_semantics(event_semantics),
+                'timeZone': "Europe/Berlin"
+            }
+            files = {
+                **files_required,
+                **{'caseAttributeFile': (Path(case_file_path).name, case_file, 'text/csv')}
+            } if case_file_path else files_required
+            semantics = {
+                **semantics_required,
+                **{'caseSemantics': _serialise_semantics(case_semantics)}
+            } if case_file_path else semantics_required
+            return self.post(f'/api/logs/{log_id}/replace-log',
+                         files=files, data=semantics, **kwargs)
 
     # legacy methods
     # --------------

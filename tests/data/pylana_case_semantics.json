@@ -1,3 +1,3 @@
-[{"name": "id", "semantic": "Case ID", "format": null, "idx": 0},
+[{"name": "Case_ID", "semantic": "Case ID", "format": null, "idx": 0},
   {"name": "category", "semantic": "CategorialAttribute", "format": null, "idx": 1},
   {"name": "age", "semantic": "CategorialAttribute", "format": null, "idx": 2}]

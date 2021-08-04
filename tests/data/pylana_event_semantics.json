@@ -1,4 +1,4 @@
-[{"name": "id", "semantic": "Case ID", "format": null, "idx": 0},
+[{"name": "Case_ID", "semantic": "Case ID", "format": null, "idx": 0},
   {"name": "action", "semantic": "Action", "format": null, "idx": 1},
   {"name": "start", "semantic": "Start", "format": "yyyy-MM-dd HH:mm:ss", "idx": 2},
   {"name": "complete", "semantic": "Complete", "format": "yyyy-MM-dd HH:mm:ss", "idx": 3},
