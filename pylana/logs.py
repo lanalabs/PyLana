@@ -120,11 +120,11 @@ class LogsAPI(ResourceAPI):
 
     def upload_event_log(self, name,
                          log: str, log_semantics: Union[str, List[dict]],
-                         case_attributes: Optional[str] = None,
-                         case_attribute_semantics: Optional[Union[str, List[dict]]] = None,
+                         case_attributes: str,
+                         case_attribute_semantics: Union[str, List[dict]],
                          **kwargs) \
             -> Response:
-        """Upload an event log with prepared semantics.
+        """Upload an event log with prepared case attributes and semantics.
         
         Args:
             name:
@@ -135,13 +135,10 @@ class LogsAPI(ResourceAPI):
                 The event log semantics either serialised as a
                 string or a list of dictionaries.
             case_attributes:
-                (optional) A string denoting the case
-                attributes as csv.
+                A string denoting the case attributes as csv.
             case_attribute_semantics:
-                (optional) The event case attributes semantics
-                either serialised as a string or a list of
-                dictionaries, required if case_attributes is
-                passed.
+                The event case attributes semantics either
+                serialised as a string or a list of dictionaries.
             **kwargs:
                 Keyword arguments passed to requests functions.
 
@@ -149,23 +146,16 @@ class LogsAPI(ResourceAPI):
             The requests response of the lana api call.
         """
 
-        files_required = {
-            'eventCSVFile': (name, log, 'text/csv')
+        files = {
+            'eventCSVFile': (name, log, 'text/csv'),
+            'caseAttributeFile': (name + '_case_attributes', case_attributes, 'text/csv')
         }
-        semantics_required = {
+        semantics = {
             'eventSemantics': _serialise_semantics(log_semantics),
+            'caseSemantics': _serialise_semantics(case_attribute_semantics),
             'logName': name,
             'timeZone': "Europe/Berlin"
         }
-
-        files = {
-            **files_required,
-            **{'caseAttributeFile': (name + '_case_attributes', case_attributes, 'text/csv')}
-        } if case_attributes else files_required
-        semantics = {
-            **semantics_required,
-            **{'caseSemantics': _serialise_semantics(case_attribute_semantics)}
-        } if case_attribute_semantics else semantics_required
 
         return self.post('/api/logs/csv-case-attributes-event-semantics',
                          files=files, data=semantics, **kwargs)
