@@ -2,7 +2,7 @@
 dashboard management api requests
 """
 
-from typing import List
+from typing import List, Optional
 
 from requests import Response
 
@@ -173,15 +173,21 @@ class DashboardAPI(ResourceAPI):
                                      **kwargs)
 
     # TODO consider sharing by names
-    def share_dashboard(self, dashboard_id: str, organization_ids: List[str],
+    def share_dashboard(self, dashboard_id: str, 
+                        user_ids: Optional[List[str]] = [],
+                        organization_ids: Optional[List[str]] = [],
                         **kwargs) -> Response:
         """
-        Share a dashboard with organizations by ids.
+        Share a dashboard with either users or organizations by ids, not both at the same time.
         Args:
             dashboard_id:
                 A string denoting the id of the dashboard page.
+            user_ids:
+                (optional) A list of strings denoting ids of users to share with.
+                Repeated user sharing is not additive, i.e. the complete list of users to share with needs to be provided every time.
             organization_ids:
-                A list of strings denoting ids of organizations to share with.
+                (optional) A list of strings denoting ids of organizations to share with.
+                Repeated organizational sharing is additive, i.e. new requests can add new organizations.
             **kwargs:
                 Keyword arguments passed to requests functions.
 
@@ -189,6 +195,7 @@ class DashboardAPI(ResourceAPI):
             The requests response of the lana api call.
         """
         body = {
+            "shareWithIndividualUsers": user_ids,
             "shareWithOrganizations": organization_ids
         }
         return self.patch(f"/api/v2/dashboards/{dashboard_id}/sharing", json=body,

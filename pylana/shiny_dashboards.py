@@ -6,7 +6,7 @@ import json
 import os
 import re
 import zipfile
-from typing import List
+from typing import List, Optional
 
 from requests import Response
 
@@ -168,16 +168,22 @@ class ShinyDashboardAPI(ResourceAPI):
                                      **kwargs)
 
     # TODO consider sharing by names
-    def share_shiny_dashboard(self, shiny_dashboard_id: str, organization_ids: List[str],
+    def share_shiny_dashboard(self, shiny_dashboard_id: str,
+                              user_ids: List[str],
+                              organization_ids: Optional[List[str]] = [],
                               **kwargs) -> Response:
         """
-        Share a shiny dashboard with organizations by ids.
+        Share a shiny dashboard with users or organizations by ids.
 
         Args:
             shiny_dashboard_id:
                 A string denoting the id of the shiny dashboard.
+            user_ids:
+                A list of strings denoting ids of users to share with.
+                Repeated user sharing is not additive, i.e. the complete list of users to share with needs to be provided every time.
             organization_ids:
-                A list of strings denoting ids of organizations to share with.
+                (optional) A list of strings denoting ids of organizations to share with.
+                Repeated organizational sharing is additive, i.e. new requests can add new organizations.
             **kwargs:
                 Keyword arguments passed to requests functions.
 
@@ -185,6 +191,7 @@ class ShinyDashboardAPI(ResourceAPI):
             The requests response of the lana api call.
         """
         body = {
+            "shareWithIndividualUsers": user_ids,
             "shareWithOrganizations": organization_ids
         }
         return self.patch(f"/api/shiny-dashboards/{shiny_dashboard_id}/sharing",

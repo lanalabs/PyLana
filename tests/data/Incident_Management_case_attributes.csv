@@ -1,0 +1,2001 @@
+Case ID;Duration;Kunde;Support Level;Classification;Country;Cost
+Incident1;19980000;Siemens;Normal;Mail;Germany;500
+Incident2;7980000;Bosch;Premium;Mail;Germany;500
+Incident3;23280000;BMW;High Priority;Citrix;Germany;500
+Incident5;23160000;Daimler;High Priority;Mail;Germany;500
+Incident10;15120000;VW;Normal;SAP;Germany;500
+Incident11;14760000;Bayer;Normal;SAP;Austria;500
+Incident12;22140000;Porsche;Normal;SAP;Germany;500
+Incident13;13140000;Lichtblick;High Priority;Intranet;Germany;500
+Incident21;8820000;Naturstrom;Normal;Mail;Austria;500
+Incident22;18900000;Siemens;Normal;SAP;Switzerland;500
+Incident23;21720000;Bosch;Normal;SAP;Germany;500
+Incident24;18660000;BMW;Normal;SAP;Austria;500
+Incident27;30300000;Daimler;Premium;SAP;Switzerland;500
+Incident28;13200000;VW;High Priority;Backup;Netherlands;500
+Incident32;8040000;Bayer;Premium;SAP;Netherlands;500
+Incident36;14760000;Porsche;Premium;SAP;Germany;500
+Incident38;20040000;Lichtblick;Normal;SAP;Netherlands;500
+Incident40;13920000;Naturstrom;Normal;Mail;Germany;500
+Incident41;11820000;Siemens;High Priority;Backup;Austria;500
+Incident43;24840000;Bosch;Normal;SAP;Germany;500
+Incident44;16680000;BMW;Normal;Mail;Germany;500
+Incident45;11880000;Daimler;Premium;SAP;Netherlands;500
+Incident46;15600000;VW;High Priority;SAP;Germany;500
+Incident47;31260000;Bayer;High Priority;Mail;Switzerland;500
+Incident49;25020000;Porsche;Normal;Mail;Netherlands;500
+Incident51;21060000;Lichtblick;Normal;Intranet;Austria;500
+Incident53;23460000;Naturstrom;Normal;SAP;Germany;500
+Incident55;12120000;Siemens;High Priority;SAP;Austria;500
+Incident57;9900000;Bosch;Normal;SAP;Austria;500
+Incident63;22800000;BMW;Normal;Backup;Austria;500
+Incident65;13800000;Daimler;Normal;SAP;Germany;500
+Incident68;16920000;VW;Normal;SAP;Austria;500
+Incident69;15000000;Bayer;Premium;SAP;Switzerland;500
+Incident70;22200000;Porsche;High Priority;Mail;Switzerland;500
+Incident71;18360000;Lichtblick;Premium;SAP;Germany;500
+Incident74;15300000;Naturstrom;Premium;SAP;Netherlands;500
+Incident75;18840000;Siemens;Normal;Backup;Germany;500
+Incident78;18480000;Bosch;Normal;Citrix;Switzerland;500
+Incident79;15180000;BMW;High Priority;Intranet;Netherlands;500
+Incident80;16680000;Daimler;Normal;Mail;Germany;500
+Incident81;14640000;VW;Normal;SAP;Austria;500
+Incident83;17400000;Bayer;Premium;SAP;Germany;500
+Incident85;12900000;Porsche;High Priority;SAP;Germany;500
+Incident86;18960000;Lichtblick;High Priority;SAP;Germany;500
+Incident88;8760000;Naturstrom;Normal;Citrix;Germany;500
+Incident91;21840000;Siemens;Normal;SAP;Germany;500
+Incident92;8520000;Bosch;Normal;Mail;Netherlands;500
+Incident93;21660000;BMW;High Priority;Citrix;Germany;500
+Incident94;19920000;Daimler;Normal;Mail;Germany;500
+Incident95;17760000;VW;Normal;SAP;Germany;500
+Incident96;14520000;Bayer;Normal;SAP;Switzerland;500
+Incident97;12240000;Porsche;Normal;SAP;Netherlands;500
+Incident103;26880000;Lichtblick;Premium;SAP;Germany;500
+Incident107;6720000;Naturstrom;High Priority;SAP;Austria;500
+Incident108;17520000;Siemens;Premium;Backup;Germany;500
+Incident110;15600000;Bosch;Premium;SAP;Austria;500
+Incident111;8100000;BMW;Normal;Backup;Germany;500
+Incident112;24000000;Daimler;Normal;SAP;Germany;500
+Incident113;19680000;VW;High Priority;SAP;Switzerland;500
+Incident117;16200000;Bayer;Normal;SAP;Germany;500
+Incident119;24900000;Porsche;Normal;SAP;Netherlands;500
+Incident121;19080000;Lichtblick;Premium;Mail;Switzerland;500
+Incident122;20160000;Naturstrom;High Priority;SAP;Germany;500
+Incident127;13140000;Siemens;High Priority;SAP;Germany;500
+Incident128;10380000;Bosch;Normal;Backup;Austria;500
+Incident131;16320000;BMW;Normal;SAP;Netherlands;500
+Incident134;6840000;Daimler;Normal;Citrix;Germany;500
+Incident138;28140000;VW;High Priority;Citrix;Austria;500
+Incident139;13140000;Bayer;Normal;Backup;Austria;500
+Incident141;12180000;Porsche;Normal;SAP;Switzerland;500
+Incident142;15660000;Lichtblick;Normal;Mail;Switzerland;500
+Incident143;13680000;Naturstrom;Normal;Mail;Netherlands;500
+Incident144;16620000;Siemens;Premium;SAP;Germany;500
+Incident147;15900000;Bosch;High Priority;SAP;Switzerland;500
+Incident148;10380000;BMW;Premium;Mail;Netherlands;500
+Incident149;16320000;Daimler;Premium;Citrix;Germany;500
+Incident150;19260000;VW;Normal;SAP;Germany;500
+Incident151;10800000;Bayer;Normal;Intranet;Switzerland;500
+Incident152;13080000;Porsche;High Priority;SAP;Switzerland;500
+Incident154;18060000;Lichtblick;Normal;SAP;Germany;500
+Incident155;12660000;Naturstrom;Normal;Mail;Germany;500
+Incident159;27000000;Siemens;Premium;SAP;Austria;500
+Incident161;14460000;Bosch;High Priority;SAP;Germany;500
+Incident165;12240000;BMW;High Priority;Backup;Germany;500
+Incident166;19020000;Daimler;Normal;Mail;Germany;500
+Incident167;17220000;VW;Normal;Backup;Germany;500
+Incident170;12360000;Bayer;Normal;Mail;Germany;500
+Incident171;21360000;Porsche;High Priority;Backup;Germany;500
+Incident175;33060000;Lichtblick;Normal;Backup;Germany;500
+Incident176;24780000;Naturstrom;Normal;SAP;Germany;500
+Incident179;32040000;Siemens;Normal;Backup;Germany;500
+Incident180;19500000;Bosch;Normal;SAP;Netherlands;500
+Incident181;18240000;BMW;Premium;SAP;Austria;500
+Incident183;20700000;Daimler;High Priority;Backup;Germany;500
+Incident184;7500000;VW;Premium;SAP;Germany;500
+Incident187;10980000;Bayer;Premium;Mail;Germany;500
+Incident191;10500000;Porsche;Normal;Backup;Austria;500
+Incident194;19080000;Lichtblick;Normal;Citrix;Germany;500
+Incident195;16020000;Naturstrom;High Priority;SAP;Austria;500
+Incident196;8820000;Siemens;Normal;Intranet;Switzerland;500
+Incident197;11880000;Bosch;Normal;SAP;Austria;500
+Incident199;24480000;BMW;Premium;SAP;Netherlands;500
+Incident200;27180000;Daimler;High Priority;SAP;Netherlands;500
+Incident203;21720000;VW;High Priority;Citrix;Netherlands;500
+Incident207;10080000;Bayer;Normal;SAP;Austria;500
+Incident208;14880000;Porsche;Normal;SAP;Germany;500
+Incident211;19260000;Lichtblick;Normal;Citrix;Switzerland;500
+Incident213;9180000;Naturstrom;High Priority;SAP;Netherlands;500
+Incident214;18780000;Siemens;Normal;Mail;Germany;500
+Incident215;14820000;Bosch;Normal;SAP;Germany;500
+Incident216;15000000;BMW;Normal;SAP;Netherlands;500
+Incident220;15480000;Daimler;Normal;SAP;Germany;500
+Incident223;13080000;VW;Premium;SAP;Germany;500
+Incident227;18420000;Bayer;High Priority;Backup;Germany;500
+Incident228;9660000;Porsche;Premium;Intranet;Germany;500
+Incident231;12480000;Lichtblick;Premium;Intranet;Germany;500
+Incident232;22140000;Naturstrom;Normal;SAP;Germany;500
+Incident233;14820000;Siemens;Normal;SAP;Germany;500
+Incident235;28920000;Bosch;High Priority;Mail;Austria;500
+Incident236;16620000;BMW;Normal;Mail;Germany;500
+Incident237;18240000;Daimler;Normal;SAP;Netherlands;500
+Incident238;25680000;VW;Premium;SAP;Netherlands;500
+Incident240;7860000;Bayer;High Priority;SAP;Austria;500
+Incident241;19860000;Porsche;High Priority;SAP;Netherlands;500
+Incident244;20580000;Lichtblick;Normal;Backup;Austria;500
+Incident246;10980000;Naturstrom;Normal;Backup;Netherlands;500
+Incident247;14220000;Siemens;Normal;SAP;Germany;500
+Incident249;7860000;Bosch;High Priority;Intranet;Austria;500
+Incident250;22920000;BMW;Normal;Mail;Germany;500
+Incident253;21180000;Daimler;Normal;Mail;Germany;500
+Incident255;19680000;VW;Normal;Backup;Netherlands;500
+Incident258;20220000;Bayer;Normal;SAP;Switzerland;500
+Incident259;13140000;Porsche;Premium;SAP;Germany;500
+Incident263;9720000;Lichtblick;High Priority;SAP;Germany;500
+Incident264;18480000;Naturstrom;Premium;SAP;Germany;500
+Incident265;20220000;Siemens;Premium;SAP;Germany;500
+Incident266;24720000;Bosch;Normal;Intranet;Germany;500
+Incident271;19680000;BMW;Normal;SAP;Austria;500
+Incident272;14520000;Daimler;High Priority;Mail;Austria;500
+Incident273;15240000;VW;Normal;SAP;Netherlands;500
+Incident274;23880000;Bayer;Normal;SAP;Germany;500
+Incident275;12960000;Porsche;Premium;SAP;Germany;500
+Incident276;25920000;Lichtblick;High Priority;SAP;Germany;500
+Incident277;21660000;Naturstrom;High Priority;SAP;Austria;500
+Incident278;7800000;Siemens;Normal;SAP;Austria;500
+Incident279;16380000;Bosch;Normal;SAP;Germany;500
+Incident280;24480000;BMW;Normal;SAP;Switzerland;500
+Incident281;14640000;Daimler;High Priority;SAP;Switzerland;500
+Incident283;16740000;VW;Normal;Backup;Germany;500
+Incident287;19260000;Bayer;Normal;SAP;Germany;500
+Incident288;11160000;Porsche;Normal;Backup;Germany;500
+Incident289;9480000;Lichtblick;Normal;Mail;Germany;500
+Incident293;10860000;Naturstrom;Premium;SAP;Switzerland;500
+Incident294;12060000;Siemens;High Priority;SAP;Germany;500
+Incident299;18660000;Bosch;Premium;SAP;Switzerland;500
+Incident300;13800000;BMW;Premium;SAP;Netherlands;500
+Incident301;15420000;Daimler;Normal;SAP;Switzerland;500
+Incident303;19560000;VW;Normal;SAP;Netherlands;500
+Incident309;25140000;Bayer;High Priority;Citrix;Germany;500
+Incident311;14100000;Porsche;Normal;SAP;Austria;500
+Incident313;19440000;Lichtblick;Normal;Mail;Netherlands;500
+Incident314;36120000;Naturstrom;Premium;SAP;Switzerland;500
+Incident318;21240000;Siemens;High Priority;SAP;Germany;500
+Incident320;8940000;Bosch;High Priority;Intranet;Netherlands;500
+Incident321;11940000;BMW;Normal;Mail;Switzerland;500
+Incident322;16380000;Daimler;Normal;Mail;Netherlands;500
+Incident324;15540000;VW;Normal;Backup;Austria;500
+Incident325;13080000;Bayer;High Priority;Mail;Switzerland;500
+Incident328;18720000;Porsche;Normal;Backup;Germany;500
+Incident330;13020000;Lichtblick;Normal;SAP;Germany;500
+Incident331;10980000;Naturstrom;Normal;Citrix;Germany;500
+Incident333;23640000;Siemens;Normal;Mail;Switzerland;500
+Incident340;17220000;Bosch;Premium;Mail;Germany;500
+Incident341;23220000;BMW;High Priority;SAP;Germany;500
+Incident343;8220000;Daimler;Premium;Mail;Netherlands;500
+Incident350;25440000;VW;Premium;Mail;Germany;500
+Incident351;21960000;Bayer;Normal;Mail;Switzerland;500
+Incident352;18660000;Porsche;Normal;Backup;Netherlands;500
+Incident353;16260000;Lichtblick;High Priority;Citrix;Germany;500
+Incident354;12600000;Naturstrom;Normal;SAP;Germany;500
+Incident355;13140000;Siemens;Normal;SAP;Austria;500
+Incident356;18420000;Bosch;Premium;SAP;Austria;500
+Incident358;22800000;BMW;High Priority;SAP;Austria;500
+Incident361;9180000;Daimler;High Priority;Mail;Germany;500
+Incident362;27540000;VW;Normal;SAP;Netherlands;500
+Incident364;18780000;Bayer;Normal;Mail;Austria;500
+Incident365;12840000;Porsche;Normal;SAP;Switzerland;500
+Incident366;19380000;Lichtblick;High Priority;SAP;Germany;500
+Incident367;24660000;Naturstrom;Normal;Intranet;Switzerland;500
+Incident368;16800000;Siemens;Normal;SAP;Switzerland;500
+Incident371;26220000;Bosch;Normal;SAP;Netherlands;500
+Incident372;14640000;BMW;Normal;SAP;Netherlands;500
+Incident373;15600000;Daimler;Premium;Mail;Germany;500
+Incident374;11160000;VW;High Priority;Backup;Austria;500
+Incident375;26400000;Bayer;Premium;Mail;Netherlands;500
+Incident376;28920000;Porsche;Premium;SAP;Germany;500
+Incident380;13380000;Lichtblick;Normal;Citrix;Germany;500
+Incident383;9300000;Naturstrom;Normal;Backup;Germany;500
+Incident384;10140000;Siemens;High Priority;Mail;Austria;500
+Incident389;10020000;Bosch;Normal;Mail;Switzerland;500
+Incident391;5880000;BMW;Normal;Mail;Switzerland;500
+Incident394;12120000;Daimler;Premium;SAP;Germany;500
+Incident395;16380000;VW;High Priority;SAP;Netherlands;500
+Incident397;20760000;Bayer;High Priority;SAP;Germany;500
+Incident398;29340000;Porsche;Normal;Backup;Germany;500
+Incident402;16080000;Lichtblick;Normal;Mail;Netherlands;500
+Incident403;25260000;Naturstrom;Normal;SAP;Austria;500
+Incident404;21780000;Siemens;High Priority;SAP;Austria;500
+Incident405;20040000;Bosch;Normal;SAP;Germany;500
+Incident407;21180000;BMW;Normal;Intranet;Germany;500
+Incident408;23100000;Daimler;Normal;SAP;Germany;500
+Incident410;21120000;VW;Normal;Mail;Switzerland;500
+Incident411;26460000;Bayer;Premium;SAP;Germany;500
+Incident412;16800000;Porsche;High Priority;SAP;Germany;500
+Incident416;20160000;Lichtblick;Premium;SAP;Germany;500
+Incident418;9780000;Naturstrom;Premium;SAP;Germany;500
+Incident420;12900000;Siemens;Normal;Mail;Germany;500
+Incident422;13620000;Bosch;Normal;SAP;Switzerland;500
+Incident423;18120000;BMW;High Priority;Mail;Germany;500
+Incident424;22320000;Daimler;Normal;Backup;Germany;500
+Incident425;28320000;VW;Normal;SAP;Austria;500
+Incident429;27720000;Bayer;Premium;Mail;Germany;500
+Incident433;14220000;Porsche;High Priority;SAP;Austria;500
+Incident438;14280000;Lichtblick;High Priority;SAP;Germany;500
+Incident439;15480000;Naturstrom;Normal;SAP;Netherlands;500
+Incident443;23160000;Siemens;Normal;SAP;Germany;500
+Incident444;16920000;Bosch;Normal;SAP;Germany;500
+Incident446;13920000;BMW;High Priority;Intranet;Switzerland;500
+Incident449;20040000;Daimler;Normal;Backup;Austria;500
+Incident450;18240000;VW;Normal;Mail;Netherlands;500
+Incident451;10560000;Bayer;Normal;SAP;Germany;500
+Incident452;29280000;Porsche;Normal;Citrix;Germany;500
+Incident453;17280000;Lichtblick;Premium;SAP;Austria;500
+Incident454;13680000;Naturstrom;High Priority;SAP;Netherlands;500
+Incident456;8040000;Siemens;Premium;Citrix;Germany;500
+Incident460;6060000;Bosch;Premium;Citrix;Switzerland;500
+Incident466;17400000;BMW;Normal;SAP;Germany;500
+Incident470;27360000;Daimler;Normal;SAP;Germany;500
+Incident472;24720000;VW;High Priority;Citrix;Germany;500
+Incident473;22680000;Bayer;Normal;Intranet;Netherlands;500
+Incident474;9780000;Porsche;Normal;SAP;Germany;500
+Incident475;11700000;Lichtblick;Premium;SAP;Austria;500
+Incident478;26280000;Naturstrom;High Priority;Mail;Switzerland;500
+Incident479;10440000;Siemens;High Priority;SAP;Switzerland;500
+Incident484;18240000;Bosch;Normal;Mail;Germany;500
+Incident486;14640000;BMW;Normal;Mail;Switzerland;500
+Incident491;8940000;Daimler;Normal;SAP;Germany;500
+Incident493;16200000;VW;High Priority;SAP;Germany;500
+Incident495;6540000;Bayer;Normal;SAP;Netherlands;500
+Incident501;15840000;Porsche;Normal;Backup;Germany;500
+Incident504;18660000;Lichtblick;Normal;SAP;Netherlands;500
+Incident505;27060000;Naturstrom;Normal;Backup;Germany;500
+Incident506;15720000;Siemens;Premium;SAP;Germany;500
+Incident507;19860000;Bosch;High Priority;SAP;Germany;500
+Incident508;16260000;BMW;Premium;Backup;Switzerland;500
+Incident510;14400000;Daimler;Premium;SAP;Austria;500
+Incident512;22080000;VW;Normal;SAP;Switzerland;500
+Incident513;11640000;Bayer;Normal;Backup;Germany;500
+Incident516;8160000;Porsche;High Priority;SAP;Netherlands;500
+Incident517;10320000;Lichtblick;Normal;Mail;Germany;500
+Incident518;6240000;Naturstrom;Normal;Mail;Germany;500
+Incident523;22560000;Siemens;Premium;Backup;Austria;500
+Incident524;11640000;Bosch;High Priority;Backup;Germany;500
+Incident526;21060000;BMW;High Priority;SAP;Germany;500
+Incident532;10200000;Daimler;Normal;SAP;Switzerland;500
+Incident534;23520000;VW;Normal;Citrix;Austria;500
+Incident535;26640000;Bayer;Normal;SAP;Netherlands;500
+Incident539;13140000;Porsche;High Priority;Mail;Switzerland;500
+Incident541;12720000;Lichtblick;Normal;SAP;Germany;500
+Incident543;17280000;Naturstrom;Normal;Citrix;Austria;500
+Incident545;24540000;Siemens;Normal;SAP;Germany;500
+Incident547;20820000;Bosch;Normal;SAP;Austria;500
+Incident549;16560000;BMW;Premium;SAP;Austria;500
+Incident550;21720000;Daimler;High Priority;Mail;Netherlands;500
+Incident552;17100000;VW;Premium;Intranet;Netherlands;500
+Incident558;17640000;Bayer;Premium;Mail;Netherlands;500
+Incident559;16140000;Porsche;Normal;SAP;Netherlands;500
+Incident564;21780000;Lichtblick;Normal;Backup;Germany;500
+Incident569;17520000;Naturstrom;High Priority;Mail;Germany;500
+Incident571;11100000;Siemens;Normal;SAP;Austria;500
+Incident572;22260000;Bosch;Normal;Citrix;Germany;500
+Incident573;20400000;BMW;Premium;Backup;Germany;500
+Incident576;25020000;Daimler;High Priority;SAP;Germany;500
+Incident578;18000000;VW;High Priority;Mail;Germany;500
+Incident579;24960000;Bayer;Normal;Mail;Germany;500
+Incident580;26520000;Porsche;Normal;SAP;Germany;500
+Incident581;24720000;Lichtblick;Normal;SAP;Switzerland;500
+Incident583;22440000;Naturstrom;High Priority;SAP;Germany;500
+Incident584;19560000;Siemens;Normal;SAP;Germany;500
+Incident585;18120000;Bosch;Normal;Backup;Netherlands;500
+Incident588;16200000;BMW;Normal;SAP;Germany;500
+Incident590;16680000;Daimler;Normal;SAP;Austria;500
+Incident591;28680000;VW;Premium;SAP;Germany;500
+Incident593;33060000;Bayer;High Priority;Mail;Netherlands;500
+Incident595;9900000;Porsche;Premium;Mail;Germany;500
+Incident596;9540000;Lichtblick;Premium;Citrix;Netherlands;500
+Incident598;23040000;Naturstrom;Normal;Mail;Switzerland;500
+Incident599;16800000;Siemens;Normal;Citrix;Austria;500
+Incident602;20940000;Bosch;High Priority;Mail;Germany;500
+Incident603;19440000;BMW;Normal;SAP;Austria;500
+Incident604;26820000;Daimler;Normal;SAP;Switzerland;500
+Incident605;26040000;VW;Premium;Mail;Germany;500
+Incident607;16380000;Bayer;High Priority;SAP;Switzerland;500
+Incident609;21000000;Porsche;High Priority;SAP;Germany;500
+Incident612;13260000;Lichtblick;Normal;SAP;Germany;500
+Incident619;21300000;Naturstrom;Normal;Mail;Germany;500
+Incident620;7200000;Siemens;Normal;SAP;Germany;500
+Incident623;29220000;Bosch;High Priority;SAP;Germany;500
+Incident625;20580000;BMW;Normal;Mail;Germany;500
+Incident626;21840000;Daimler;Normal;SAP;Austria;500
+Incident627;26460000;VW;Normal;Mail;Germany;500
+Incident633;20100000;Bayer;Normal;SAP;Switzerland;500
+Incident634;19200000;Porsche;Premium;SAP;Austria;500
+Incident635;18120000;Lichtblick;High Priority;Backup;Netherlands;500
+Incident639;28440000;Naturstrom;Premium;SAP;Austria;500
+Incident640;17820000;Siemens;Premium;SAP;Netherlands;500
+Incident643;21840000;Bosch;Normal;SAP;Switzerland;500
+Incident646;25440000;BMW;Normal;SAP;Netherlands;500
+Incident647;10260000;Daimler;High Priority;Citrix;Germany;500
+Incident648;22320000;VW;Normal;Mail;Germany;500
+Incident650;31560000;Bayer;Normal;Backup;Austria;500
+Incident652;21360000;Porsche;Premium;Mail;Germany;500
+Incident653;16200000;Lichtblick;High Priority;Mail;Germany;500
+Incident654;6420000;Naturstrom;High Priority;Mail;Germany;500
+Incident658;9420000;Siemens;Normal;SAP;Netherlands;500
+Incident661;10260000;Bosch;Normal;Mail;Austria;500
+Incident664;13980000;BMW;Normal;Citrix;Netherlands;500
+Incident665;28800000;Daimler;High Priority;Mail;Netherlands;500
+Incident666;11040000;VW;Normal;Mail;Austria;500
+Incident667;16440000;Bayer;Normal;Intranet;Switzerland;500
+Incident670;22020000;Porsche;Normal;Intranet;Germany;500
+Incident671;18780000;Lichtblick;Normal;Intranet;Switzerland;500
+Incident673;19260000;Naturstrom;Premium;SAP;Germany;500
+Incident674;20160000;Siemens;High Priority;Backup;Switzerland;500
+Incident675;13620000;Bosch;Premium;SAP;Germany;500
+Incident676;12000000;BMW;Premium;Mail;Austria;500
+Incident680;20340000;Daimler;Normal;SAP;Germany;500
+Incident682;18960000;VW;Normal;Mail;Netherlands;500
+Incident683;13860000;Bayer;High Priority;Citrix;Switzerland;500
+Incident684;21180000;Porsche;Normal;Mail;Germany;500
+Incident686;23700000;Lichtblick;Normal;SAP;Austria;500
+Incident687;9360000;Naturstrom;Premium;Citrix;Switzerland;500
+Incident689;15960000;Siemens;High Priority;SAP;Netherlands;500
+Incident690;8280000;Bosch;High Priority;Mail;Germany;500
+Incident691;18780000;BMW;Normal;Backup;Germany;500
+Incident693;20880000;Daimler;Normal;SAP;Germany;500
+Incident695;25500000;VW;Normal;Mail;Austria;500
+Incident697;21300000;Bayer;High Priority;SAP;Switzerland;500
+Incident698;20880000;Porsche;Normal;Mail;Austria;500
+Incident701;17280000;Lichtblick;Normal;SAP;Germany;500
+Incident705;8280000;Naturstrom;Normal;Intranet;Austria;500
+Incident707;25860000;Siemens;Normal;SAP;Germany;500
+Incident709;17580000;Bosch;Premium;SAP;Germany;500
+Incident711;21720000;BMW;High Priority;Citrix;Netherlands;500
+Incident718;19320000;Daimler;Premium;Mail;Netherlands;500
+Incident719;19260000;VW;Premium;Backup;Germany;500
+Incident721;19740000;Bayer;Normal;Mail;Germany;500
+Incident723;20880000;Porsche;Normal;SAP;Germany;500
+Incident724;9060000;Lichtblick;High Priority;Mail;Germany;500
+Incident730;18420000;Naturstrom;Normal;Backup;Netherlands;500
+Incident731;17700000;Siemens;Normal;Mail;Netherlands;500
+Incident732;16080000;Bosch;Premium;Mail;Germany;500
+Incident735;23400000;BMW;High Priority;Backup;Germany;500
+Incident736;21300000;Daimler;High Priority;Mail;Germany;500
+Incident738;20820000;VW;Normal;SAP;Germany;500
+Incident741;14340000;Bayer;Normal;SAP;Germany;500
+Incident742;27840000;Porsche;Normal;SAP;Germany;500
+Incident745;21600000;Lichtblick;High Priority;SAP;Switzerland;500
+Incident746;25860000;Naturstrom;Normal;SAP;Switzerland;500
+Incident747;28140000;Siemens;Normal;Citrix;Austria;500
+Incident748;21840000;Bosch;Normal;Citrix;Germany;500
+Incident750;18600000;BMW;Normal;Backup;Switzerland;500
+Incident755;23700000;Daimler;Premium;SAP;Switzerland;500
+Incident757;12420000;VW;High Priority;SAP;Germany;500
+Incident760;26340000;Bayer;Premium;Mail;Germany;500
+Incident761;23820000;Porsche;Premium;Citrix;Switzerland;500
+Incident762;13500000;Lichtblick;Normal;Backup;Germany;500
+Incident763;17760000;Naturstrom;Normal;Mail;Germany;500
+Incident764;12060000;Siemens;High Priority;Citrix;Germany;500
+Incident765;10680000;Bosch;Normal;Citrix;Switzerland;500
+Incident768;21780000;BMW;Normal;SAP;Netherlands;500
+Incident774;15900000;Daimler;Premium;SAP;Netherlands;500
+Incident775;16800000;VW;High Priority;SAP;Switzerland;500
+Incident776;20640000;Bayer;High Priority;SAP;Germany;500
+Incident777;12480000;Porsche;Normal;SAP;Germany;500
+Incident780;26160000;Lichtblick;Normal;SAP;Germany;500
+Incident783;9240000;Naturstrom;Normal;SAP;Germany;500
+Incident785;15360000;Siemens;High Priority;Mail;Austria;500
+Incident795;24720000;Bosch;Normal;Citrix;Netherlands;500
+Incident796;32880000;BMW;Normal;SAP;Austria;500
+Incident797;10800000;Daimler;Normal;SAP;Germany;500
+Incident798;17280000;VW;Normal;Intranet;Switzerland;500
+Incident807;20340000;Bayer;Premium;SAP;Germany;500
+Incident808;17280000;Porsche;High Priority;SAP;Germany;500
+Incident810;18180000;Lichtblick;Premium;Backup;Germany;500
+Incident811;25980000;Naturstrom;Premium;Mail;Austria;500
+Incident812;20580000;Siemens;Normal;Mail;Netherlands;500
+Incident813;17100000;Bosch;Normal;SAP;Netherlands;500
+Incident816;16560000;BMW;High Priority;SAP;Germany;500
+Incident817;22260000;Daimler;Normal;SAP;Germany;500
+Incident818;16620000;VW;Normal;SAP;Austria;500
+Incident819;16560000;Bayer;Premium;Citrix;Netherlands;500
+Incident820;18120000;Porsche;High Priority;SAP;Germany;500
+Incident822;9960000;Lichtblick;High Priority;Mail;Germany;500
+Incident824;21900000;Naturstrom;Normal;Backup;Germany;500
+Incident825;15000000;Siemens;Normal;SAP;Switzerland;500
+Incident827;13740000;Bosch;Normal;SAP;Netherlands;500
+Incident828;17460000;BMW;High Priority;SAP;Germany;500
+Incident830;8340000;Daimler;Normal;SAP;Austria;500
+Incident831;19740000;VW;Normal;SAP;Switzerland;500
+Incident833;25920000;Bayer;Normal;SAP;Germany;500
+Incident835;15540000;Porsche;Normal;SAP;Austria;500
+Incident836;19800000;Lichtblick;Premium;SAP;Germany;500
+Incident837;16080000;Naturstrom;High Priority;SAP;Germany;500
+Incident838;13920000;Siemens;Premium;Intranet;Germany;500
+Incident839;10980000;Bosch;Premium;SAP;Switzerland;500
+Incident841;16020000;BMW;Normal;Mail;Switzerland;500
+Incident842;9000000;Daimler;Normal;SAP;Netherlands;500
+Incident843;16260000;VW;High Priority;SAP;Germany;500
+Incident845;20460000;Bayer;Normal;Backup;Germany;500
+Incident846;12720000;Porsche;Normal;Citrix;Austria;500
+Incident847;14520000;Lichtblick;Premium;SAP;Germany;500
+Incident852;22860000;Naturstrom;High Priority;Citrix;Netherlands;500
+Incident853;6000000;Siemens;High Priority;Mail;Austria;500
+Incident855;17880000;Bosch;Normal;SAP;Netherlands;500
+Incident857;8400000;BMW;Normal;Mail;Netherlands;500
+Incident858;13080000;Daimler;Normal;SAP;Germany;500
+Incident861;17340000;VW;High Priority;Mail;Germany;500
+Incident862;15540000;Bayer;Normal;SAP;Austria;500
+Incident863;11940000;Porsche;Normal;Mail;Germany;500
+Incident864;8580000;Lichtblick;Normal;SAP;Netherlands;500
+Incident866;28800000;Naturstrom;Normal;SAP;Germany;500
+Incident867;19680000;Siemens;Premium;SAP;Netherlands;500
+Incident868;22920000;Bosch;High Priority;SAP;Germany;500
+Incident869;16440000;BMW;Premium;SAP;Switzerland;500
+Incident870;21660000;Daimler;Premium;SAP;Germany;500
+Incident877;21960000;VW;Normal;SAP;Germany;500
+Incident878;17340000;Bayer;Normal;Intranet;Netherlands;500
+Incident882;25020000;Porsche;High Priority;Mail;Germany;500
+Incident883;26460000;Lichtblick;Normal;Citrix;Switzerland;500
+Incident885;17220000;Naturstrom;Normal;Backup;Netherlands;500
+Incident886;29460000;Siemens;Premium;SAP;Germany;500
+Incident887;14280000;Bosch;High Priority;SAP;Switzerland;500
+Incident888;23820000;BMW;High Priority;Mail;Germany;500
+Incident889;23820000;Daimler;Normal;Mail;Germany;500
+Incident891;22440000;VW;Normal;Mail;Germany;500
+Incident892;17820000;Bayer;Normal;SAP;Germany;500
+Incident894;27180000;Porsche;High Priority;Mail;Germany;500
+Incident895;9300000;Lichtblick;Normal;Backup;Germany;500
+Incident898;13980000;Naturstrom;Normal;Mail;Germany;500
+Incident899;16380000;Siemens;Normal;Intranet;Germany;500
+Incident901;15540000;Bosch;Normal;Mail;Germany;500
+Incident904;27600000;BMW;Premium;SAP;Germany;500
+Incident906;14400000;Daimler;High Priority;SAP;Germany;500
+Incident909;18660000;VW;Premium;SAP;Netherlands;500
+Incident910;21240000;Bayer;Premium;SAP;Austria;500
+Incident917;14580000;Porsche;Normal;SAP;Netherlands;500
+Incident921;9180000;Lichtblick;Normal;SAP;Germany;500
+Incident922;26460000;Naturstrom;High Priority;Intranet;Switzerland;500
+Incident924;11580000;Siemens;Normal;Mail;Germany;500
+Incident925;20400000;Bosch;Normal;SAP;Germany;500
+Incident926;14820000;BMW;Premium;Intranet;Germany;500
+Incident928;12960000;Daimler;High Priority;SAP;Germany;500
+Incident929;19560000;VW;High Priority;Intranet;Germany;500
+Incident931;22620000;Bayer;Normal;SAP;Germany;500
+Incident932;22140000;Porsche;Normal;SAP;Germany;500
+Incident936;21660000;Lichtblick;Normal;Backup;Germany;500
+Incident939;17820000;Naturstrom;High Priority;Mail;Germany;500
+Incident940;17400000;Siemens;Normal;SAP;Germany;500
+Incident941;8460000;Bosch;Normal;SAP;Germany;500
+Incident942;23460000;BMW;Normal;Backup;Germany;500
+Incident944;14040000;Daimler;Normal;Citrix;Netherlands;500
+Incident946;18480000;VW;Premium;SAP;Switzerland;500
+Incident947;20280000;Bayer;High Priority;Backup;Germany;500
+Incident948;15840000;Porsche;Premium;Mail;Germany;500
+Incident949;23340000;Lichtblick;Premium;SAP;Germany;500
+Incident950;10560000;Naturstrom;Normal;SAP;Netherlands;500
+Incident951;14400000;Siemens;Normal;Mail;Germany;500
+Incident954;14700000;Bosch;High Priority;Intranet;Switzerland;500
+Incident955;19080000;BMW;Normal;Intranet;Germany;500
+Incident959;12240000;Daimler;Normal;SAP;Germany;500
+Incident960;7020000;VW;Premium;SAP;Germany;500
+Incident963;29100000;Bayer;High Priority;Citrix;Netherlands;500
+Incident964;13980000;Porsche;High Priority;SAP;Germany;500
+Incident968;23460000;Lichtblick;Normal;Intranet;Germany;500
+Incident970;9300000;Naturstrom;Normal;Mail;Netherlands;500
+Incident974;21000000;Siemens;Normal;Mail;Germany;500
+Incident976;26460000;Bosch;High Priority;SAP;Austria;500
+Incident977;14460000;BMW;Normal;Intranet;Germany;500
+Incident978;17220000;Daimler;Normal;SAP;Germany;500
+Incident980;12000000;VW;Normal;SAP;Germany;500
+Incident981;11340000;Bayer;Normal;SAP;Germany;500
+Incident984;20760000;Porsche;Premium;SAP;Germany;500
+Incident985;6660000;Lichtblick;High Priority;SAP;Germany;500
+Incident986;20820000;Naturstrom;Premium;SAP;Switzerland;500
+Incident988;21840000;Siemens;Premium;Intranet;Germany;500
+Incident989;6720000;Bosch;Normal;Mail;Germany;500
+Incident992;7980000;BMW;Normal;SAP;Switzerland;500
+Incident993;6840000;Daimler;High Priority;Mail;Germany;500
+Incident995;13980000;VW;Normal;SAP;Switzerland;500
+Incident996;30960000;Bayer;Normal;Citrix;Netherlands;500
+Incident998;13740000;Porsche;Premium;SAP;Netherlands;500
+Incident999;10440000;Lichtblick;High Priority;Mail;Germany;500
+Incident1001;14220000;Naturstrom;High Priority;Mail;Switzerland;500
+Incident1004;15480000;Siemens;Normal;Intranet;Germany;500
+Incident1006;26460000;Bosch;Normal;Citrix;Germany;500
+Incident1008;22620000;BMW;Normal;SAP;Germany;500
+Incident1009;17820000;Daimler;High Priority;Backup;Switzerland;500
+Incident1011;18660000;VW;Normal;Backup;Germany;500
+Incident1013;14400000;Bayer;Normal;SAP;Switzerland;500
+Incident1014;16440000;Porsche;Normal;SAP;Austria;500
+Incident1016;22560000;Lichtblick;Normal;SAP;Germany;500
+Incident1019;19680000;Naturstrom;Premium;Mail;Germany;500
+Incident1020;20040000;Siemens;High Priority;Backup;Netherlands;500
+Incident1022;25680000;Bosch;Premium;SAP;Germany;500
+Incident1023;24540000;BMW;Premium;SAP;Germany;500
+Incident1025;24780000;Daimler;Normal;Backup;Netherlands;500
+Incident1029;18660000;VW;Normal;Mail;Germany;500
+Incident1031;22860000;Bayer;High Priority;SAP;Germany;500
+Incident1035;13800000;Porsche;Normal;SAP;Switzerland;500
+Incident1039;30900000;Lichtblick;Normal;SAP;Netherlands;500
+Incident1040;23160000;Naturstrom;Premium;Citrix;Austria;500
+Incident1042;24300000;Siemens;High Priority;SAP;Germany;500
+Incident1046;11220000;Bosch;High Priority;Citrix;Austria;500
+Incident1047;16260000;BMW;Normal;SAP;Germany;500
+Incident1049;22020000;Daimler;Normal;Citrix;Germany;500
+Incident1050;24360000;VW;Normal;SAP;Austria;500
+Incident1051;18000000;Bayer;High Priority;SAP;Austria;500
+Incident1053;23280000;Porsche;Normal;SAP;Germany;500
+Incident1054;15300000;Lichtblick;Normal;Citrix;Germany;500
+Incident1057;23100000;Naturstrom;Normal;Mail;Netherlands;500
+Incident1059;9600000;Siemens;Normal;SAP;Switzerland;500
+Incident1061;16800000;Bosch;Premium;Citrix;Netherlands;500
+Incident1064;16920000;BMW;High Priority;Mail;Germany;500
+Incident1067;20580000;Daimler;Premium;Mail;Austria;500
+Incident1069;12240000;VW;Premium;Mail;Austria;500
+Incident1070;16740000;Bayer;Normal;SAP;Germany;500
+Incident1072;23100000;Porsche;Normal;Citrix;Germany;500
+Incident1073;31860000;Lichtblick;High Priority;Citrix;Germany;500
+Incident1074;26880000;Naturstrom;Normal;SAP;Switzerland;500
+Incident1078;11280000;Siemens;Normal;SAP;Austria;500
+Incident1080;13440000;Bosch;Premium;SAP;Switzerland;500
+Incident1082;21240000;BMW;High Priority;Mail;Switzerland;500
+Incident1083;18240000;Daimler;High Priority;SAP;Switzerland;500
+Incident1084;19380000;VW;Normal;Intranet;Austria;500
+Incident1086;13500000;Bayer;Normal;SAP;Germany;500
+Incident1087;19320000;Porsche;Normal;SAP;Germany;500
+Incident1089;24360000;Lichtblick;High Priority;Citrix;Switzerland;500
+Incident1090;15540000;Naturstrom;Normal;Backup;Austria;500
+Incident1094;17460000;Siemens;Normal;Mail;Austria;500
+Incident1099;17520000;Bosch;Normal;SAP;Switzerland;500
+Incident1102;19500000;BMW;Normal;SAP;Germany;500
+Incident1105;24780000;Daimler;Premium;SAP;Germany;500
+Incident1106;19800000;VW;High Priority;SAP;Switzerland;500
+Incident1107;17640000;Bayer;Premium;Intranet;Germany;500
+Incident1109;20880000;Porsche;Premium;Mail;Germany;500
+Incident1114;25020000;Lichtblick;Normal;Mail;Netherlands;500
+Incident1115;12480000;Naturstrom;Normal;SAP;Germany;500
+Incident1120;13380000;Siemens;High Priority;SAP;Germany;500
+Incident1121;12300000;Bosch;Normal;SAP;Germany;500
+Incident1122;8400000;BMW;Normal;Mail;Germany;500
+Incident1123;14340000;Daimler;Premium;Mail;Austria;500
+Incident1126;12480000;VW;High Priority;Backup;Germany;500
+Incident1128;18900000;Bayer;High Priority;Mail;Germany;500
+Incident1131;22920000;Porsche;Normal;Citrix;Netherlands;500
+Incident1133;18000000;Lichtblick;Normal;SAP;Switzerland;500
+Incident1134;18120000;Naturstrom;Normal;SAP;Germany;500
+Incident1135;21180000;Siemens;High Priority;SAP;Germany;500
+Incident1136;16260000;Bosch;Normal;SAP;Netherlands;500
+Incident1138;24240000;BMW;Normal;Mail;Austria;500
+Incident1141;13260000;Daimler;Normal;SAP;Germany;500
+Incident1142;21960000;VW;Normal;SAP;Germany;500
+Incident1143;17580000;Bayer;Premium;SAP;Germany;500
+Incident1145;19140000;Porsche;High Priority;Intranet;Germany;500
+Incident1147;26100000;Lichtblick;Premium;SAP;Germany;500
+Incident1148;18060000;Naturstrom;Premium;Citrix;Germany;500
+Incident1149;23460000;Siemens;Normal;SAP;Switzerland;500
+Incident1150;18120000;Bosch;Normal;Citrix;Germany;500
+Incident1151;14520000;BMW;High Priority;Mail;Germany;500
+Incident1153;19920000;Daimler;Normal;SAP;Germany;500
+Incident1155;12240000;VW;Normal;Intranet;Germany;500
+Incident1158;6840000;Bayer;Premium;Backup;Germany;500
+Incident1159;12900000;Porsche;High Priority;SAP;Germany;500
+Incident1162;19740000;Lichtblick;High Priority;Mail;Austria;500
+Incident1163;10560000;Naturstrom;Normal;SAP;Germany;500
+Incident1164;26820000;Siemens;Normal;SAP;Germany;500
+Incident1166;16200000;Bosch;Normal;SAP;Austria;500
+Incident1169;14220000;BMW;High Priority;SAP;Germany;500
+Incident1171;9180000;Daimler;Normal;SAP;Germany;500
+Incident1172;20040000;VW;Normal;Mail;Germany;500
+Incident1173;20580000;Bayer;Normal;SAP;Austria;500
+Incident1174;11760000;Porsche;Normal;SAP;Germany;500
+Incident1177;8400000;Lichtblick;Premium;SAP;Switzerland;500
+Incident1178;6780000;Naturstrom;High Priority;SAP;Austria;500
+Incident1180;25680000;Siemens;Premium;SAP;Switzerland;500
+Incident1184;15960000;Bosch;Premium;SAP;Austria;500
+Incident1185;21480000;BMW;Normal;SAP;Netherlands;500
+Incident1189;22260000;Daimler;Normal;Backup;Germany;500
+Incident1192;16560000;VW;High Priority;SAP;Austria;500
+Incident1195;16380000;Bayer;Normal;SAP;Germany;500
+Incident1199;28140000;Porsche;Normal;Backup;Switzerland;500
+Incident1201;13620000;Lichtblick;Premium;Citrix;Netherlands;500
+Incident1203;17640000;Naturstrom;High Priority;SAP;Netherlands;500
+Incident1204;17940000;Siemens;High Priority;SAP;Austria;500
+Incident1205;17820000;Bosch;Normal;SAP;Netherlands;500
+Incident1206;10020000;BMW;Normal;Backup;Germany;500
+Incident1208;17940000;Daimler;Normal;Citrix;Germany;500
+Incident1209;18180000;VW;High Priority;SAP;Austria;500
+Incident1210;15540000;Bayer;Normal;SAP;Switzerland;500
+Incident1212;15360000;Porsche;Normal;Mail;Germany;500
+Incident1213;20580000;Lichtblick;Normal;Citrix;Austria;500
+Incident1215;19440000;Naturstrom;Normal;SAP;Netherlands;500
+Incident1216;12600000;Siemens;Premium;Mail;Austria;500
+Incident1217;27180000;Bosch;High Priority;Citrix;Austria;500
+Incident1218;20460000;BMW;Premium;SAP;Austria;500
+Incident1220;13860000;Daimler;Premium;Intranet;Germany;500
+Incident1221;23400000;VW;Normal;Backup;Germany;500
+Incident1222;13980000;Bayer;Normal;SAP;Switzerland;500
+Incident1223;12900000;Porsche;High Priority;Mail;Germany;500
+Incident1224;22080000;Lichtblick;Normal;Mail;Netherlands;500
+Incident1225;18900000;Naturstrom;Normal;SAP;Germany;500
+Incident1226;16980000;Siemens;Premium;Mail;Germany;500
+Incident1227;13380000;Bosch;High Priority;SAP;Germany;500
+Incident1228;17820000;BMW;High Priority;Mail;Germany;500
+Incident1229;16560000;Daimler;Normal;Mail;Germany;500
+Incident1230;21720000;VW;Normal;Citrix;Netherlands;500
+Incident1231;22260000;Bayer;Normal;Mail;Germany;500
+Incident1232;16740000;Porsche;High Priority;Mail;Switzerland;500
+Incident1233;26280000;Lichtblick;Normal;Mail;Germany;500
+Incident1235;19920000;Naturstrom;Normal;SAP;Germany;500
+Incident1236;11520000;Siemens;Normal;SAP;Switzerland;500
+Incident1239;14400000;Bosch;Normal;SAP;Switzerland;500
+Incident1240;23580000;BMW;Premium;SAP;Germany;500
+Incident1241;18180000;Daimler;High Priority;Mail;Germany;500
+Incident1242;13620000;VW;Premium;SAP;Austria;500
+Incident1247;12600000;Bayer;Premium;Mail;Germany;500
+Incident1249;29580000;Porsche;Normal;SAP;Switzerland;500
+Incident1250;19980000;Lichtblick;Normal;Mail;Switzerland;500
+Incident1251;12540000;Naturstrom;High Priority;SAP;Germany;500
+Incident1253;14580000;Siemens;Normal;SAP;Germany;500
+Incident1254;10140000;Bosch;Normal;Mail;Germany;500
+Incident1256;7140000;BMW;Premium;Mail;Switzerland;500
+Incident1263;25020000;Daimler;High Priority;Mail;Austria;500
+Incident1265;21660000;VW;High Priority;SAP;Germany;500
+Incident1266;14280000;Bayer;Normal;SAP;Germany;500
+Incident1269;20700000;Porsche;Normal;SAP;Switzerland;500
+Incident1270;19680000;Lichtblick;Normal;Backup;Germany;500
+Incident1272;18900000;Naturstrom;High Priority;Backup;Austria;500
+Incident1273;14520000;Siemens;Normal;Intranet;Germany;500
+Incident1274;20820000;Bosch;Normal;Intranet;Germany;500
+Incident1276;21660000;BMW;Normal;SAP;Germany;500
+Incident1277;26460000;Daimler;Normal;Mail;Switzerland;500
+Incident1280;15600000;VW;Premium;Intranet;Germany;500
+Incident1281;22140000;Bayer;High Priority;SAP;Switzerland;500
+Incident1287;16140000;Porsche;Premium;Citrix;Switzerland;500
+Incident1288;22140000;Lichtblick;Premium;Citrix;Switzerland;500
+Incident1290;17640000;Naturstrom;Normal;SAP;Austria;500
+Incident1291;18960000;Siemens;Normal;SAP;Germany;500
+Incident1292;18240000;Bosch;High Priority;Citrix;Netherlands;500
+Incident1296;13200000;BMW;Normal;SAP;Austria;500
+Incident1297;18060000;Daimler;Normal;SAP;Netherlands;500
+Incident1298;13800000;VW;Premium;SAP;Germany;500
+Incident1303;14940000;Bayer;High Priority;SAP;Germany;500
+Incident1304;25200000;Porsche;High Priority;SAP;Switzerland;500
+Incident1305;24000000;Lichtblick;Normal;SAP;Germany;500
+Incident1306;23820000;Naturstrom;Normal;Mail;Netherlands;500
+Incident1307;11280000;Siemens;Normal;Mail;Austria;500
+Incident1308;23460000;Bosch;High Priority;SAP;Germany;500
+Incident1310;9180000;BMW;Normal;SAP;Germany;500
+Incident1311;18360000;Daimler;Normal;Backup;Austria;500
+Incident1313;29880000;VW;Normal;SAP;Netherlands;500
+Incident1314;19860000;Bayer;Normal;SAP;Germany;500
+Incident1316;15780000;Porsche;Premium;SAP;Netherlands;500
+Incident1317;21840000;Lichtblick;High Priority;Mail;Germany;500
+Incident1321;30240000;Naturstrom;Premium;Mail;Netherlands;500
+Incident1322;14040000;Siemens;Premium;Mail;Germany;500
+Incident1323;18000000;Bosch;Normal;Mail;Germany;500
+Incident1324;10260000;BMW;Normal;SAP;Switzerland;500
+Incident1325;22200000;Daimler;High Priority;SAP;Netherlands;500
+Incident1326;16260000;VW;Normal;Citrix;Netherlands;500
+Incident1327;17940000;Bayer;Normal;Mail;Germany;500
+Incident1331;10560000;Porsche;Premium;Backup;Switzerland;500
+Incident1334;20040000;Lichtblick;High Priority;Citrix;Netherlands;500
+Incident1335;22560000;Naturstrom;High Priority;Mail;Germany;500
+Incident1337;6960000;Siemens;Normal;Mail;Germany;500
+Incident1342;22380000;Bosch;Normal;SAP;Germany;500
+Incident1348;12480000;BMW;Normal;Mail;Austria;500
+Incident1349;15960000;Daimler;High Priority;SAP;Germany;500
+Incident1351;11640000;VW;Normal;Mail;Netherlands;500
+Incident1354;22260000;Bayer;Normal;SAP;Germany;500
+Incident1356;12000000;Porsche;Normal;Citrix;Austria;500
+Incident1357;14760000;Lichtblick;Normal;SAP;Germany;500
+Incident1358;10800000;Naturstrom;Premium;SAP;Germany;500
+Incident1359;42180000;Siemens;High Priority;SAP;Germany;500
+Incident1360;7320000;Bosch;Premium;SAP;Germany;500
+Incident1361;22020000;BMW;Premium;SAP;Germany;500
+Incident1362;21180000;Daimler;Normal;Citrix;Germany;500
+Incident1364;15660000;VW;Normal;SAP;Germany;500
+Incident1365;14940000;Bayer;High Priority;SAP;Germany;500
+Incident1367;14940000;Porsche;Normal;SAP;Netherlands;500
+Incident1369;14640000;Lichtblick;Normal;Citrix;Austria;500
+Incident1370;7440000;Naturstrom;Premium;Mail;Germany;500
+Incident1372;20160000;Siemens;High Priority;SAP;Germany;500
+Incident1373;21600000;Bosch;High Priority;SAP;Germany;500
+Incident1374;13440000;BMW;Normal;Backup;Germany;500
+Incident1376;17040000;Daimler;Normal;Backup;Germany;500
+Incident1381;16260000;VW;Normal;SAP;Germany;500
+Incident1383;7440000;Bayer;High Priority;Citrix;Switzerland;500
+Incident1385;12900000;Porsche;Normal;Citrix;Austria;500
+Incident1388;18480000;Lichtblick;Normal;SAP;Germany;500
+Incident1389;12780000;Naturstrom;Normal;Mail;Germany;500
+Incident1391;23940000;Siemens;Normal;SAP;Germany;500
+Incident1392;25620000;Bosch;Premium;SAP;Netherlands;500
+Incident1396;11580000;BMW;High Priority;Backup;Switzerland;500
+Incident1398;18600000;Daimler;Premium;Mail;Switzerland;500
+Incident1400;10020000;VW;Premium;Intranet;Germany;500
+Incident1402;24720000;Bayer;Normal;Intranet;Germany;500
+Incident1403;14700000;Porsche;Normal;Citrix;Austria;500
+Incident1404;13440000;Lichtblick;High Priority;SAP;Netherlands;500
+Incident1406;16140000;Naturstrom;Normal;Mail;Germany;500
+Incident1409;20880000;Siemens;Normal;Mail;Switzerland;500
+Incident1410;17100000;Bosch;Premium;SAP;Austria;500
+Incident1411;21000000;BMW;High Priority;SAP;Germany;500
+Incident1414;20460000;Daimler;High Priority;Backup;Germany;500
+Incident1415;11280000;VW;Normal;Citrix;Austria;500
+Incident1417;21240000;Bayer;Normal;SAP;Germany;500
+Incident1418;14400000;Porsche;Normal;Backup;Germany;500
+Incident1421;18600000;Lichtblick;High Priority;Backup;Austria;500
+Incident1423;17820000;Naturstrom;Normal;SAP;Netherlands;500
+Incident1426;7620000;Siemens;Normal;SAP;Germany;500
+Incident1430;15240000;Bosch;Normal;Mail;Germany;500
+Incident1431;14580000;BMW;Normal;Mail;Austria;500
+Incident1433;22860000;Daimler;Premium;SAP;Netherlands;500
+Incident1435;27360000;VW;High Priority;Citrix;Germany;500
+Incident1436;17040000;Bayer;Premium;Mail;Netherlands;500
+Incident1438;8820000;Porsche;Premium;SAP;Germany;500
+Incident1439;9780000;Lichtblick;Normal;SAP;Germany;500
+Incident1440;13140000;Naturstrom;Normal;SAP;Austria;500
+Incident1442;20760000;Siemens;High Priority;Intranet;Germany;500
+Incident1443;17280000;Bosch;Normal;SAP;Austria;500
+Incident1444;19380000;BMW;Normal;SAP;Germany;500
+Incident1446;13260000;Daimler;Premium;Mail;Netherlands;500
+Incident1448;24360000;VW;High Priority;SAP;Netherlands;500
+Incident1449;23700000;Bayer;High Priority;SAP;Netherlands;500
+Incident1450;8280000;Porsche;Normal;Backup;Austria;500
+Incident1453;33720000;Lichtblick;Normal;SAP;Netherlands;500
+Incident1454;18360000;Naturstrom;Normal;Mail;Austria;500
+Incident1455;20220000;Siemens;High Priority;Mail;Germany;500
+Incident1456;19380000;Bosch;Normal;SAP;Germany;500
+Incident1461;18900000;BMW;Normal;Mail;Germany;500
+Incident1462;13860000;Daimler;Normal;SAP;Netherlands;500
+Incident1463;28140000;VW;Normal;SAP;Netherlands;500
+Incident1467;25320000;Bayer;Premium;Mail;Netherlands;500
+Incident1468;18420000;Porsche;High Priority;SAP;Austria;500
+Incident1470;19200000;Lichtblick;Premium;SAP;Germany;500
+Incident1471;13980000;Naturstrom;Premium;SAP;Switzerland;500
+Incident1474;17580000;Siemens;Normal;Backup;Germany;500
+Incident1475;15660000;Bosch;Normal;SAP;Germany;500
+Incident1477;13500000;BMW;High Priority;SAP;Netherlands;500
+Incident1478;12120000;Daimler;Normal;Mail;Switzerland;500
+Incident1481;24420000;VW;Normal;SAP;Netherlands;500
+Incident1485;25740000;Bayer;Premium;SAP;Germany;500
+Incident1487;21300000;Porsche;High Priority;Backup;Germany;500
+Incident1492;16320000;Lichtblick;High Priority;SAP;Germany;500
+Incident1495;17700000;Naturstrom;Normal;SAP;Germany;500
+Incident1497;10680000;Siemens;Normal;Citrix;Germany;500
+Incident1498;23940000;Bosch;Normal;SAP;Germany;500
+Incident1503;18960000;BMW;High Priority;Backup;Germany;500
+Incident1505;14940000;Daimler;Normal;SAP;Germany;500
+Incident1508;12480000;VW;Normal;Mail;Germany;500
+Incident1510;11820000;Bayer;Normal;Mail;Germany;500
+Incident1511;25020000;Porsche;Normal;Mail;Germany;500
+Incident1516;17100000;Lichtblick;Premium;Mail;Germany;500
+Incident1517;10980000;Naturstrom;High Priority;SAP;Germany;500
+Incident1520;25560000;Siemens;Premium;Intranet;Germany;500
+Incident1524;9480000;Bosch;Premium;SAP;Germany;500
+Incident1528;26940000;BMW;Normal;SAP;Germany;500
+Incident1529;17760000;Daimler;Normal;SAP;Switzerland;500
+Incident1532;23700000;VW;High Priority;SAP;Germany;500
+Incident1537;19020000;Bayer;Normal;Mail;Germany;500
+Incident1539;12120000;Porsche;Normal;Intranet;Germany;500
+Incident1540;12180000;Lichtblick;Premium;SAP;Germany;500
+Incident1541;13980000;Naturstrom;High Priority;Mail;Germany;500
+Incident1542;10080000;Siemens;High Priority;SAP;Switzerland;500
+Incident1544;17520000;Bosch;Normal;SAP;Switzerland;500
+Incident1545;16800000;BMW;Normal;Citrix;Austria;500
+Incident1546;19500000;Daimler;Normal;SAP;Switzerland;500
+Incident1547;15000000;VW;High Priority;Mail;Germany;500
+Incident1548;19260000;Bayer;Normal;Backup;Netherlands;500
+Incident1549;13980000;Porsche;Normal;Citrix;Germany;500
+Incident1550;16740000;Lichtblick;Normal;SAP;Austria;500
+Incident1551;29220000;Naturstrom;Normal;Citrix;Netherlands;500
+Incident1552;9780000;Siemens;Premium;SAP;Netherlands;500
+Incident1553;21780000;Bosch;High Priority;Citrix;Germany;500
+Incident1555;23460000;BMW;Premium;Intranet;Germany;500
+Incident1557;8880000;Daimler;Premium;SAP;Austria;500
+Incident1558;16620000;VW;Normal;Intranet;Austria;500
+Incident1560;5760000;Bayer;Normal;SAP;Germany;500
+Incident1561;25500000;Porsche;High Priority;SAP;Germany;500
+Incident1562;19200000;Lichtblick;Normal;SAP;Germany;500
+Incident1563;30300000;Naturstrom;Normal;SAP;Germany;500
+Incident1564;17820000;Siemens;Premium;Backup;Netherlands;500
+Incident1565;20340000;Bosch;High Priority;Backup;Germany;500
+Incident1567;10560000;BMW;High Priority;Citrix;Germany;500
+Incident1569;24900000;Daimler;Normal;Mail;Austria;500
+Incident1574;21420000;VW;Normal;Citrix;Austria;500
+Incident1575;15420000;Bayer;Normal;SAP;Germany;500
+Incident1579;20940000;Porsche;High Priority;Backup;Netherlands;500
+Incident1580;21060000;Lichtblick;Normal;SAP;Austria;500
+Incident1581;13260000;Naturstrom;Normal;SAP;Germany;500
+Incident1582;15180000;Siemens;Normal;Mail;Germany;500
+Incident1584;26160000;Bosch;Normal;SAP;Germany;500
+Incident1585;25380000;BMW;Premium;SAP;Germany;500
+Incident1587;19740000;Daimler;High Priority;Mail;Austria;500
+Incident1594;15300000;VW;Premium;Backup;Germany;500
+Incident1595;13200000;Bayer;Premium;Citrix;Germany;500
+Incident1596;20340000;Porsche;Normal;SAP;Switzerland;500
+Incident1598;13560000;Lichtblick;Normal;SAP;Switzerland;500
+Incident1600;22320000;Naturstrom;High Priority;SAP;Austria;500
+Incident1608;16680000;Siemens;Normal;SAP;Austria;500
+Incident1610;20100000;Bosch;Normal;SAP;Switzerland;500
+Incident1615;6360000;BMW;Premium;SAP;Austria;500
+Incident1617;20220000;Daimler;High Priority;SAP;Germany;500
+Incident1620;13260000;VW;High Priority;SAP;Netherlands;500
+Incident1621;10260000;Bayer;Normal;Mail;Germany;500
+Incident1623;30540000;Porsche;Normal;Citrix;Germany;500
+Incident1625;14700000;Lichtblick;Normal;Mail;Germany;500
+Incident1633;13260000;Naturstrom;High Priority;Mail;Austria;500
+Incident1634;12360000;Siemens;Normal;Mail;Austria;500
+Incident1635;16800000;Bosch;Normal;Citrix;Netherlands;500
+Incident1636;20160000;BMW;Normal;Mail;Germany;500
+Incident1637;19740000;Daimler;Normal;SAP;Germany;500
+Incident1638;7680000;VW;Premium;Mail;Germany;500
+Incident1639;20820000;Bayer;High Priority;SAP;Netherlands;500
+Incident1640;15120000;Porsche;Premium;Backup;Netherlands;500
+Incident1641;11460000;Lichtblick;Premium;SAP;Switzerland;500
+Incident1642;19800000;Naturstrom;Normal;SAP;Germany;500
+Incident1643;15420000;Siemens;Normal;Citrix;Germany;500
+Incident1645;9180000;Bosch;High Priority;SAP;Germany;500
+Incident1646;13440000;BMW;Normal;SAP;Netherlands;500
+Incident1647;19560000;Daimler;Normal;SAP;Germany;500
+Incident1650;19980000;VW;Premium;Mail;Germany;500
+Incident1655;14220000;Bayer;High Priority;Mail;Netherlands;500
+Incident1657;14940000;Porsche;High Priority;SAP;Germany;500
+Incident1659;13860000;Lichtblick;Normal;Mail;Netherlands;500
+Incident1662;15000000;Naturstrom;Normal;Mail;Austria;500
+Incident1663;15900000;Siemens;Normal;SAP;Germany;500
+Incident1664;23940000;Bosch;High Priority;Mail;Germany;500
+Incident1668;18900000;BMW;Normal;SAP;Switzerland;500
+Incident1669;24360000;Daimler;Normal;Mail;Austria;500
+Incident1674;11460000;VW;Normal;Intranet;Germany;500
+Incident1675;27300000;Bayer;Normal;SAP;Switzerland;500
+Incident1677;9480000;Porsche;Premium;SAP;Germany;500
+Incident1679;15240000;Lichtblick;High Priority;SAP;Germany;500
+Incident1680;18540000;Naturstrom;Premium;SAP;Germany;500
+Incident1681;17940000;Siemens;Premium;Mail;Germany;500
+Incident1685;7500000;Bosch;Normal;Backup;Austria;500
+Incident1686;23880000;BMW;Normal;SAP;Austria;500
+Incident1687;28200000;Daimler;High Priority;SAP;Germany;500
+Incident1690;16020000;VW;Normal;SAP;Netherlands;500
+Incident1696;15420000;Bayer;Normal;SAP;Germany;500
+Incident1699;10200000;Porsche;Premium;SAP;Austria;500
+Incident1700;23400000;Lichtblick;High Priority;Citrix;Germany;500
+Incident1701;18840000;Naturstrom;High Priority;SAP;Switzerland;500
+Incident1704;19440000;Siemens;Normal;SAP;Germany;500
+Incident1705;18180000;Bosch;Normal;Mail;Netherlands;500
+Incident1707;13740000;BMW;Normal;SAP;Netherlands;500
+Incident1708;18840000;Daimler;High Priority;Mail;Netherlands;500
+Incident1709;17460000;VW;Normal;SAP;Germany;500
+Incident1711;23340000;Bayer;Normal;Mail;Switzerland;500
+Incident1718;17040000;Porsche;Normal;SAP;Austria;500
+Incident1720;7980000;Lichtblick;Normal;Mail;Germany;500
+Incident1722;18300000;Naturstrom;Premium;SAP;Netherlands;500
+Incident1724;28020000;Siemens;High Priority;SAP;Netherlands;500
+Incident1726;16680000;Bosch;Premium;Backup;Germany;500
+Incident1729;17460000;BMW;Premium;Citrix;Austria;500
+Incident1730;16380000;Daimler;Normal;Mail;Switzerland;500
+Incident1734;10440000;VW;Normal;SAP;Switzerland;500
+Incident1737;23220000;Bayer;High Priority;Backup;Germany;500
+Incident1738;21240000;Porsche;Normal;SAP;Netherlands;500
+Incident1739;23040000;Lichtblick;Normal;SAP;Germany;500
+Incident1740;14580000;Naturstrom;Premium;Mail;Germany;500
+Incident1744;22200000;Siemens;High Priority;Mail;Austria;500
+Incident1745;28200000;Bosch;High Priority;SAP;Netherlands;500
+Incident1746;22440000;BMW;Normal;Backup;Netherlands;500
+Incident1748;13800000;Daimler;Normal;SAP;Germany;500
+Incident1749;13080000;VW;Normal;Citrix;Germany;500
+Incident1750;16800000;Bayer;High Priority;SAP;Switzerland;500
+Incident1753;19800000;Porsche;Normal;Mail;Germany;500
+Incident1754;28620000;Lichtblick;Normal;SAP;Netherlands;500
+Incident1755;6720000;Naturstrom;Normal;SAP;Netherlands;500
+Incident1756;16860000;Siemens;Normal;SAP;Switzerland;500
+Incident1757;7680000;Bosch;Premium;SAP;Austria;500
+Incident1760;10620000;BMW;High Priority;Mail;Austria;500
+Incident1761;19260000;Daimler;Premium;SAP;Germany;500
+Incident1762;26580000;VW;Premium;Mail;Germany;500
+Incident1763;22380000;Bayer;Normal;Citrix;Germany;500
+Incident1764;22860000;Porsche;Normal;Citrix;Germany;500
+Incident1765;17640000;Lichtblick;High Priority;Mail;Netherlands;500
+Incident1766;19740000;Naturstrom;Normal;SAP;Austria;500
+Incident1767;7500000;Siemens;Normal;Mail;Austria;500
+Incident1772;21480000;Bosch;Premium;Mail;Netherlands;500
+Incident1774;8640000;BMW;High Priority;Mail;Austria;500
+Incident1775;16440000;Daimler;High Priority;Mail;Switzerland;500
+Incident1776;9600000;VW;Normal;SAP;Germany;500
+Incident1778;22680000;Bayer;Normal;Citrix;Switzerland;500
+Incident1779;19920000;Porsche;Normal;SAP;Switzerland;500
+Incident1781;13680000;Lichtblick;High Priority;SAP;Switzerland;500
+Incident1782;26220000;Naturstrom;Normal;SAP;Germany;500
+Incident1783;15420000;Siemens;Normal;SAP;Germany;500
+Incident1784;15420000;Bosch;Normal;Intranet;Austria;500
+Incident1785;19980000;BMW;Normal;Backup;Germany;500
+Incident1786;16200000;Daimler;Premium;SAP;Austria;500
+Incident1787;12180000;VW;High Priority;SAP;Switzerland;500
+Incident1788;12000000;Bayer;Premium;Mail;Austria;500
+Incident1789;21180000;Porsche;Premium;SAP;Austria;500
+Incident1790;23880000;Lichtblick;Normal;SAP;Germany;500
+Incident1792;21660000;Naturstrom;Normal;SAP;Germany;500
+Incident1793;19200000;Siemens;High Priority;SAP;Netherlands;500
+Incident1794;9120000;Bosch;Normal;Mail;Netherlands;500
+Incident1795;28680000;BMW;Normal;SAP;Switzerland;500
+Incident1797;17940000;Daimler;Premium;Mail;Austria;500
+Incident1798;14880000;VW;High Priority;SAP;Germany;500
+Incident1804;16080000;Bayer;High Priority;SAP;Netherlands;500
+Incident1806;15540000;Porsche;Normal;Citrix;Germany;500
+Incident1811;10920000;Lichtblick;Normal;Citrix;Germany;500
+Incident1817;20340000;Naturstrom;Normal;SAP;Netherlands;500
+Incident1819;19860000;Siemens;High Priority;SAP;Netherlands;500
+Incident1822;29940000;Bosch;Normal;Mail;Netherlands;500
+Incident1826;9480000;BMW;Normal;Mail;Germany;500
+Incident1828;21780000;Daimler;Normal;SAP;Netherlands;500
+Incident1830;14460000;VW;Normal;SAP;Germany;500
+Incident1833;9960000;Bayer;Premium;Mail;Germany;500
+Incident1834;16620000;Porsche;High Priority;Backup;Netherlands;500
+Incident1835;22500000;Lichtblick;Premium;SAP;Switzerland;500
+Incident1836;20520000;Naturstrom;Premium;SAP;Germany;500
+Incident1841;14040000;Siemens;Normal;Backup;Germany;500
+Incident1843;13320000;Bosch;Normal;SAP;Netherlands;500
+Incident1847;10740000;BMW;High Priority;SAP;Germany;500
+Incident1850;23460000;Daimler;Normal;Mail;Germany;500
+Incident1854;23940000;VW;Normal;Mail;Austria;500
+Incident1857;21900000;Bayer;Premium;Mail;Germany;500
+Incident1860;6300000;Porsche;High Priority;Mail;Germany;500
+Incident1861;21480000;Lichtblick;High Priority;Citrix;Austria;500
+Incident1862;16860000;Naturstrom;Normal;Citrix;Germany;500
+Incident1865;18540000;Siemens;Normal;Mail;Germany;500
+Incident1867;24600000;Bosch;Normal;Citrix;Austria;500
+Incident1868;14880000;BMW;High Priority;Mail;Austria;500
+Incident1870;10200000;Daimler;Normal;Mail;Germany;500
+Incident1871;14880000;VW;Normal;SAP;Austria;500
+Incident1872;23280000;Bayer;Normal;Intranet;Netherlands;500
+Incident1874;25380000;Porsche;Normal;Backup;Germany;500
+Incident1876;23520000;Lichtblick;Premium;SAP;Germany;500
+Incident1877;13500000;Naturstrom;High Priority;SAP;Switzerland;500
+Incident1880;15360000;Siemens;Premium;Mail;Germany;500
+Incident1881;21060000;Bosch;Premium;Backup;Germany;500
+Incident1882;14700000;BMW;Normal;Citrix;Netherlands;500
+Incident1884;12180000;Daimler;Normal;Mail;Austria;500
+Incident1886;17520000;VW;High Priority;SAP;Germany;500
+Incident1889;16320000;Bayer;Normal;Citrix;Germany;500
+Incident1890;6840000;Porsche;Normal;Backup;Germany;500
+Incident1892;19440000;Lichtblick;Premium;SAP;Germany;500
+Incident1894;10380000;Naturstrom;High Priority;SAP;Germany;500
+Incident1898;27900000;Siemens;High Priority;Mail;Germany;500
+Incident1899;10920000;Bosch;Normal;Mail;Switzerland;500
+Incident1900;12360000;BMW;Normal;SAP;Germany;500
+Incident1904;12480000;Daimler;Normal;Intranet;Germany;500
+Incident1905;17400000;VW;High Priority;Citrix;Netherlands;500
+Incident1907;31260000;Bayer;Normal;SAP;Germany;500
+Incident1909;8880000;Porsche;Normal;SAP;Austria;500
+Incident1918;14640000;Lichtblick;Normal;SAP;Germany;500
+Incident1921;19980000;Naturstrom;Normal;SAP;Switzerland;500
+Incident1926;9420000;Siemens;Premium;SAP;Switzerland;500
+Incident1928;22080000;Bosch;High Priority;SAP;Germany;500
+Incident1930;19200000;BMW;Premium;SAP;Germany;500
+Incident1931;22620000;Daimler;Premium;SAP;Switzerland;500
+Incident1933;22620000;VW;Normal;SAP;Germany;500
+Incident1934;28020000;Bayer;Normal;Mail;Netherlands;500
+Incident1935;28320000;Porsche;High Priority;Mail;Germany;500
+Incident1936;9000000;Lichtblick;Normal;Mail;Switzerland;500
+Incident1939;17760000;Naturstrom;Normal;SAP;Austria;500
+Incident1940;24840000;Siemens;Premium;Mail;Germany;500
+Incident1942;22740000;Bosch;High Priority;SAP;Netherlands;500
+Incident1943;10380000;BMW;High Priority;Mail;Netherlands;500
+Incident1944;21300000;Daimler;Normal;Mail;Switzerland;500
+Incident1948;11580000;VW;Normal;Citrix;Austria;500
+Incident1951;18180000;Bayer;Normal;SAP;Germany;500
+Incident1952;21960000;Porsche;High Priority;SAP;Germany;500
+Incident1954;15540000;Lichtblick;Normal;SAP;Netherlands;500
+Incident1955;16740000;Naturstrom;Normal;Citrix;Netherlands;500
+Incident1957;12840000;Siemens;Normal;Mail;Germany;500
+Incident1958;11460000;Bosch;Normal;Mail;Germany;500
+Incident1962;18300000;BMW;Premium;SAP;Germany;500
+Incident1964;13860000;Daimler;High Priority;Mail;Austria;500
+Incident1968;19740000;VW;Premium;SAP;Austria;500
+Incident1969;17340000;Bayer;Premium;Citrix;Netherlands;500
+Incident1974;23940000;Porsche;Normal;Mail;Austria;500
+Incident1975;22080000;Lichtblick;Normal;SAP;Austria;500
+Incident1977;9120000;Naturstrom;High Priority;SAP;Netherlands;500
+Incident1979;13740000;Siemens;Normal;Mail;Austria;500
+Incident1984;23100000;Bosch;Normal;Citrix;Switzerland;500
+Incident1985;27840000;BMW;Premium;SAP;Germany;500
+Incident1987;20340000;Daimler;High Priority;Mail;Germany;500
+Incident1989;15960000;VW;High Priority;Mail;Germany;500
+Incident1990;18840000;Bayer;Normal;Citrix;Netherlands;500
+Incident1994;17100000;Porsche;Normal;SAP;Austria;500
+Incident1996;19140000;Lichtblick;Normal;Mail;Switzerland;500
+Incident1997;25740000;Naturstrom;High Priority;SAP;Germany;500
+Incident1998;28080000;Siemens;Normal;Citrix;Germany;500
+Incident1999;13620000;Bosch;Normal;Mail;Netherlands;500
+Incident0;59940000;BMW;Normal;Citrix;Germany;1000
+Incident6;87600000;Daimler;Normal;Citrix;Germany;1000
+Incident9;91680000;VW;Premium;Mail;Netherlands;1000
+Incident14;108180000;Bayer;High Priority;SAP;Austria;1000
+Incident19;114240000;Porsche;Premium;Citrix;Switzerland;1000
+Incident29;66540000;Lichtblick;Premium;Citrix;Germany;1000
+Incident31;100800000;Naturstrom;Normal;Citrix;Germany;1000
+Incident34;73320000;Siemens;Normal;Citrix;Germany;1000
+Incident39;34260000;Bosch;High Priority;Citrix;Austria;1000
+Incident50;65700000;BMW;Normal;Citrix;Germany;1000
+Incident52;66120000;Daimler;Normal;Citrix;Germany;1000
+Incident62;104100000;VW;Premium;Citrix;Germany;1000
+Incident66;46200000;Bayer;High Priority;Citrix;Germany;1000
+Incident73;111300000;Porsche;High Priority;SAP;Netherlands;1000
+Incident82;90060000;Lichtblick;Normal;SAP;Germany;1000
+Incident84;77520000;Naturstrom;Normal;Mail;Austria;1000
+Incident90;95940000;Siemens;Normal;SAP;Germany;1000
+Incident98;73620000;Bosch;High Priority;Citrix;Switzerland;1000
+Incident101;53820000;BMW;Normal;SAP;Germany;1000
+Incident104;87840000;Daimler;Normal;Mail;Austria;1000
+Incident115;57180000;VW;Normal;Mail;Austria;1000
+Incident118;64200000;Bayer;Normal;Citrix;Germany;1000
+Incident120;97440000;Porsche;Premium;Citrix;Switzerland;1000
+Incident133;40140000;Lichtblick;High Priority;SAP;Switzerland;1000
+Incident137;117960000;Naturstrom;Premium;Citrix;Germany;1000
+Incident158;95640000;Siemens;Premium;Mail;Netherlands;1000
+Incident163;92280000;Bosch;Normal;Citrix;Austria;1000
+Incident168;52500000;BMW;Normal;Citrix;Switzerland;1000
+Incident174;111300000;Daimler;High Priority;Citrix;Germany;1000
+Incident177;65280000;VW;Normal;Mail;Germany;1000
+Incident185;49320000;Bayer;Normal;Mail;Germany;1000
+Incident188;101220000;Porsche;Premium;Citrix;Austria;1000
+Incident209;53700000;Lichtblick;High Priority;Mail;Germany;1000
+Incident217;46020000;Naturstrom;High Priority;Mail;Netherlands;1000
+Incident222;75600000;Siemens;Normal;Backup;Netherlands;1000
+Incident224;85320000;Bosch;Normal;Citrix;Germany;1000
+Incident226;101220000;BMW;Normal;Citrix;Germany;1000
+Incident243;107400000;Daimler;High Priority;Citrix;Germany;1000
+Incident261;35880000;VW;Normal;Citrix;Germany;1000
+Incident282;75600000;Bayer;Normal;Citrix;Netherlands;1000
+Incident292;57720000;Porsche;Normal;Mail;Germany;1000
+Incident315;64620000;Lichtblick;Normal;Citrix;Germany;1000
+Incident317;108360000;Naturstrom;Premium;Citrix;Austria;1000
+Incident319;98940000;Siemens;High Priority;Citrix;Austria;1000
+Incident323;86640000;Bosch;Premium;Mail;Germany;1000
+Incident329;57360000;BMW;Premium;Citrix;Germany;1000
+Incident335;117840000;Daimler;Normal;Citrix;Austria;1000
+Incident347;46380000;VW;Normal;SAP;Austria;1000
+Incident363;113340000;Bayer;High Priority;Citrix;Austria;1000
+Incident370;115440000;Porsche;Normal;Citrix;Netherlands;1000
+Incident377;66720000;Lichtblick;Normal;SAP;Germany;1000
+Incident378;80760000;Naturstrom;Premium;Citrix;Netherlands;1000
+Incident386;35280000;Siemens;High Priority;SAP;Germany;1000
+Incident392;101460000;Bosch;High Priority;Citrix;Germany;1000
+Incident399;75060000;BMW;Normal;Citrix;Switzerland;1000
+Incident401;122580000;Daimler;Normal;SAP;Germany;1000
+Incident409;72540000;VW;Normal;Mail;Germany;1000
+Incident417;88080000;Bayer;High Priority;Citrix;Austria;1000
+Incident419;114060000;Porsche;Normal;SAP;Germany;1000
+Incident421;67320000;Lichtblick;Normal;Citrix;Switzerland;1000
+Incident432;64260000;Naturstrom;Normal;SAP;Germany;1000
+Incident435;94860000;Siemens;Normal;Mail;Germany;1000
+Incident440;47340000;Bosch;Premium;Citrix;Austria;1000
+Incident441;43440000;BMW;High Priority;SAP;Netherlands;1000
+Incident448;55860000;Daimler;Premium;Mail;Switzerland;1000
+Incident455;84900000;VW;Premium;Citrix;Germany;1000
+Incident458;55800000;Bayer;Normal;SAP;Switzerland;1000
+Incident459;83520000;Porsche;Normal;Citrix;Germany;1000
+Incident462;89580000;Lichtblick;High Priority;SAP;Germany;1000
+Incident465;70800000;Naturstrom;Normal;Citrix;Germany;1000
+Incident467;92760000;Siemens;Normal;Citrix;Germany;1000
+Incident471;64200000;Bosch;Premium;Citrix;Germany;1000
+Incident476;59460000;BMW;High Priority;SAP;Germany;1000
+Incident485;84120000;Daimler;High Priority;Citrix;Germany;1000
+Incident488;88260000;VW;Normal;Citrix;Germany;1000
+Incident502;101940000;Bayer;Normal;Citrix;Germany;1000
+Incident511;154980000;Porsche;Normal;Citrix;Germany;1000
+Incident515;125280000;Lichtblick;High Priority;Citrix;Netherlands;1000
+Incident527;55440000;Naturstrom;Normal;SAP;Germany;1000
+Incident531;68520000;Siemens;Normal;Mail;Germany;1000
+Incident537;88620000;Bosch;Normal;Citrix;Switzerland;1000
+Incident538;112080000;BMW;Normal;Citrix;Netherlands;1000
+Incident546;40500000;Daimler;Premium;SAP;Germany;1000
+Incident555;68640000;VW;High Priority;Citrix;Germany;1000
+Incident557;69900000;Bayer;Premium;Citrix;Netherlands;1000
+Incident567;69540000;Porsche;Premium;SAP;Austria;1000
+Incident577;69840000;Lichtblick;Normal;SAP;Germany;1000
+Incident586;82680000;Naturstrom;Normal;Citrix;Germany;1000
+Incident592;130980000;Siemens;High Priority;Citrix;Austria;1000
+Incident594;62340000;Bosch;Normal;Citrix;Switzerland;1000
+Incident601;54000000;BMW;Normal;SAP;Austria;1000
+Incident610;96780000;Daimler;Premium;Mail;Germany;1000
+Incident621;98940000;VW;High Priority;Citrix;Netherlands;1000
+Incident628;109020000;Bayer;High Priority;SAP;Germany;1000
+Incident629;86880000;Porsche;Normal;Citrix;Germany;1000
+Incident632;54660000;Lichtblick;Normal;SAP;Germany;1000
+Incident638;88020000;Naturstrom;Normal;Citrix;Germany;1000
+Incident644;97260000;Siemens;High Priority;Citrix;Austria;1000
+Incident645;73140000;Bosch;Normal;Mail;Germany;1000
+Incident649;57300000;BMW;Normal;Citrix;Germany;1000
+Incident656;39900000;Daimler;Normal;SAP;Germany;1000
+Incident659;54480000;VW;Normal;Citrix;Germany;1000
+Incident660;115800000;Bayer;Premium;Citrix;Germany;1000
+Incident669;95940000;Porsche;High Priority;Citrix;Germany;1000
+Incident677;114600000;Lichtblick;Premium;Citrix;Germany;1000
+Incident688;34440000;Naturstrom;Premium;Mail;Netherlands;1000
+Incident694;62700000;Siemens;Normal;Citrix;Austria;1000
+Incident700;101220000;Bosch;Normal;Citrix;Austria;1000
+Incident704;85920000;BMW;High Priority;Citrix;Germany;1000
+Incident708;85260000;Daimler;Normal;SAP;Germany;1000
+Incident710;51600000;VW;Normal;Citrix;Germany;1000
+Incident716;69060000;Bayer;Premium;SAP;Germany;1000
+Incident717;50160000;Porsche;High Priority;Intranet;Switzerland;1000
+Incident722;36480000;Lichtblick;High Priority;SAP;Germany;1000
+Incident728;28380000;Naturstrom;Normal;Mail;Germany;1000
+Incident729;84000000;Siemens;Normal;Citrix;Switzerland;1000
+Incident743;107220000;Bosch;Normal;Citrix;Netherlands;1000
+Incident758;115980000;BMW;High Priority;Citrix;Germany;1000
+Incident766;39540000;Daimler;Normal;Mail;Austria;1000
+Incident770;110520000;VW;Normal;Citrix;Germany;1000
+Incident772;59340000;Bayer;Normal;Citrix;Switzerland;1000
+Incident778;84660000;Porsche;Normal;Citrix;Germany;1000
+Incident779;82560000;Lichtblick;Premium;SAP;Netherlands;1000
+Incident790;81300000;Naturstrom;High Priority;Citrix;Germany;1000
+Incident799;61080000;Siemens;Premium;SAP;Switzerland;1000
+Incident804;101100000;Bosch;Premium;Intranet;Switzerland;1000
+Incident805;49380000;BMW;Normal;Citrix;Austria;1000
+Incident809;80880000;Daimler;Normal;Citrix;Germany;1000
+Incident814;68400000;VW;High Priority;SAP;Germany;1000
+Incident821;61680000;Bayer;Normal;SAP;Germany;1000
+Incident826;42180000;Porsche;Normal;Citrix;Switzerland;1000
+Incident844;102360000;Lichtblick;Premium;Citrix;Germany;1000
+Incident848;60180000;Naturstrom;High Priority;Backup;Austria;1000
+Incident856;110700000;Siemens;High Priority;Citrix;Netherlands;1000
+Incident860;62340000;Bosch;Normal;Citrix;Austria;1000
+Incident865;90000000;BMW;Normal;SAP;Germany;1000
+Incident871;95400000;Daimler;Normal;SAP;Germany;1000
+Incident874;58680000;VW;High Priority;Mail;Switzerland;1000
+Incident897;83100000;Bayer;Normal;Citrix;Austria;1000
+Incident903;40800000;Porsche;Normal;Citrix;Germany;1000
+Incident911;143700000;Lichtblick;Normal;Citrix;Germany;1000
+Incident912;84660000;Naturstrom;Normal;SAP;Austria;1000
+Incident914;89400000;Siemens;Premium;SAP;Netherlands;1000
+Incident916;77820000;Bosch;High Priority;Citrix;Austria;1000
+Incident920;69480000;BMW;Premium;Citrix;Germany;1000
+Incident934;52260000;Daimler;Premium;Backup;Netherlands;1000
+Incident937;71700000;VW;Normal;Backup;Switzerland;1000
+Incident938;99780000;Bayer;Normal;Citrix;Netherlands;1000
+Incident943;14340000;Porsche;High Priority;SAP;Switzerland;1000
+Incident945;82800000;Lichtblick;Normal;SAP;Germany;1000
+Incident961;80280000;Naturstrom;Normal;SAP;Netherlands;1000
+Incident962;99720000;Siemens;Premium;Citrix;Austria;1000
+Incident965;101640000;Bosch;High Priority;Citrix;Germany;1000
+Incident966;113820000;BMW;High Priority;Intranet;Germany;1000
+Incident967;82560000;Daimler;Normal;SAP;Germany;1000
+Incident973;117540000;VW;Normal;Citrix;Germany;1000
+Incident979;80100000;Bayer;Normal;Citrix;Germany;1000
+Incident987;55380000;Porsche;High Priority;SAP;Netherlands;1000
+Incident991;85800000;Lichtblick;Normal;Citrix;Austria;1000
+Incident1000;61500000;Naturstrom;Normal;Citrix;Austria;1000
+Incident1012;75120000;Siemens;Normal;Backup;Germany;1000
+Incident1015;64800000;Bosch;Normal;Citrix;Netherlands;1000
+Incident1026;51360000;BMW;Premium;SAP;Germany;1000
+Incident1027;64740000;Daimler;High Priority;Citrix;Austria;1000
+Incident1034;67260000;VW;Premium;SAP;Germany;1000
+Incident1037;96780000;Bayer;Premium;Citrix;Germany;1000
+Incident1066;83760000;Porsche;Normal;SAP;Switzerland;1000
+Incident1076;101640000;Lichtblick;Normal;Backup;Germany;1000
+Incident1079;59700000;Naturstrom;High Priority;Citrix;Switzerland;1000
+Incident1085;91140000;Siemens;Normal;Citrix;Austria;1000
+Incident1088;98640000;Bosch;Normal;SAP;Germany;1000
+Incident1091;130920000;BMW;Premium;Citrix;Germany;1000
+Incident1092;70080000;Daimler;High Priority;Citrix;Austria;1000
+Incident1095;55680000;VW;High Priority;Intranet;Germany;1000
+Incident1096;105540000;Bayer;Normal;Citrix;Austria;1000
+Incident1097;43020000;Porsche;Normal;SAP;Germany;1000
+Incident1098;58680000;Lichtblick;Normal;Backup;Switzerland;1000
+Incident1101;72480000;Naturstrom;High Priority;Citrix;Germany;1000
+Incident1103;81240000;Siemens;Normal;Mail;Austria;1000
+Incident1108;32880000;Bosch;Normal;Citrix;Germany;1000
+Incident1111;57720000;BMW;Normal;Citrix;Austria;1000
+Incident1112;55020000;Daimler;Normal;Citrix;Netherlands;1000
+Incident1113;113040000;VW;Premium;Citrix;Germany;1000
+Incident1116;92220000;Bayer;High Priority;Mail;Germany;1000
+Incident1117;36720000;Porsche;Premium;SAP;Austria;1000
+Incident1124;69480000;Lichtblick;Premium;Citrix;Switzerland;1000
+Incident1125;111840000;Naturstrom;Normal;Citrix;Switzerland;1000
+Incident1130;54300000;Siemens;Normal;Citrix;Germany;1000
+Incident1132;61020000;Bosch;High Priority;Citrix;Germany;1000
+Incident1152;94920000;BMW;Normal;Citrix;Netherlands;1000
+Incident1157;58140000;Daimler;Normal;SAP;Germany;1000
+Incident1160;98940000;VW;Premium;Citrix;Germany;1000
+Incident1170;64680000;Bayer;High Priority;SAP;Netherlands;1000
+Incident1175;94440000;Porsche;High Priority;Citrix;Netherlands;1000
+Incident1193;91200000;Lichtblick;Normal;Citrix;Germany;1000
+Incident1196;91080000;Naturstrom;Normal;Citrix;Germany;1000
+Incident1200;80880000;Siemens;Normal;SAP;Austria;1000
+Incident1207;69660000;Bosch;High Priority;Citrix;Germany;1000
+Incident1237;118500000;BMW;Normal;Citrix;Netherlands;1000
+Incident1238;87600000;Daimler;Normal;Citrix;Netherlands;1000
+Incident1245;42600000;VW;Normal;SAP;Germany;1000
+Incident1255;101700000;Bayer;Normal;Citrix;Netherlands;1000
+Incident1257;91680000;Porsche;Premium;SAP;Austria;1000
+Incident1259;57480000;Lichtblick;High Priority;Mail;Austria;1000
+Incident1279;79680000;Naturstrom;Premium;Citrix;Austria;1000
+Incident1282;105600000;Siemens;Premium;Citrix;Austria;1000
+Incident1284;48180000;Bosch;Normal;Citrix;Switzerland;1000
+Incident1293;44940000;BMW;Normal;SAP;Germany;1000
+Incident1295;66000000;Daimler;High Priority;Citrix;Switzerland;1000
+Incident1300;83220000;VW;Normal;SAP;Netherlands;1000
+Incident1302;94440000;Bayer;Normal;Citrix;Netherlands;1000
+Incident1312;64980000;Porsche;Premium;SAP;Germany;1000
+Incident1318;60840000;Lichtblick;High Priority;SAP;Germany;1000
+Incident1319;119880000;Naturstrom;High Priority;Citrix;Netherlands;1000
+Incident1320;85260000;Siemens;Normal;Citrix;Germany;1000
+Incident1328;113100000;Bosch;Normal;Citrix;Switzerland;1000
+Incident1329;109200000;BMW;Normal;Citrix;Germany;1000
+Incident1333;53880000;Daimler;High Priority;SAP;Austria;1000
+Incident1338;125820000;VW;Normal;Citrix;Germany;1000
+Incident1340;95460000;Bayer;Normal;Citrix;Germany;1000
+Incident1341;82200000;Porsche;Normal;SAP;Netherlands;1000
+Incident1343;41760000;Lichtblick;Normal;SAP;Germany;1000
+Incident1350;68580000;Naturstrom;Premium;SAP;Netherlands;1000
+Incident1355;98220000;Siemens;High Priority;SAP;Switzerland;1000
+Incident1377;113160000;Bosch;Premium;SAP;Germany;1000
+Incident1394;42000000;BMW;Premium;SAP;Germany;1000
+Incident1397;62940000;Daimler;Normal;Mail;Germany;1000
+Incident1399;68460000;VW;Normal;SAP;Germany;1000
+Incident1401;70260000;Bayer;High Priority;Citrix;Germany;1000
+Incident1407;77280000;Porsche;Normal;Citrix;Netherlands;1000
+Incident1424;70140000;Lichtblick;Normal;Mail;Germany;1000
+Incident1427;115080000;Naturstrom;Premium;Citrix;Austria;1000
+Incident1429;54300000;Siemens;High Priority;Citrix;Netherlands;1000
+Incident1432;98700000;Bosch;High Priority;Citrix;Switzerland;1000
+Incident1434;103560000;BMW;Normal;Citrix;Switzerland;1000
+Incident1447;47520000;Daimler;Normal;Backup;Germany;1000
+Incident1452;121800000;VW;Normal;Citrix;Switzerland;1000
+Incident1457;100140000;Bayer;High Priority;Mail;Germany;1000
+Incident1458;129300000;Porsche;Normal;Citrix;Germany;1000
+Incident1459;79800000;Lichtblick;Normal;Citrix;Austria;1000
+Incident1460;75000000;Naturstrom;Normal;Citrix;Germany;1000
+Incident1466;53100000;Siemens;Normal;Citrix;Germany;1000
+Incident1469;66840000;Bosch;Premium;Backup;Germany;1000
+Incident1479;75240000;BMW;High Priority;SAP;Germany;1000
+Incident1486;44580000;Daimler;Premium;SAP;Austria;1000
+Incident1488;93120000;VW;Premium;Citrix;Austria;1000
+Incident1489;39360000;Bayer;Normal;SAP;Germany;1000
+Incident1490;100140000;Porsche;Normal;Mail;Germany;1000
+Incident1491;115560000;Lichtblick;High Priority;SAP;Netherlands;1000
+Incident1496;91860000;Naturstrom;Normal;Citrix;Austria;1000
+Incident1504;102420000;Siemens;Normal;Citrix;Germany;1000
+Incident1506;93480000;Bosch;Premium;Mail;Austria;1000
+Incident1509;77100000;BMW;High Priority;Citrix;Germany;1000
+Incident1513;60420000;Daimler;High Priority;Citrix;Netherlands;1000
+Incident1519;130200000;VW;Normal;Citrix;Switzerland;1000
+Incident1534;103560000;Bayer;Normal;SAP;Switzerland;1000
+Incident1538;105600000;Porsche;Normal;Citrix;Germany;1000
+Incident1543;109260000;Lichtblick;High Priority;Citrix;Netherlands;1000
+Incident1554;134400000;Naturstrom;Normal;SAP;Netherlands;1000
+Incident1566;81960000;Siemens;Normal;Citrix;Germany;1000
+Incident1568;71580000;Bosch;Normal;Citrix;Germany;1000
+Incident1572;77040000;BMW;Normal;Citrix;Germany;1000
+Incident1573;48480000;Daimler;Premium;Backup;Germany;1000
+Incident1583;81480000;VW;High Priority;Citrix;Germany;1000
+Incident1588;81300000;Bayer;Premium;SAP;Netherlands;1000
+Incident1603;97440000;Porsche;Premium;Citrix;Switzerland;1000
+Incident1604;72540000;Lichtblick;Normal;Citrix;Austria;1000
+Incident1605;73800000;Naturstrom;Normal;Mail;Austria;1000
+Incident1606;54960000;Siemens;High Priority;Citrix;Germany;1000
+Incident1609;50100000;Bosch;Normal;Citrix;Germany;1000
+Incident1611;94860000;BMW;Normal;Citrix;Germany;1000
+Incident1616;66720000;Daimler;Premium;Backup;Switzerland;1000
+Incident1618;78060000;VW;High Priority;Citrix;Netherlands;1000
+Incident1619;53580000;Bayer;High Priority;SAP;Germany;1000
+Incident1630;61920000;Porsche;Normal;Citrix;Austria;1000
+Incident1631;59400000;Lichtblick;Normal;Citrix;Switzerland;1000
+Incident1651;43440000;Naturstrom;Normal;SAP;Netherlands;1000
+Incident1654;50880000;Siemens;High Priority;SAP;Germany;1000
+Incident1665;89460000;Bosch;Normal;Citrix;Germany;1000
+Incident1666;54960000;BMW;Normal;SAP;Austria;1000
+Incident1667;74160000;Daimler;Normal;Citrix;Germany;1000
+Incident1682;60660000;VW;Normal;Citrix;Austria;1000
+Incident1693;102600000;Bayer;Premium;Citrix;Austria;1000
+Incident1695;67740000;Porsche;High Priority;SAP;Netherlands;1000
+Incident1703;95100000;Lichtblick;Premium;Citrix;Germany;1000
+Incident1710;106560000;Naturstrom;Premium;SAP;Netherlands;1000
+Incident1713;67020000;Siemens;Normal;SAP;Germany;1000
+Incident1714;69840000;Bosch;Normal;SAP;Netherlands;1000
+Incident1715;72060000;BMW;High Priority;Backup;Austria;1000
+Incident1721;49680000;Daimler;Normal;Mail;Switzerland;1000
+Incident1731;39780000;VW;Normal;Mail;Germany;1000
+Incident1732;125400000;Bayer;Premium;Citrix;Germany;1000
+Incident1733;85680000;Porsche;High Priority;SAP;Germany;1000
+Incident1752;81600000;Lichtblick;High Priority;Citrix;Germany;1000
+Incident1796;39060000;Naturstrom;Normal;Citrix;Switzerland;1000
+Incident1799;35520000;Siemens;Normal;SAP;Switzerland;1000
+Incident1800;37860000;Bosch;Normal;Intranet;Austria;1000
+Incident1801;51420000;BMW;High Priority;Mail;Netherlands;1000
+Incident1802;90060000;Daimler;Normal;Citrix;Germany;1000
+Incident1810;68400000;VW;Normal;Citrix;Austria;1000
+Incident1814;80340000;Bayer;Normal;SAP;Austria;1000
+Incident1815;46860000;Porsche;Normal;Mail;Germany;1000
+Incident1820;51780000;Lichtblick;Premium;Citrix;Netherlands;1000
+Incident1831;61500000;Naturstrom;High Priority;SAP;Netherlands;1000
+Incident1845;67500000;Siemens;Premium;Citrix;Germany;1000
+Incident1849;121740000;Bosch;Premium;Citrix;Austria;1000
+Incident1851;77400000;BMW;Normal;Backup;Germany;1000
+Incident1855;117240000;Daimler;Normal;Citrix;Netherlands;1000
+Incident1856;75600000;VW;High Priority;Citrix;Germany;1000
+Incident1858;91920000;Bayer;Normal;Citrix;Austria;1000
+Incident1863;115080000;Porsche;Normal;Citrix;Netherlands;1000
+Incident1866;107820000;Lichtblick;Premium;Citrix;Germany;1000
+Incident1879;24300000;Naturstrom;High Priority;SAP;Germany;1000
+Incident1883;99840000;Siemens;High Priority;Citrix;Germany;1000
+Incident1893;54840000;Bosch;Normal;SAP;Germany;1000
+Incident1896;37260000;BMW;Normal;Citrix;Austria;1000
+Incident1901;106440000;Daimler;Normal;Citrix;Germany;1000
+Incident1903;109080000;VW;High Priority;Citrix;Netherlands;1000
+Incident1910;137280000;Bayer;Normal;Citrix;Germany;1000
+Incident1911;104040000;Porsche;Normal;Citrix;Germany;1000
+Incident1916;71340000;Lichtblick;Normal;Citrix;Switzerland;1000
+Incident1917;105840000;Naturstrom;Normal;SAP;Netherlands;1000
+Incident1919;73320000;Siemens;Premium;Citrix;Netherlands;1000
+Incident1920;151860000;Bosch;High Priority;Citrix;Austria;1000
+Incident1932;90420000;BMW;Premium;SAP;Germany;1000
+Incident1937;51300000;Daimler;Premium;Intranet;Netherlands;1000
+Incident1938;74520000;VW;Normal;Citrix;Austria;1000
+Incident1945;102660000;Bayer;Normal;Citrix;Austria;1000
+Incident1947;53820000;Porsche;High Priority;Mail;Germany;1000
+Incident1956;68580000;Lichtblick;Normal;SAP;Germany;1000
+Incident1961;68520000;Naturstrom;Normal;Citrix;Netherlands;1000
+Incident1963;64680000;Siemens;Premium;Mail;Netherlands;1000
+Incident1965;43740000;Bosch;High Priority;Mail;Germany;1000
+Incident1966;57960000;BMW;High Priority;SAP;Netherlands;1000
+Incident1970;109260000;Daimler;Normal;Citrix;Germany;1000
+Incident1981;77700000;VW;Normal;SAP;Germany;1000
+Incident1983;70320000;Bayer;Normal;Citrix;Switzerland;1000
+Incident1986;79800000;Porsche;High Priority;Mail;Germany;1000
+Incident1992;88740000;Lichtblick;Normal;Citrix;Germany;1000
+Incident17;9960000;Naturstrom;Normal;Mail;Germany;20000
+Incident18;10140000;Siemens;Normal;Mail;Germany;20000
+Incident25;10320000;Bosch;Normal;Mail;Germany;20000
+Incident33;9000000;BMW;Premium;Mail;Germany;20000
+Incident54;9900000;Daimler;High Priority;Mail;Netherlands;20000
+Incident58;10080000;VW;Premium;Mail;Germany;20000
+Incident61;10080000;Bayer;Premium;Mail;Germany;20000
+Incident64;10200000;Porsche;Normal;Mail;Netherlands;20000
+Incident67;10020000;Lichtblick;Normal;Mail;Germany;20000
+Incident76;10740000;Naturstrom;High Priority;Mail;Germany;20000
+Incident99;11160000;Siemens;Normal;Mail;Netherlands;20000
+Incident102;9540000;Bosch;Normal;Mail;Netherlands;20000
+Incident114;10140000;BMW;Premium;Mail;Netherlands;20000
+Incident116;9600000;Daimler;High Priority;Mail;Germany;20000
+Incident126;10440000;VW;High Priority;Mail;Netherlands;20000
+Incident129;10680000;Bayer;Normal;Mail;Netherlands;20000
+Incident130;10620000;Porsche;Normal;Mail;Germany;20000
+Incident135;10020000;Lichtblick;Normal;Mail;Netherlands;20000
+Incident153;10260000;Naturstrom;High Priority;Mail;Germany;20000
+Incident156;10560000;Siemens;Normal;Mail;Netherlands;20000
+Incident157;9360000;Bosch;Normal;Mail;Germany;20000
+Incident160;9780000;BMW;Normal;Mail;Germany;20000
+Incident178;9840000;Daimler;Normal;Mail;Netherlands;20000
+Incident186;9660000;VW;Premium;Mail;Germany;20000
+Incident198;10140000;Bayer;High Priority;Mail;Netherlands;20000
+Incident202;9000000;Porsche;Premium;Mail;Netherlands;20000
+Incident204;9120000;Lichtblick;Premium;Mail;Netherlands;20000
+Incident219;10140000;Naturstrom;Normal;Mail;Netherlands;20000
+Incident239;10260000;Siemens;Normal;Mail;Netherlands;20000
+Incident242;11340000;Bosch;High Priority;Mail;Netherlands;20000
+Incident252;10380000;BMW;Normal;Mail;Germany;20000
+Incident262;9900000;Daimler;Normal;Mail;Germany;20000
+Incident268;9720000;VW;Premium;Mail;Netherlands;20000
+Incident269;9420000;Bayer;High Priority;Mail;Netherlands;20000
+Incident291;10260000;Porsche;High Priority;Mail;Netherlands;20000
+Incident295;9300000;Lichtblick;Normal;Mail;Germany;20000
+Incident296;10080000;Naturstrom;Normal;Mail;Germany;20000
+Incident307;9480000;Siemens;Normal;Mail;Germany;20000
+Incident310;10200000;Bosch;High Priority;Mail;Germany;20000
+Incident332;10920000;BMW;Normal;Mail;Germany;20000
+Incident337;10620000;Daimler;Normal;Mail;Germany;20000
+Incident345;10680000;VW;Normal;Mail;Germany;20000
+Incident349;10260000;Bayer;Normal;Mail;Germany;20000
+Incident360;9120000;Porsche;Premium;Mail;Germany;20000
+Incident369;9060000;Lichtblick;High Priority;Mail;Germany;20000
+Incident379;8940000;Naturstrom;Premium;Mail;Germany;20000
+Incident381;9360000;Siemens;Premium;Mail;Netherlands;20000
+Incident387;10740000;Bosch;Normal;Mail;Germany;20000
+Incident396;10140000;BMW;Normal;Mail;Netherlands;20000
+Incident400;9540000;Daimler;High Priority;Mail;Netherlands;20000
+Incident415;10800000;VW;Normal;Mail;Netherlands;20000
+Incident428;10080000;Bayer;Normal;Mail;Germany;20000
+Incident430;10920000;Porsche;Premium;Mail;Netherlands;20000
+Incident437;8940000;Lichtblick;High Priority;Mail;Germany;20000
+Incident464;10440000;Naturstrom;High Priority;Mail;Germany;20000
+Incident481;9660000;Siemens;Normal;Mail;Germany;20000
+Incident483;9300000;Bosch;Normal;Mail;Germany;20000
+Incident487;9900000;BMW;Normal;Mail;Germany;20000
+Incident489;9840000;Daimler;High Priority;Mail;Germany;20000
+Incident492;9360000;VW;Normal;Mail;Netherlands;20000
+Incident494;10020000;Bayer;Normal;Mail;Netherlands;20000
+Incident496;9180000;Porsche;Normal;Mail;Netherlands;20000
+Incident497;10320000;Lichtblick;Normal;Mail;Netherlands;20000
+Incident498;10500000;Naturstrom;Premium;Mail;Netherlands;20000
+Incident499;9360000;Siemens;High Priority;Mail;Germany;20000
+Incident500;10200000;Bosch;Premium;Mail;Netherlands;20000
+Incident509;10200000;BMW;Premium;Mail;Germany;20000
+Incident519;9960000;Daimler;Normal;Mail;Netherlands;20000
+Incident528;10140000;VW;Normal;Mail;Germany;20000
+Incident529;10560000;Bayer;High Priority;Mail;Germany;20000
+Incident536;10140000;Porsche;Normal;Mail;Netherlands;20000
+Incident551;10380000;Lichtblick;Normal;Mail;Netherlands;20000
+Incident554;10440000;Naturstrom;Premium;Mail;Germany;20000
+Incident568;8820000;Siemens;High Priority;Mail;Netherlands;20000
+Incident570;10020000;Bosch;High Priority;Mail;Netherlands;20000
+Incident582;10440000;BMW;Normal;Mail;Netherlands;20000
+Incident587;9720000;Daimler;Normal;Mail;Germany;20000
+Incident606;9240000;VW;Normal;Mail;Netherlands;20000
+Incident613;10500000;Bayer;High Priority;Mail;Germany;20000
+Incident615;10500000;Porsche;Normal;Mail;Germany;20000
+Incident616;11340000;Lichtblick;Normal;Mail;Germany;20000
+Incident630;10200000;Naturstrom;Normal;Mail;Germany;20000
+Incident637;10860000;Siemens;Normal;Mail;Germany;20000
+Incident655;8820000;Bosch;Premium;Mail;Netherlands;20000
+Incident663;10020000;BMW;High Priority;Mail;Netherlands;20000
+Incident668;10380000;Daimler;Premium;Mail;Netherlands;20000
+Incident678;9420000;VW;Premium;Mail;Germany;20000
+Incident699;9960000;Bayer;Normal;Mail;Germany;20000
+Incident712;9660000;Porsche;Normal;Mail;Netherlands;20000
+Incident727;10020000;Lichtblick;High Priority;Mail;Germany;20000
+Incident734;9240000;Naturstrom;Normal;Mail;Germany;20000
+Incident737;10740000;Siemens;Normal;Mail;Netherlands;20000
+Incident740;9120000;Bosch;Premium;Mail;Germany;20000
+Incident753;10140000;BMW;High Priority;Mail;Netherlands;20000
+Incident759;9900000;Daimler;High Priority;Mail;Netherlands;20000
+Incident767;10500000;VW;Normal;Mail;Netherlands;20000
+Incident769;9300000;Bayer;Normal;Mail;Germany;20000
+Incident786;9240000;Porsche;Normal;Mail;Germany;20000
+Incident791;9420000;Lichtblick;High Priority;Mail;Germany;20000
+Incident801;10140000;Naturstrom;Normal;Mail;Germany;20000
+Incident850;10380000;Siemens;Normal;Mail;Germany;20000
+Incident859;10500000;Bosch;Normal;Mail;Germany;20000
+Incident875;9420000;BMW;Normal;Mail;Germany;20000
+Incident880;8760000;Daimler;Premium;Mail;Netherlands;20000
+Incident890;9360000;VW;High Priority;Mail;Germany;20000
+Incident893;10140000;Bayer;Premium;Mail;Germany;20000
+Incident908;9960000;Porsche;Premium;Mail;Germany;20000
+Incident915;9960000;Lichtblick;Normal;Mail;Germany;20000
+Incident923;10440000;Naturstrom;Normal;Mail;Germany;20000
+Incident952;9540000;Siemens;High Priority;Mail;Netherlands;20000
+Incident969;8580000;Bosch;Normal;Mail;Germany;20000
+Incident975;10500000;BMW;Normal;Mail;Germany;20000
+Incident982;9240000;Daimler;Premium;Mail;Netherlands;20000
+Incident990;11160000;VW;High Priority;Mail;Germany;20000
+Incident1003;10380000;Bayer;High Priority;Mail;Germany;20000
+Incident1007;10860000;Porsche;Normal;Mail;Germany;20000
+Incident1010;11100000;Lichtblick;Normal;Mail;Germany;20000
+Incident1017;8460000;Naturstrom;Normal;Mail;Germany;20000
+Incident1018;9000000;Siemens;High Priority;Mail;Netherlands;20000
+Incident1021;10080000;Bosch;Normal;Mail;Netherlands;20000
+Incident1024;10800000;BMW;Normal;Mail;Netherlands;20000
+Incident1030;10080000;Daimler;Normal;Mail;Germany;20000
+Incident1032;10200000;VW;Normal;Mail;Germany;20000
+Incident1036;10260000;Bayer;Premium;Mail;Germany;20000
+Incident1038;10080000;Porsche;High Priority;Mail;Germany;20000
+Incident1044;10320000;Lichtblick;Premium;Mail;Netherlands;20000
+Incident1052;10020000;Naturstrom;Premium;Mail;Germany;20000
+Incident1055;9960000;Siemens;Normal;Mail;Germany;20000
+Incident1063;9900000;Bosch;Normal;Mail;Germany;20000
+Incident1068;8880000;BMW;High Priority;Mail;Germany;20000
+Incident1081;9600000;Daimler;Normal;Mail;Netherlands;20000
+Incident1093;10080000;VW;Normal;Mail;Netherlands;20000
+Incident1104;9600000;Bayer;Premium;Mail;Germany;20000
+Incident1127;10020000;Porsche;High Priority;Mail;Germany;20000
+Incident1129;9060000;Lichtblick;High Priority;Mail;Germany;20000
+Incident1165;9540000;Naturstrom;Normal;Mail;Netherlands;20000
+Incident1176;9600000;Siemens;Normal;Mail;Netherlands;20000
+Incident1187;8820000;Bosch;Normal;Mail;Netherlands;20000
+Incident1188;9600000;BMW;High Priority;Mail;Netherlands;20000
+Incident1190;9180000;Daimler;Normal;Mail;Netherlands;20000
+Incident1198;11400000;VW;Normal;Mail;Germany;20000
+Incident1214;9540000;Bayer;Normal;Mail;Netherlands;20000
+Incident1243;10140000;Porsche;Normal;Mail;Netherlands;20000
+Incident1260;10560000;Lichtblick;Premium;Mail;Germany;20000
+Incident1268;9240000;Naturstrom;High Priority;Mail;Germany;20000
+Incident1283;9360000;Siemens;Premium;Mail;Germany;20000
+Incident1285;9840000;Bosch;Premium;Mail;Germany;20000
+Incident1286;10200000;BMW;Normal;Mail;Germany;20000
+Incident1299;10380000;Daimler;Normal;Mail;Netherlands;20000
+Incident1309;9660000;VW;High Priority;Mail;Netherlands;20000
+Incident1315;10920000;Bayer;Normal;Mail;Netherlands;20000
+Incident1344;8760000;Porsche;Normal;Mail;Netherlands;20000
+Incident1346;11220000;Lichtblick;Premium;Mail;Germany;20000
+Incident1347;10680000;Naturstrom;High Priority;Mail;Germany;20000
+Incident1352;9240000;Siemens;High Priority;Mail;Netherlands;20000
+Incident1366;9840000;Bosch;Normal;Mail;Germany;20000
+Incident1371;10500000;BMW;Normal;Mail;Germany;20000
+Incident1379;9420000;Daimler;Normal;Mail;Germany;20000
+Incident1386;9660000;VW;High Priority;Mail;Netherlands;20000
+Incident1387;9600000;Bayer;Normal;Mail;Netherlands;20000
+Incident1412;8940000;Porsche;Normal;Mail;Germany;20000
+Incident1428;9780000;Lichtblick;Normal;Mail;Netherlands;20000
+Incident1451;9720000;Naturstrom;Normal;Mail;Germany;20000
+Incident1472;9540000;Siemens;Premium;Mail;Germany;20000
+Incident1476;8880000;Bosch;High Priority;Mail;Netherlands;20000
+Incident1483;9720000;BMW;Premium;Mail;Germany;20000
+Incident1484;9360000;Daimler;Premium;Mail;Germany;20000
+Incident1493;9660000;VW;Normal;Mail;Germany;20000
+Incident1499;10740000;Bayer;Normal;Mail;Netherlands;20000
+Incident1500;11280000;Porsche;High Priority;Mail;Germany;20000
+Incident1502;9840000;Lichtblick;Normal;Mail;Netherlands;20000
+Incident1512;10980000;Naturstrom;Normal;Mail;Germany;20000
+Incident1515;8940000;Siemens;Premium;Mail;Germany;20000
+Incident1522;10080000;Bosch;High Priority;Mail;Germany;20000
+Incident1523;9840000;BMW;High Priority;Mail;Germany;20000
+Incident1526;10260000;Daimler;Normal;Mail;Germany;20000
+Incident1531;10140000;VW;Normal;Mail;Germany;20000
+Incident1535;10020000;Bayer;Normal;Mail;Germany;20000
+Incident1559;9240000;Porsche;High Priority;Mail;Netherlands;20000
+Incident1577;9180000;Lichtblick;Normal;Mail;Netherlands;20000
+Incident1578;10740000;Naturstrom;Normal;Mail;Germany;20000
+Incident1589;9360000;Siemens;Normal;Mail;Germany;20000
+Incident1591;9300000;Bosch;Normal;Mail;Germany;20000
+Incident1593;10380000;BMW;Premium;Mail;Netherlands;20000
+Incident1607;9840000;Daimler;High Priority;Mail;Germany;20000
+Incident1624;10680000;VW;Premium;Mail;Netherlands;20000
+Incident1627;9180000;Bayer;Premium;Mail;Netherlands;20000
+Incident1644;9420000;Porsche;Normal;Mail;Netherlands;20000
+Incident1648;9060000;Lichtblick;Normal;Mail;Netherlands;20000
+Incident1658;9060000;Naturstrom;High Priority;Mail;Germany;20000
+Incident1660;9600000;Siemens;Normal;Mail;Netherlands;20000
+Incident1670;8400000;Bosch;Normal;Mail;Germany;20000
+Incident1673;9720000;BMW;Premium;Mail;Netherlands;20000
+Incident1678;11160000;Daimler;High Priority;Mail;Germany;20000
+Incident1684;9840000;VW;High Priority;Mail;Netherlands;20000
+Incident1692;9300000;Bayer;Normal;Mail;Netherlands;20000
+Incident1698;10500000;Porsche;Normal;Mail;Netherlands;20000
+Incident1702;10800000;Lichtblick;Normal;Mail;Germany;20000
+Incident1716;10080000;Naturstrom;High Priority;Mail;Netherlands;20000
+Incident1717;10440000;Siemens;Normal;Mail;Germany;20000
+Incident1723;10440000;Bosch;Normal;Mail;Germany;20000
+Incident1743;10260000;BMW;Normal;Mail;Germany;20000
+Incident1773;9660000;Daimler;Normal;Mail;Germany;20000
+Incident1777;8400000;VW;Premium;Mail;Germany;20000
+Incident1791;10200000;Bayer;High Priority;Mail;Netherlands;20000
+Incident1803;10980000;Porsche;Premium;Mail;Germany;20000
+Incident1812;9720000;Lichtblick;Premium;Mail;Germany;20000
+Incident1813;9180000;Naturstrom;Normal;Mail;Netherlands;20000
+Incident1821;9840000;Siemens;Normal;Mail;Netherlands;20000
+Incident1825;9060000;Bosch;High Priority;Mail;Germany;20000
+Incident1832;10620000;BMW;Normal;Mail;Germany;20000
+Incident1837;10800000;Daimler;Normal;Mail;Germany;20000
+Incident1838;10140000;VW;Premium;Mail;Germany;20000
+Incident1839;9480000;Bayer;High Priority;Mail;Netherlands;20000
+Incident1840;10920000;Porsche;High Priority;Mail;Netherlands;20000
+Incident1848;9600000;Lichtblick;Normal;Mail;Netherlands;20000
+Incident1852;10140000;Naturstrom;Normal;Mail;Netherlands;20000
+Incident1853;10260000;Siemens;Normal;Mail;Germany;20000
+Incident1864;10200000;Bosch;High Priority;Mail;Germany;20000
+Incident1885;10920000;BMW;Normal;Mail;Netherlands;20000
+Incident1895;9480000;Daimler;Normal;Mail;Germany;20000
+Incident1908;9660000;VW;Normal;Mail;Netherlands;20000
+Incident1922;10380000;Bayer;Normal;Mail;Germany;20000
+Incident1927;9060000;Porsche;Premium;Mail;Netherlands;20000
+Incident1946;8220000;Lichtblick;High Priority;Mail;Germany;20000
+Incident1949;10620000;Naturstrom;Premium;Mail;Germany;20000
+Incident1953;10680000;Siemens;Premium;Mail;Germany;20000
+Incident1972;10080000;Bosch;Normal;Mail;Netherlands;20000
+Incident1980;10320000;BMW;Normal;Mail;Germany;20000
+Incident1982;10080000;Daimler;High Priority;Mail;Netherlands;20000
+Incident1995;10080000;VW;Normal;Mail;Germany;20000
+Incident8;105180000;Bayer;Normal;SAP;Austria;2000
+Incident20;52320000;Porsche;Premium;SAP;Austria;2000
+Incident72;125760000;Lichtblick;High Priority;SAP;Austria;2000
+Incident89;83700000;Naturstrom;High Priority;SAP;Austria;2000
+Incident105;96900000;Siemens;Normal;SAP;Austria;2000
+Incident106;79560000;Bosch;Normal;SAP;Austria;2000
+Incident136;126240000;BMW;Normal;SAP;Austria;2000
+Incident140;61800000;Daimler;High Priority;SAP;Austria;2000
+Incident145;69960000;VW;Normal;SAP;Austria;2000
+Incident146;85560000;Bayer;Normal;SAP;Austria;2000
+Incident162;53880000;Porsche;Normal;SAP;Austria;2000
+Incident164;61920000;Lichtblick;Normal;SAP;Austria;2000
+Incident172;95220000;Naturstrom;Premium;SAP;Austria;2000
+Incident182;47400000;Siemens;High Priority;SAP;Austria;2000
+Incident189;102000000;Bosch;Premium;SAP;Austria;2000
+Incident212;21900000;BMW;Premium;SAP;Austria;2000
+Incident229;86760000;Daimler;Normal;SAP;Austria;2000
+Incident230;100740000;VW;Normal;SAP;Austria;2000
+Incident234;84420000;Bayer;High Priority;SAP;Austria;2000
+Incident248;84540000;Porsche;Normal;SAP;Austria;2000
+Incident251;54480000;Lichtblick;Normal;SAP;Austria;2000
+Incident270;118260000;Naturstrom;Premium;SAP;Austria;2000
+Incident284;90900000;Siemens;High Priority;SAP;Austria;2000
+Incident285;75900000;Bosch;High Priority;SAP;Austria;2000
+Incident286;131580000;BMW;Normal;SAP;Austria;2000
+Incident297;72600000;Daimler;Normal;SAP;Austria;2000
+Incident298;79260000;VW;Normal;SAP;Austria;2000
+Incident302;56040000;Bayer;High Priority;SAP;Austria;2000
+Incident304;69300000;Porsche;Normal;SAP;Austria;2000
+Incident305;76260000;Lichtblick;Normal;SAP;Austria;2000
+Incident336;57360000;Naturstrom;Normal;SAP;Austria;2000
+Incident338;106860000;Siemens;Normal;SAP;Austria;2000
+Incident339;55860000;Bosch;Premium;SAP;Austria;2000
+Incident342;110340000;BMW;High Priority;SAP;Austria;2000
+Incident346;94860000;Daimler;Premium;SAP;Austria;2000
+Incident348;131940000;VW;Premium;SAP;Austria;2000
+Incident359;100500000;Bayer;Normal;SAP;Austria;2000
+Incident382;81600000;Porsche;Normal;SAP;Austria;2000
+Incident406;72540000;Lichtblick;High Priority;SAP;Austria;2000
+Incident431;106080000;Naturstrom;Normal;SAP;Austria;2000
+Incident434;83760000;Siemens;Normal;SAP;Austria;2000
+Incident447;89460000;Bosch;Premium;SAP;Austria;2000
+Incident461;45960000;BMW;High Priority;SAP;Austria;2000
+Incident463;107100000;Daimler;High Priority;SAP;Austria;2000
+Incident469;100320000;VW;Normal;SAP;Austria;2000
+Incident482;45660000;Bayer;Normal;SAP;Austria;2000
+Incident490;57000000;Porsche;Normal;SAP;Austria;2000
+Incident503;61200000;Lichtblick;High Priority;SAP;Austria;2000
+Incident520;81060000;Naturstrom;Normal;SAP;Austria;2000
+Incident525;75960000;Siemens;Normal;SAP;Austria;2000
+Incident530;100500000;Bosch;Normal;SAP;Austria;2000
+Incident533;76920000;BMW;Normal;SAP;Austria;2000
+Incident548;110940000;Daimler;Premium;SAP;Austria;2000
+Incident553;163740000;VW;High Priority;SAP;Austria;2000
+Incident556;117000000;Bayer;Premium;SAP;Austria;2000
+Incident562;22380000;Porsche;Premium;SAP;Austria;2000
+Incident566;105960000;Lichtblick;Normal;SAP;Austria;2000
+Incident597;106380000;Naturstrom;Normal;SAP;Austria;2000
+Incident600;131400000;Siemens;High Priority;SAP;Austria;2000
+Incident608;70500000;Bosch;Normal;SAP;Austria;2000
+Incident611;110940000;BMW;Normal;SAP;Austria;2000
+Incident624;91980000;Daimler;Premium;SAP;Austria;2000
+Incident631;84660000;VW;High Priority;SAP;Austria;2000
+Incident641;80220000;Bayer;High Priority;SAP;Austria;2000
+Incident657;100080000;Porsche;Normal;SAP;Austria;2000
+Incident679;85980000;Lichtblick;Normal;SAP;Austria;2000
+Incident681;77580000;Naturstrom;Normal;SAP;Austria;2000
+Incident685;49560000;Siemens;High Priority;SAP;Austria;2000
+Incident696;119580000;Bosch;Normal;SAP;Austria;2000
+Incident702;63180000;BMW;Normal;SAP;Austria;2000
+Incident703;43920000;Daimler;Normal;SAP;Austria;2000
+Incident715;107460000;VW;Normal;SAP;Austria;2000
+Incident725;102540000;Bayer;Premium;SAP;Austria;2000
+Incident726;81360000;Porsche;High Priority;SAP;Austria;2000
+Incident733;91260000;Lichtblick;Premium;SAP;Austria;2000
+Incident749;66600000;Naturstrom;Premium;SAP;Austria;2000
+Incident751;67200000;Siemens;Normal;SAP;Austria;2000
+Incident754;47520000;Bosch;Normal;SAP;Austria;2000
+Incident756;112080000;BMW;High Priority;SAP;Austria;2000
+Incident782;112620000;Daimler;Normal;SAP;Austria;2000
+Incident787;43860000;VW;Normal;SAP;Austria;2000
+Incident792;39600000;Bayer;Premium;SAP;Austria;2000
+Incident793;111180000;Porsche;High Priority;SAP;Austria;2000
+Incident800;124560000;Lichtblick;High Priority;SAP;Austria;2000
+Incident806;26940000;Naturstrom;Normal;SAP;Austria;2000
+Incident815;106380000;Siemens;Normal;SAP;Austria;2000
+Incident829;59520000;Bosch;Normal;SAP;Austria;2000
+Incident834;82320000;BMW;High Priority;SAP;Austria;2000
+Incident840;59640000;Daimler;Normal;SAP;Austria;2000
+Incident849;91200000;VW;Normal;SAP;Austria;2000
+Incident851;104580000;Bayer;Normal;SAP;Austria;2000
+Incident854;92100000;Porsche;Normal;SAP;Austria;2000
+Incident873;59460000;Lichtblick;Premium;SAP;Austria;2000
+Incident876;101220000;Naturstrom;High Priority;SAP;Austria;2000
+Incident881;51720000;Siemens;Premium;SAP;Austria;2000
+Incident884;66060000;Bosch;Premium;SAP;Austria;2000
+Incident902;96780000;BMW;Normal;SAP;Austria;2000
+Incident905;88440000;Daimler;Normal;SAP;Austria;2000
+Incident913;79560000;VW;High Priority;SAP;Austria;2000
+Incident919;125340000;Bayer;Normal;SAP;Austria;2000
+Incident930;27000000;Porsche;Normal;SAP;Austria;2000
+Incident935;50100000;Lichtblick;Premium;SAP;Austria;2000
+Incident953;123600000;Naturstrom;High Priority;SAP;Austria;2000
+Incident956;55500000;Siemens;High Priority;SAP;Austria;2000
+Incident957;64500000;Bosch;Normal;SAP;Austria;2000
+Incident971;20220000;BMW;Normal;SAP;Austria;2000
+Incident994;44820000;Daimler;Normal;SAP;Austria;2000
+Incident997;52320000;VW;High Priority;SAP;Austria;2000
+Incident1005;42420000;Bayer;Normal;SAP;Austria;2000
+Incident1028;67440000;Porsche;Normal;SAP;Austria;2000
+Incident1043;91080000;Lichtblick;Normal;SAP;Austria;2000
+Incident1045;81000000;Naturstrom;Normal;SAP;Austria;2000
+Incident1048;90180000;Siemens;Premium;SAP;Austria;2000
+Incident1056;113940000;Bosch;High Priority;SAP;Austria;2000
+Incident1062;45660000;BMW;Premium;SAP;Austria;2000
+Incident1065;94740000;Daimler;Premium;SAP;Austria;2000
+Incident1071;102600000;VW;Normal;SAP;Austria;2000
+Incident1077;146400000;Bayer;Normal;SAP;Austria;2000
+Incident1110;62160000;Porsche;High Priority;SAP;Austria;2000
+Incident1119;80460000;Lichtblick;Normal;SAP;Austria;2000
+Incident1137;67380000;Naturstrom;Normal;SAP;Austria;2000
+Incident1146;51900000;Siemens;Premium;SAP;Austria;2000
+Incident1156;119640000;Bosch;High Priority;SAP;Austria;2000
+Incident1161;84780000;BMW;High Priority;SAP;Austria;2000
+Incident1182;72420000;Daimler;Normal;SAP;Austria;2000
+Incident1183;124320000;VW;Normal;SAP;Austria;2000
+Incident1186;83760000;Bayer;Normal;SAP;Austria;2000
+Incident1234;77400000;Porsche;High Priority;SAP;Austria;2000
+Incident1246;56880000;Lichtblick;Normal;SAP;Austria;2000
+Incident1252;100920000;Naturstrom;Normal;SAP;Austria;2000
+Incident1261;40440000;Siemens;Normal;SAP;Austria;2000
+Incident1262;42300000;Bosch;Normal;SAP;Austria;2000
+Incident1264;55680000;BMW;Premium;SAP;Austria;2000
+Incident1267;17640000;Daimler;High Priority;SAP;Austria;2000
+Incident1275;76200000;VW;Premium;SAP;Austria;2000
+Incident1278;36180000;Bayer;Premium;SAP;Austria;2000
+Incident1294;100200000;Porsche;Normal;SAP;Austria;2000
+Incident1330;123600000;Lichtblick;Normal;SAP;Austria;2000
+Incident1339;57420000;Naturstrom;High Priority;SAP;Austria;2000
+Incident1345;44160000;Siemens;Normal;SAP;Austria;2000
+Incident1363;105960000;Bosch;Normal;SAP;Austria;2000
+Incident1368;97620000;BMW;Premium;SAP;Austria;2000
+Incident1378;54300000;Daimler;High Priority;SAP;Austria;2000
+Incident1384;48420000;VW;High Priority;SAP;Austria;2000
+Incident1390;113640000;Bayer;Normal;SAP;Austria;2000
+Incident1395;96420000;Porsche;Normal;SAP;Austria;2000
+Incident1405;57840000;Lichtblick;Normal;SAP;Austria;2000
+Incident1416;87720000;Naturstrom;High Priority;SAP;Austria;2000
+Incident1419;94380000;Siemens;Normal;SAP;Austria;2000
+Incident1420;72360000;Bosch;Normal;SAP;Austria;2000
+Incident1437;85020000;BMW;Normal;SAP;Austria;2000
+Incident1441;59820000;Daimler;Normal;SAP;Austria;2000
+Incident1445;88320000;VW;Premium;SAP;Austria;2000
+Incident1464;123120000;Bayer;High Priority;SAP;Austria;2000
+Incident1473;47400000;Porsche;Premium;SAP;Austria;2000
+Incident1482;61380000;Lichtblick;Premium;SAP;Austria;2000
+Incident1530;81840000;Naturstrom;Normal;SAP;Austria;2000
+Incident1536;106920000;Siemens;Normal;SAP;Austria;2000
+Incident1556;58920000;Bosch;High Priority;SAP;Austria;2000
+Incident1570;88800000;BMW;Normal;SAP;Austria;2000
+Incident1576;138540000;Daimler;Normal;SAP;Austria;2000
+Incident1586;67440000;VW;Premium;SAP;Austria;2000
+Incident1590;76620000;Bayer;High Priority;SAP;Austria;2000
+Incident1592;100200000;Porsche;High Priority;SAP;Austria;2000
+Incident1599;52020000;Lichtblick;Normal;SAP;Austria;2000
+Incident1601;111600000;Naturstrom;Normal;SAP;Austria;2000
+Incident1612;70980000;Siemens;Normal;SAP;Austria;2000
+Incident1613;129960000;Bosch;High Priority;SAP;Austria;2000
+Incident1614;142680000;BMW;Normal;SAP;Austria;2000
+Incident1626;39120000;Daimler;Normal;SAP;Austria;2000
+Incident1629;73500000;VW;Normal;SAP;Austria;2000
+Incident1632;113460000;Bayer;Normal;SAP;Austria;2000
+Incident1652;50640000;Porsche;Premium;SAP;Austria;2000
+Incident1656;52260000;Lichtblick;High Priority;SAP;Austria;2000
+Incident1661;38520000;Naturstrom;Premium;SAP;Austria;2000
+Incident1676;86220000;Siemens;Premium;SAP;Austria;2000
+Incident1683;72720000;Bosch;Normal;SAP;Austria;2000
+Incident1688;81120000;BMW;Normal;SAP;Austria;2000
+Incident1691;95400000;Daimler;High Priority;SAP;Austria;2000
+Incident1694;96900000;VW;Normal;SAP;Austria;2000
+Incident1697;100560000;Bayer;Normal;SAP;Austria;2000
+Incident1706;75960000;Porsche;Premium;SAP;Austria;2000
+Incident1719;114600000;Lichtblick;High Priority;SAP;Austria;2000
+Incident1725;55740000;Naturstrom;High Priority;SAP;Austria;2000
+Incident1735;83400000;Siemens;Normal;SAP;Austria;2000
+Incident1742;81660000;Bosch;Normal;SAP;Austria;2000
+Incident1747;70140000;BMW;Normal;SAP;Austria;2000
+Incident1751;64740000;Daimler;High Priority;SAP;Austria;2000
+Incident1759;94740000;VW;Normal;SAP;Austria;2000
+Incident1769;47400000;Bayer;Normal;SAP;Austria;2000
+Incident1770;89820000;Porsche;Normal;SAP;Austria;2000
+Incident1771;109800000;Lichtblick;Normal;SAP;Austria;2000
+Incident1805;63420000;Naturstrom;Premium;SAP;Austria;2000
+Incident1809;118200000;Siemens;High Priority;SAP;Austria;2000
+Incident1818;60900000;Bosch;Premium;SAP;Austria;2000
+Incident1823;27840000;BMW;Premium;SAP;Austria;2000
+Incident1842;85740000;Daimler;Normal;SAP;Austria;2000
+Incident1844;83880000;VW;Normal;SAP;Austria;2000
+Incident1875;76860000;Bayer;High Priority;SAP;Austria;2000
+Incident1878;108660000;Porsche;Normal;SAP;Austria;2000
+Incident1887;93840000;Lichtblick;Normal;SAP;Austria;2000
+Incident1913;66780000;Naturstrom;Premium;SAP;Austria;2000
+Incident1923;30360000;Siemens;High Priority;SAP;Austria;2000
+Incident1925;85020000;Bosch;High Priority;SAP;Austria;2000
+Incident1929;143160000;BMW;Normal;SAP;Austria;2000
+Incident1950;114480000;Daimler;Normal;SAP;Austria;2000
+Incident1978;72120000;VW;Normal;SAP;Austria;2000
+Incident1993;98460000;Bayer;High Priority;SAP;Austria;2000
+Incident16;47220000;Porsche;Normal;Mail;Germany;15000
+Incident30;79800000;Lichtblick;Normal;Mail;Netherlands;15000
+Incident37;47640000;Naturstrom;Normal;Mail;Germany;15000
+Incident60;64440000;Siemens;Normal;Mail;Germany;15000
+Incident87;51420000;Bosch;Premium;Mail;Germany;15000
+Incident132;98160000;BMW;High Priority;Mail;Netherlands;15000
+Incident173;16200000;Daimler;Premium;Mail;Germany;15000
+Incident190;44640000;VW;Premium;Mail;Germany;15000
+Incident192;66420000;Bayer;Normal;Mail;Netherlands;15000
+Incident205;105720000;Porsche;Normal;Mail;Netherlands;15000
+Incident206;62160000;Lichtblick;High Priority;Mail;Germany;15000
+Incident218;63480000;Naturstrom;Normal;Mail;Germany;15000
+Incident225;53220000;Siemens;Normal;Mail;Germany;15000
+Incident245;53460000;Bosch;Premium;Mail;Germany;15000
+Incident256;56820000;BMW;High Priority;Mail;Netherlands;15000
+Incident260;75420000;Daimler;High Priority;Mail;Germany;15000
+Incident290;71820000;VW;Normal;Mail;Netherlands;15000
+Incident306;52500000;Bayer;Normal;Mail;Germany;15000
+Incident316;74640000;Porsche;Normal;Mail;Germany;15000
+Incident326;84420000;Lichtblick;High Priority;Mail;Germany;15000
+Incident414;57480000;Naturstrom;Normal;Mail;Germany;15000
+Incident427;81420000;Siemens;Normal;Mail;Germany;15000
+Incident436;75900000;Bosch;Normal;Mail;Netherlands;15000
+Incident442;65700000;BMW;Normal;Mail;Germany;15000
+Incident457;51960000;Daimler;Premium;Mail;Germany;15000
+Incident468;50820000;VW;High Priority;Mail;Germany;15000
+Incident480;66840000;Bayer;Premium;Mail;Germany;15000
+Incident540;61920000;Porsche;Premium;Mail;Germany;15000
+Incident544;82140000;Lichtblick;Normal;Mail;Netherlands;15000
+Incident560;61860000;Naturstrom;Normal;Mail;Germany;15000
+Incident574;47340000;Siemens;High Priority;Mail;Germany;15000
+Incident575;60840000;Bosch;Normal;Mail;Germany;15000
+Incident614;90300000;BMW;Normal;Mail;Netherlands;15000
+Incident618;42780000;Daimler;Premium;Mail;Germany;15000
+Incident642;35760000;VW;High Priority;Mail;Netherlands;15000
+Incident672;95640000;Bayer;High Priority;Mail;Germany;15000
+Incident706;67140000;Porsche;Normal;Mail;Germany;15000
+Incident713;75660000;Lichtblick;Normal;Mail;Germany;15000
+Incident714;80940000;Naturstrom;Normal;Mail;Germany;15000
+Incident781;40560000;Siemens;High Priority;Mail;Germany;15000
+Incident784;85740000;Bosch;Normal;Mail;Germany;15000
+Incident788;86520000;BMW;Normal;Mail;Germany;15000
+Incident802;74220000;Daimler;Normal;Mail;Netherlands;15000
+Incident803;88500000;VW;Normal;Mail;Germany;15000
+Incident879;66300000;Bayer;Premium;Mail;Netherlands;15000
+Incident933;84240000;Porsche;High Priority;Mail;Germany;15000
+Incident1058;81660000;Lichtblick;Premium;Mail;Netherlands;15000
+Incident1060;52920000;Naturstrom;Premium;Mail;Germany;15000
+Incident1118;51780000;Siemens;Normal;Mail;Germany;15000
+Incident1167;25620000;Bosch;Normal;Mail;Netherlands;15000
+Incident1197;92640000;BMW;High Priority;Mail;Germany;15000
+Incident1271;58800000;Daimler;Normal;Mail;Germany;15000
+Incident1289;51240000;VW;Normal;Mail;Germany;15000
+Incident1380;46920000;Bayer;Premium;Mail;Netherlands;15000
+Incident1382;82980000;Porsche;High Priority;Mail;Germany;15000
+Incident1408;83220000;Lichtblick;High Priority;Mail;Germany;15000
+Incident1413;87060000;Naturstrom;Normal;Mail;Germany;15000
+Incident1425;100740000;Siemens;Normal;Mail;Netherlands;15000
+Incident1494;84180000;Bosch;Normal;Mail;Germany;15000
+Incident1507;93600000;BMW;High Priority;Mail;Germany;15000
+Incident1518;106080000;Daimler;Normal;Mail;Netherlands;15000
+Incident1521;91800000;VW;Normal;Mail;Germany;15000
+Incident1525;111180000;Bayer;Normal;Mail;Germany;15000
+Incident1571;78360000;Porsche;Normal;Mail;Germany;15000
+Incident1622;60660000;Lichtblick;Premium;Mail;Germany;15000
+Incident1649;42840000;Naturstrom;High Priority;Mail;Netherlands;15000
+Incident1727;58560000;Siemens;Premium;Mail;Netherlands;15000
+Incident1728;66480000;Bosch;Premium;Mail;Netherlands;15000
+Incident1758;54120000;BMW;Normal;Mail;Netherlands;15000
+Incident1768;74640000;Daimler;Normal;Mail;Germany;15000
+Incident1829;75180000;VW;High Priority;Mail;Netherlands;15000
+Incident1846;81900000;Bayer;Normal;Mail;Netherlands;15000
+Incident1873;105660000;Porsche;Normal;Mail;Germany;15000
+Incident1888;80340000;Lichtblick;Premium;Mail;Germany;15000
+Incident1891;12180000;Naturstrom;High Priority;Mail;Germany;15000
+Incident1897;51660000;Siemens;High Priority;Mail;Netherlands;15000
+Incident1902;90900000;Bosch;Normal;Mail;Netherlands;15000
+Incident1914;57060000;BMW;Normal;Mail;Netherlands;15000
+Incident1924;54240000;Daimler;Normal;Mail;Netherlands;15000
+Incident1971;60900000;VW;High Priority;Mail;Germany;15000
+Incident1973;75780000;Bayer;Normal;Mail;Germany;15000
+Incident1976;41040000;Porsche;Normal;Mail;Germany;15000
+Incident1988;110760000;Lichtblick;Normal;Mail;Germany;15000
+Incident4;103200000;Naturstrom;Normal;SAP;Austria;4000
+Incident7;168000000;Siemens;Premium;SAP;Austria;4000
+Incident15;151920000;Bosch;High Priority;SAP;Austria;4000
+Incident26;172860000;BMW;Premium;SAP;Austria;4000
+Incident35;129120000;Daimler;Premium;SAP;Austria;4000
+Incident48;152760000;VW;Normal;SAP;Austria;4000
+Incident59;182820000;Bayer;Normal;SAP;Austria;4000
+Incident100;134520000;Porsche;High Priority;SAP;Austria;4000
+Incident123;200280000;Lichtblick;Normal;SAP;Austria;4000
+Incident125;171240000;Naturstrom;Normal;SAP;Austria;4000
+Incident169;98220000;Siemens;Premium;SAP;Austria;4000
+Incident201;92160000;Bosch;High Priority;SAP;Austria;4000
+Incident210;157320000;BMW;High Priority;SAP;Austria;4000
+Incident267;191040000;Daimler;Normal;SAP;Austria;4000
+Incident308;118740000;VW;Normal;SAP;Austria;4000
+Incident334;88740000;Bayer;Normal;SAP;Austria;4000
+Incident344;179760000;Porsche;High Priority;SAP;Austria;4000
+Incident357;158160000;Lichtblick;Normal;SAP;Austria;4000
+Incident385;183900000;Naturstrom;Normal;SAP;Austria;4000
+Incident388;160140000;Siemens;Normal;SAP;Austria;4000
+Incident390;188640000;Bosch;Normal;SAP;Austria;4000
+Incident413;143460000;BMW;Premium;SAP;Austria;4000
+Incident426;145740000;Daimler;High Priority;SAP;Austria;4000
+Incident445;102480000;VW;Premium;SAP;Austria;4000
+Incident514;112800000;Bayer;Premium;SAP;Austria;4000
+Incident521;169920000;Porsche;Normal;SAP;Austria;4000
+Incident522;81360000;Lichtblick;Normal;SAP;Austria;4000
+Incident542;156660000;Naturstrom;High Priority;SAP;Austria;4000
+Incident563;208440000;Siemens;Normal;SAP;Austria;4000
+Incident622;125940000;Bosch;Normal;SAP;Austria;4000
+Incident636;193620000;BMW;Premium;SAP;Austria;4000
+Incident651;137160000;Daimler;High Priority;SAP;Austria;4000
+Incident692;145020000;VW;High Priority;SAP;Austria;4000
+Incident720;165660000;Bayer;Normal;SAP;Austria;4000
+Incident739;78180000;Porsche;Normal;SAP;Austria;4000
+Incident773;184140000;Lichtblick;Normal;SAP;Austria;4000
+Incident900;143700000;Naturstrom;High Priority;SAP;Austria;4000
+Incident907;83460000;Siemens;Normal;SAP;Austria;4000
+Incident918;146940000;Bosch;Normal;SAP;Austria;4000
+Incident927;136500000;BMW;Normal;SAP;Austria;4000
+Incident1033;167280000;Daimler;Normal;SAP;Austria;4000
+Incident1139;115020000;VW;Premium;SAP;Austria;4000
+Incident1140;90540000;Bayer;High Priority;SAP;Austria;4000
+Incident1144;123360000;Porsche;Premium;SAP;Austria;4000
+Incident1154;93840000;Lichtblick;Premium;SAP;Austria;4000
+Incident1168;163860000;Naturstrom;Normal;SAP;Austria;4000
+Incident1179;155220000;Siemens;Normal;SAP;Austria;4000
+Incident1181;160560000;Bosch;High Priority;SAP;Austria;4000
+Incident1191;131880000;BMW;Normal;SAP;Austria;4000
+Incident1194;163620000;Daimler;Normal;SAP;Austria;4000
+Incident1202;175680000;VW;Premium;SAP;Austria;4000
+Incident1211;124800000;Bayer;High Priority;SAP;Austria;4000
+Incident1248;122820000;Porsche;High Priority;SAP;Austria;4000
+Incident1258;140820000;Lichtblick;Normal;SAP;Austria;4000
+Incident1301;177240000;Naturstrom;Normal;SAP;Austria;4000
+Incident1332;136140000;Siemens;Normal;SAP;Austria;4000
+Incident1336;95760000;Bosch;High Priority;SAP;Austria;4000
+Incident1353;153720000;BMW;Normal;SAP;Austria;4000
+Incident1393;136620000;Daimler;Normal;SAP;Austria;4000
+Incident1465;116100000;VW;Normal;SAP;Austria;4000
+Incident1480;104760000;Bayer;Normal;SAP;Austria;4000
+Incident1501;141120000;Porsche;Premium;SAP;Austria;4000
+Incident1514;123360000;Lichtblick;High Priority;SAP;Austria;4000
+Incident1533;131520000;Naturstrom;Premium;SAP;Austria;4000
+Incident1597;200100000;Siemens;Premium;SAP;Austria;4000
+Incident1602;127140000;Bosch;Normal;SAP;Austria;4000
+Incident1672;114060000;BMW;Normal;SAP;Austria;4000
+Incident1689;167820000;Daimler;High Priority;SAP;Austria;4000
+Incident1736;82380000;VW;Normal;SAP;Austria;4000
+Incident1807;113940000;Bayer;Normal;SAP;Austria;4000
+Incident1808;157620000;Porsche;Premium;SAP;Austria;4000
+Incident1824;114540000;Lichtblick;High Priority;SAP;Austria;4000
+Incident1869;188700000;Naturstrom;High Priority;SAP;Austria;4000
+Incident1915;143040000;Siemens;Normal;SAP;Austria;4000
+Incident1941;122580000;Bosch;Normal;SAP;Austria;4000
+Incident1959;176880000;BMW;Normal;SAP;Austria;4000
+Incident1960;95160000;Daimler;High Priority;SAP;Austria;4000
+Incident1991;224640000;VW;Normal;SAP;Austria;4000
+Incident42;92040000;Bayer;Normal;SAP;Austria;21000
+Incident109;72000000;Porsche;Normal;SAP;Austria;21000
+Incident124;46680000;Lichtblick;Normal;SAP;Austria;21000
+Incident193;71280000;Naturstrom;Premium;SAP;Austria;21000
+Incident221;105780000;Siemens;High Priority;SAP;Austria;21000
+Incident257;30180000;Bosch;Premium;SAP;Austria;21000
+Incident312;33180000;BMW;Premium;SAP;Austria;21000
+Incident327;43140000;Daimler;Normal;SAP;Austria;21000
+Incident393;36240000;VW;Normal;SAP;Austria;21000
+Incident477;85560000;Bayer;High Priority;SAP;Austria;21000
+Incident589;88140000;Porsche;Normal;SAP;Austria;21000
+Incident617;117840000;Lichtblick;Normal;SAP;Austria;21000
+Incident662;61620000;Naturstrom;Premium;SAP;Austria;21000
+Incident744;71100000;Siemens;High Priority;SAP;Austria;21000
+Incident752;91140000;Bosch;High Priority;SAP;Austria;21000
+Incident771;64200000;BMW;Normal;SAP;Austria;21000
+Incident789;58620000;Daimler;Normal;SAP;Austria;21000
+Incident794;64260000;VW;Normal;SAP;Austria;21000
+Incident823;51420000;Bayer;High Priority;SAP;Austria;21000
+Incident832;92640000;Porsche;Normal;SAP;Austria;21000
+Incident872;69480000;Lichtblick;Normal;SAP;Austria;21000
+Incident896;112380000;Naturstrom;Normal;SAP;Austria;21000
+Incident972;41340000;Siemens;Normal;SAP;Austria;21000
+Incident983;43380000;Bosch;Premium;SAP;Austria;21000
+Incident1002;88380000;BMW;High Priority;SAP;Austria;21000
+Incident1219;118860000;Daimler;Premium;SAP;Austria;21000
+Incident1375;74400000;VW;Premium;SAP;Austria;21000
+Incident1422;23160000;Bayer;Normal;SAP;Austria;21000
+Incident1527;33300000;Porsche;Normal;SAP;Austria;21000
+Incident1628;64860000;Lichtblick;High Priority;SAP;Austria;21000
+Incident1653;43140000;Naturstrom;Normal;SAP;Austria;21000
+Incident1671;60840000;Siemens;Normal;SAP;Austria;21000
+Incident1816;22860000;Bosch;Premium;SAP;Austria;21000
+Incident1827;60480000;BMW;High Priority;SAP;Austria;21000
+Incident1906;47640000;Daimler;High Priority;SAP;Austria;21000
+Incident1912;119220000;VW;Normal;SAP;Austria;21000
+Incident1967;88740000;Bayer;Normal;SAP;Austria;21000
+Incident56;60420000;Porsche;Normal;Mail;Germany;23000
+Incident77;161340000;Lichtblick;High Priority;Mail;Germany;23000
+Incident254;119160000;Naturstrom;Normal;Mail;Netherlands;23000
+Incident561;135360000;Siemens;Normal;Mail;Netherlands;23000
+Incident565;153180000;Bosch;Normal;Mail;Germany;23000
+Incident958;78420000;BMW;Normal;Mail;Netherlands;23000
+Incident1041;133080000;Daimler;Premium;Mail;Germany;23000
+Incident1075;109080000;VW;High Priority;Mail;Germany;23000
+Incident1100;114660000;Bayer;Premium;Mail;Germany;23000
+Incident1244;164400000;Porsche;Premium;Mail;Netherlands;23000
+Incident1712;110160000;Lichtblick;Normal;Mail;Germany;23000
+Incident1741;141300000;Naturstrom;Normal;Mail;Netherlands;23000
+Incident1780;162120000;Siemens;High Priority;Mail;Germany;23000
+Incident1859;138600000;Bosch;Normal;Mail;Netherlands;23000

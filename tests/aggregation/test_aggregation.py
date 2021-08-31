@@ -75,10 +75,9 @@ class TestAggregationAPI(unittest.TestCase):
     def test_aggregate_tfs_max_amount(self):
         log_id = self.api.get_log_id('Incident_Management.csv')
 
-        expected_df = pd.DataFrame({'caseCount': [1080, 978, 762, 368, 281, 142, 140, 139, 133, 1677],
-                                    'byHourOfDay': ['13', '12', '14', '11', '15', '23', '16', '6', '4', 'Other'],
-                                    'Cost': [146000, 120000, 162000, 176000, 109000, 94000, 64000, 168000,
-                                             149000, 2223000]})
+        expected_df = pd.DataFrame({'caseCount': [48, 41, 41, 39, 38, 36, 35, 34, 34, 413],
+                        'byHourOfDay': ['7', '11', '13', '5', '9', '14', '1', '6', '20', 'Other'],
+                        'Cost': [227000, 209000, 155000, 191000, 204000, 166000, 156000, 232000, 131000, 1740000]})
 
         trace_filter_sequence = [{'pre': 'Incident classification',
                                   'succ': 'Functional escalation',
@@ -94,7 +93,7 @@ class TestAggregationAPI(unittest.TestCase):
                                                date_type='startDate',
                                                max_amount_attributes=9,
                                                trace_filter_sequence=trace_filter_sequence,
-                                               values_from='allEvents')
+                                               values_from='allCases')
 
         self.assertEqual(expected_df, resp_aggregate_df)
 

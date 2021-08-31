@@ -90,12 +90,17 @@ class TestLogsAPI(unittest.TestCase):
         self.assertTrue(log.empty and log.columns.empty, 'Retrieving non-existent log led to non-empty dataframe')
 
     def test_upload_event_log_stream(self):
-        log_semantics = create_semantics(['id', 'action', 'start', 'complete', 'number'],
-                                         numerical_attributes=['number'])
-        case_semantics = create_semantics(['id', 'category', 'age'], numerical_attributes=['age'])
+        log_semantics = create_semantics(['Case ID', 'Activity', 'Start', 'Complete', 'Rolle'],
+                                        case_id='Case ID',
+                                        action='Activity',
+                                        start='Start',
+                                        time_format='yyyy/MM/dd HH:mm:ss.SSS')
+        case_semantics = create_semantics(['Case ID', 'Duration', 'Kunde', 'Support Level', 'Classification', 'Country', 'Cost'],
+                                        numerical_attributes=['Duration', 'Cost'],
+                                        case_id='Case ID')
 
-        with open('./tests/data/pylana-event-log.csv') as event_stream:
-            with open('./tests/data/pylana-case-attributes.csv') as case_stream:
+        with open('./tests/data/Incident_Management.csv') as event_stream:
+            with open('./tests/data/Incident_Management_case_attributes.csv') as case_stream:
                 resp = self.api.upload_event_log_stream(
                     log=event_stream,
                     case=case_stream,
@@ -105,14 +110,19 @@ class TestLogsAPI(unittest.TestCase):
         self.assertEqual(resp.status_code, 200)
 
     def test_upload_event_log(self):
-        log_semantics = create_semantics(['id', 'action', 'start', 'complete', 'number'],
-                                         numerical_attributes=['number'])
-        case_semantics = create_semantics(['id', 'category', 'age'], numerical_attributes=['age'])
+        log_semantics = create_semantics(['Case ID', 'Activity', 'Start', 'Complete', 'Rolle'],
+                                        case_id='Case ID',
+                                        action='Activity',
+                                        start='Start',
+                                        time_format='yyyy/MM/dd HH:mm:ss.SSS')
+        case_semantics = create_semantics(['Case ID', 'Duration', 'Kunde', 'Support Level','Classification', 'Country', 'Cost'],
+                                        numerical_attributes=['Duration', 'Cost'],
+                                        case_id='Case ID')
 
-        with open('./tests/data/pylana-event-log.csv') as f:
+        with open('./tests/data/Incident_Management.csv') as f:
             log = f.read()
 
-        with open('./tests/data/pylana-case-attributes.csv') as f:
+        with open('./tests/data/Incident_Management_case_attributes.csv') as f:
             case_attributes = f.read()
 
         resp = self.api.upload_event_log(
@@ -170,11 +180,11 @@ class TestLogsAPI(unittest.TestCase):
 
     def test_upload_event_log_file(self):
 
-        event_path = './tests/data/pylana-event-log.csv'
-        case_path = './tests/data/pylana-case-attributes.csv'
+        event_path = './tests/data/Incident_Management.csv'
+        case_path = './tests/data/Incident_Management_case_attributes.csv'
 
-        event_semantics = "./tests/data/pylana_event_semantics.json"
-        case_semantics = "./tests/data/pylana_case_semantics.json"
+        event_semantics = "./tests/data/Incident_Management_semantics.json"
+        case_semantics = "./tests/data/Incident_Management_case_attributes_semantics.json"
 
         log_name = "pylana-log-from-file"
 
@@ -195,17 +205,17 @@ class TestLogsAPI(unittest.TestCase):
         # self.assertEqual(resp_unshare.status_code, 200)
 
     def test_guess_log_semantics(self):
-        event_path = './tests/data/pylana-event-log.csv'
+        event_path = './tests/data/Incident_Management.csv'
         resp = self.api.guess_log_semantics(event_path)
         self.assertIsInstance(resp, list)
         self.assertGreater(len(resp), 0)
 
     def test_replace_log(self):
         log_id = self.api.get_log_id('Incident_Management.csv')
-        event_path = './tests/data/pylana-event-log.csv'
-        case_path = './tests/data/pylana-case-attributes.csv'
-        event_semantics = "./tests/data/pylana_event_semantics.json"
-        case_semantics = "./tests/data/pylana_case_semantics.json"
+        event_path = './tests/data/Incident_Management.csv'
+        case_path = './tests/data/Incident_Management_case_attributes.csv'
+        event_semantics = "./tests/data/Incident_Management_semantics.json"
+        case_semantics = "./tests/data/Incident_Management_case_attributes_semantics.json"
 
         resp = self.api.replace_log(log_id, event_file_path = event_path)
         self.assertEqual(resp.status_code, 200)

@@ -1,0 +1,37 @@
+[
+  {
+    "idx": 0,
+    "name": "Case ID",
+    "semantic": "Case ID"
+  },
+  {
+    "idx": 1,
+    "name": "Duration",
+    "semantic": "NumericAttribute"
+  },
+  {
+    "idx": 2,
+    "name": "Kunde",
+    "semantic": "CategorialAttribute"
+  },
+  {
+    "idx": 3,
+    "name": "Support Level",
+    "semantic": "CategorialAttribute"
+  },
+  {
+    "idx": 4,
+    "name": "Classification",
+    "semantic": "CategorialAttribute"
+  },
+  {
+    "idx": 5,
+    "name": "Country",
+    "semantic": "CategorialAttribute"
+  },
+  {
+    "idx": 6,
+    "name": "Cost",
+    "semantic": "NumericAttribute"
+  }
+]

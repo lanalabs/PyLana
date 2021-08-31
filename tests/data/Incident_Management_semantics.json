@@ -1,0 +1,29 @@
+[
+  {
+    "idx": 0,
+    "name": "Case ID",
+    "semantic": "Case ID"
+  },
+  {
+    "idx": 1,
+    "name": "Activity",
+    "semantic": "Action"
+  },
+  {
+    "format": "yyyy/MM/dd HH:mm:ss.SSS",
+    "idx": 2,
+    "name": "Start",
+    "semantic": "Start"
+  },
+  {
+    "format": "yyyy/MM/dd HH:mm:ss.SSS",
+    "idx": 3,
+    "name": "Complete",
+    "semantic": "Complete"
+  },
+  {
+    "idx": 4,
+    "name": "Rolle",
+    "semantic": "CategorialAttribute"
+  }
+]

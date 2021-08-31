@@ -43,4 +43,4 @@ class TestUsersAPI(unittest.TestCase):
                                                   resp_user_info['organizationId'],
                                                   resp_user_info['backendInstanceId'])
 
-        self.assertEqual(resp_user_creation.status_code, 200)
+        self.assertEqual(resp_user_creation.status_code, 201)

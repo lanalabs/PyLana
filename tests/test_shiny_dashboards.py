@@ -17,7 +17,7 @@ class TestDashboardAPI(unittest.TestCase):
         id_ = cls.api.get_shiny_dashboard_id('pylana-shiny-dashboard')
         _ = cls.api.delete_shiny_dashboard(id_)
 
-        test_shiny_dashboard_id = cls.api.get_shiny_dashboard_id('incident-test-shiny-dashboard')
+        test_shiny_dashboard_id = cls.api.get_shiny_dashboard_id('Incident_Management')
         _ = cls.api.unshare_shiny_dashboard(test_shiny_dashboard_id,
                                             [cls.api.user.organization_id])
 
@@ -31,26 +31,26 @@ class TestDashboardAPI(unittest.TestCase):
         self.assertDictEqual(resp_create, resp_describe)
 
     def test_describe(self):
-        shiny_dashboard = self.api.describe_shiny_dashboard('incident-test-.*')
-        self.assertEqual(shiny_dashboard.get('name'), 'incident-test-shiny-dashboard')
+        shiny_dashboard = self.api.describe_shiny_dashboard('Incident.*')
+        self.assertEqual(shiny_dashboard.get('name'), 'Incident_Management')
 
         with self.assertRaises(Exception):
             _ = self.api.describe_shiny_dashboard('never-ever-matches-a-shiny_dashboard')
 
     def test_get_shiny_dashboard_id(self):
-        shiny_dashboard_id = self.api.get_shiny_dashboard_id('incident-test-shiny-dashboard')
+        shiny_dashboard_id = self.api.get_shiny_dashboard_id('Incident_Management')
         self.assertIsInstance(shiny_dashboard_id, str)
 
         with self.assertRaises(Exception):
             _ = self.api.get_shiny_dashboard_id('1212')
 
     def test_share_shiny_dashboard(self):
-        shiny_dashboard_id = self.api.get_shiny_dashboard_id('incident-test-shiny-dashboard')
+        shiny_dashboard_id = self.api.get_shiny_dashboard_id('Incident_Management')
 
         actual = self.api.share_shiny_dashboard(shiny_dashboard_id,
-                                                [self.api.user.organization_id]).json()
+                                                [self.api.user.user_id]).json()
 
         expected = {'sharing': {'numFailures': 0, 'numSuccesses': 1},
-                    'unsharing': {'numFailures': 0, 'numSuccesses': 0}}
+                    'unsharing': {'numFailures': 0, 'numSuccesses': 1}}
 
         self.assertDictEqual(actual, expected)
