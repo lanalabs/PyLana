@@ -16,6 +16,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Change conda permissions
+      run: chmod +x .$CONDA/bin/conda
+
     - name: Set up conda environment
       run: $CONDA/bin/conda env update --file environment-dev.yaml --name base
 
