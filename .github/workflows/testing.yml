@@ -20,7 +20,7 @@ jobs:
     #   run: chmod +x $CONDA/bin/conda
 
     - name: Set up conda environment
-      run: $CONDA/bin/conda env update --file environment-dev.yaml --name base
+      run: sudo $CONDA/bin/conda env update --file environment-dev.yaml --name base
 
     - name: Set up credentials
       run: |
@@ -28,4 +28,4 @@ jobs:
         echo "{\"scheme\": \"https\",\"host\": \"cloud-backend.lanalabs.com\",\"port\": \"\",\"token\": \"${{ secrets.PYLANA_TEST_TOKEN }}\"}" > tests/config_useradmin.json
 
     - name: Test with pytest
-      run: $CONDA/bin/pytest
+      run: sudo $CONDA/bin/pytest
