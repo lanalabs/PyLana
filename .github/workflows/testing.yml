@@ -1,0 +1,48 @@
+name: PyLana Unit Tests
+
+on:
+  push: {branches: enhancement}
+
+jobs:
+  Install-and-test:
+    ## multiple os
+    # strategy:
+    #   matrix:
+    #     os: [ubuntu-latest, macos-latest]
+    # runs-on: ${{ matrix.os }}
+
+    ## single os
+    runs-on: ubuntu-latest
+    # runs-on: macos-latest
+    env:
+      CONDA: /root/miniconda3
+
+    steps:
+    - uses: actions/checkout@v2
+
+    # - name: Set up Python 3.7
+    #   uses: actions/setup-python@v2
+    #   with:
+    #     python-version: 3.7
+
+    # - name: Check pip
+    #   run: pip --version
+    
+    # Set up miniconda (shouldn't be needed on GH)
+    - name: Set up miniconda
+      run: |
+        wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+        chmod +x Miniconda3-latest-Linux-x86_64.sh
+        ./Miniconda3-latest-Linux-x86_64.sh -b
+
+    - name: Set up conda environment
+      run: $CONDA/bin/conda env update --file environment-dev.yaml --name base
+
+    - name: Set up credentials
+      run: |
+        echo "{\"scheme\": \"https\",\"host\": \"cloud-backend.lanalabs.com\",\"port\": \"\",\"token\": \"${{ secrets.PYLANA_TEST_TOKEN }}\"}" > tests/config.json
+        echo "{\"scheme\": \"https\",\"host\": \"cloud-backend.lanalabs.com\",\"port\": \"\",\"token\": \"${{ secrets.PYLANA_TEST_TOKEN }}\"}" > tests/config_useradmin.json
+
+
+    - name: Test with pytest
+      run: $CONDA/bin/pytest
