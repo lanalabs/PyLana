@@ -4,20 +4,14 @@ on:
   push: {branches: enhancement-auto-testing}
 
 jobs:
-  Install-and-test:
+  setup-and-test:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
     runs-on: ${{ matrix.os }}
 
-    # env:
-    #   CONDA: /root/miniconda3
-
     steps:
     - uses: actions/checkout@v2
-
-    # - name: Change conda permissions
-    #   run: chmod +x $CONDA/bin/conda
 
     - name: Set up conda environment
       run: sudo $CONDA/bin/conda env update --file environment-dev.yaml --name base
