@@ -11,7 +11,7 @@ from pylana.structures import User
 
 
 def _create_authorization_header(token: str) -> dict:
-    return {"Authorization": f"API-Key {token}"}
+    return {"Authorization": f"{token}"}
 
 
 @expect_json
