@@ -11,7 +11,12 @@ from pylana.structures import User
 
 
 def _create_authorization_header(token: str) -> dict:
-    return {"Authorization": f"API-Key {token}"}
+    token_bearer = "Bearer"
+    token_api = "API"
+    if token[:(len(token_api))] == token_api or token[:(len(token_bearer))] == token_bearer or len(token) == 32:
+        return {"Authorization": f"{token}"}
+    else:
+        return {"Authorization": ""}
 
 
 @expect_json
