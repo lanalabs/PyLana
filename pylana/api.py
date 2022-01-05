@@ -16,7 +16,7 @@ def _create_authorization_header(token: str) -> dict:
     if token[:(len(token_api))] == token_api or token[:(len(token_bearer))] == token_bearer:
         return {"Authorization": f"{token}"}
     else:
-        return {"Authorization": f""}
+        return {"Authorization": ""}
 
 
 @expect_json
